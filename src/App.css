@@ -561,3 +561,7 @@ p {
 .created-project {
   display: none;
 }
+
+.main-container-money {
+  display: none;
+}
