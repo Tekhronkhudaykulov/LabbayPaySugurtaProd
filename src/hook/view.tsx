@@ -51,10 +51,6 @@ export const OpenDevice = () => {
 
   useEffect(() => {
     socket.current.onmessage = (data: any) => {
-      console.log(data, "data");
-
-      console.log(data, "asfnnfasjkns");
-
       socket.current.close();
     };
   }, []);
