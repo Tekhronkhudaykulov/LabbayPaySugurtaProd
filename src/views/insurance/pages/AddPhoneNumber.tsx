@@ -1,0 +1,86 @@
+import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import InputMask from "react-input-mask";
+import { FooterNav, KeyboardComponent, Text } from "../../../components";
+import { numericKeyboard } from "../../../components/Keyboard/typesKeyboars";
+
+const AddPhoneNumber = () => {
+  const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [inputName, setInputName] = useState<string>("");
+  const keyboard = useRef(null);
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setPhone(value);
+
+    if (keyboard.current && inputName === "phone") {
+      // @ts-ignore
+      keyboard.current.setInput(value);
+    }
+  };
+
+  const handleKeyPress = (button: string) => {
+    if (button === "{bksp}") {
+      const updatedValue = phone.slice(0, -1);
+      setPhone(updatedValue);
+      // @ts-ignore
+
+      if (keyboard.current) keyboard.current.setInput(updatedValue);
+    } else if (button !== "{shift}" && button !== "{lock}") {
+      const updatedValue = phone + button;
+      setPhone(updatedValue);
+      // @ts-ignore
+      if (keyboard.current) keyboard.current.setInput(updatedValue);
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      <div
+        className={`bg-content py-4 px-5 rounded-[36px] w-[810px] mx-auto mt-8`}
+      >
+        <Text
+          text="Введите номер телефона:"
+          className="font-[500] text-[25px] mb-2.5"
+        />
+        <div className="flex items-center gap-[20px] p-[20px] bg-white rounded-[22px]">
+          <div className="text-[41px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
+            +998
+          </div>
+
+          <InputMask
+            id="phone"
+            name="phone"
+            mask="99 999 99 99"
+            className="text-[41px] p-0 h-[50px] !outline-none  !no-caret"
+            value={phone}
+            onFocus={(e: any) => {
+              e.target.blur();
+              setInputName("phone");
+            }}
+            onChange={onChangeInput}
+            maskChar={null}
+            disabled
+          >
+            {
+              // @ts-ignore
+              (inputProps) => <input {...inputProps} />
+            }
+          </InputMask>
+        </div>
+      </div>
+      <KeyboardComponent
+        className="mx-auto mt-8"
+        layout={numericKeyboard}
+        ref={(r: any) => (keyboard.current = r)}
+        handleKeyPress={handleKeyPress}
+        inputName={inputName}
+        numeric
+      />
+      <FooterNav prevClick={() => navigate(-1)} />
+    </div>
+  );
+};
+
+export default AddPhoneNumber;

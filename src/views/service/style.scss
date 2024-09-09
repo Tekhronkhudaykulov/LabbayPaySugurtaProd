@@ -1,0 +1,37 @@
+.bg-gradient-service {
+  background: linear-gradient(to right, #ffffff, #e5e5f7);
+  height: 450px;
+}
+
+.button-gradient-service {
+  background: linear-gradient(to right, #7076ff, #9688de, #604aa4, #434799);
+}
+
+.card-gradient-inson {
+  background: linear-gradient(to right, #f3f6ff, #ffffff);
+}
+
+.card-gradient-kapital {
+  background: linear-gradient(to right, #fff6df, #ffffff);
+}
+
+.service-header-container {
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.bg-inson-button {
+  color: white;
+  background-color: #00237e;
+  font-weight: 600;
+  font-size: 27px;
+}
+
+.bg-kapital-button {
+  color: #000000;
+  background-color: #fbba18;
+  font-weight: 600;
+  font-size: 27px;
+}

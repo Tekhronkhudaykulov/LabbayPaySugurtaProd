@@ -1,0 +1,28 @@
+:where(.css-dev-only-do-not-override-98ntnt).ant-picker
+  .ant-picker-input
+  > input:placeholder-shown {
+  font-size: 24px !important;
+}
+
+:where(.css-dev-only-do-not-override-98ntnt).ant-picker
+  .ant-picker-input
+  > input {
+  font-size: 24px !important;
+}
+
+.anticon svg {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+:where(.css-dev-only-do-not-override-98ntnt).ant-picker-outlined {
+  border-radius: 10px !important;
+}
+
+.ant-picker-date-panel {
+  width: 400px !important;
+}
+
+.ant-picker-header-view {
+  font-size: 25px !important;
+}

@@ -1,0 +1,11 @@
+.register-car-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-container {
+  display: grid;
+  grid-template-columns: 15% 1fr;
+  gap: 10px;
+}
