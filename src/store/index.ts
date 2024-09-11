@@ -4,6 +4,7 @@ import appStore from "./app";
 import modalsStore from "./modals";
 import companyStore from "./company/companySlice";
 import stepsStore from "./steps/stepsSlice";
+import socketValueStore from "./socketResult/socketResultSlice";
 
 export {
   clientAuthStore,
@@ -12,4 +13,5 @@ export {
   modalsStore,
   companyStore,
   stepsStore,
+  socketValueStore
 };

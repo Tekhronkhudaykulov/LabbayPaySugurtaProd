@@ -10,7 +10,7 @@ const RegisterCar = () => {
   const navigate = useNavigate();
 
   const { stepOneRequest, stepOneLoading } = stepsStore();
-  console.log(stepOneLoading);
+  console.log(stepOneLoading,stepOneRequest);
   
   const [inputs, setInputs] = useState({});
 
@@ -190,17 +190,7 @@ const RegisterCar = () => {
         <FooterNav
           prevClick={() => navigate(-1)}
           nextClick={() => {
-            stepOneRequest({
-              company_id: id,
-              service_id: serviceId,
-              texpsery: getInputValue("input2"),
-              texpnumber: getInputValue("input3"),
-              renumber: getInputValue("input1"),
-            }).then((res) => {
-              if (res.data) {
-                navigate(APP_ROUTES.DATA_CHECKING_CAR);
-              }
-            });
+            navigate(APP_ROUTES.DATA_CHECKING_CAR);
           }}
           nextTitle="ДАЛЕЕ"
         />

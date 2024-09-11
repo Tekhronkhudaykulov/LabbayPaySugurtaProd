@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { ASSETS } from "../../../assets/images/assets";
 import { FooterNav, Text } from "../../../components";
 import { APP_ROUTES } from "../../../router";
-import { OpenDevice } from "../../../hook/view";
+import { CashDevice, OpenDevice } from "../../../hook/view";
+import { socketValueStore } from "../../../store";
 
 const Cash = () => {
-  OpenDevice();
+  const {getTotal} = socketValueStore()
+  CashDevice();
 
   const navigate = useNavigate();
   return (
@@ -18,7 +20,7 @@ const Cash = () => {
               className="text-[31px] font-[500]"
             />
             <Text
-              text="120 000.00"
+              text={getTotal()}
               className="ml-auto text-right text-[31px] font-[700]"
             />
           </div>

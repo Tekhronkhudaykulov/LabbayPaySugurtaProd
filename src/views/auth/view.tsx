@@ -3,7 +3,7 @@ import "./index.scss";
 import { useRef, useState } from "react";
 import { clientAuthStore, companyStore } from "../../store";
 import { APP_ROUTES } from "../../router";
-import { useAuthRedirect } from "../../hook/view";
+import { OpenDevice, useAuthRedirect } from "../../hook/view";
 import { KeyboardComponent } from "../../components";
 
 const Auth = () => {
@@ -128,6 +128,7 @@ const Auth = () => {
                 if (res.data) {
                   navigate(APP_ROUTES.HOME);
                   companyRequest();
+                  OpenDevice()
                 }
               })
             }
