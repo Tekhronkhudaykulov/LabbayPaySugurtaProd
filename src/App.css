@@ -565,3 +565,8 @@ p {
 .main-container-money {
   display: none;
 }
+
+body {
+  user-select: none !important;
+  cursor: none !important;
+}

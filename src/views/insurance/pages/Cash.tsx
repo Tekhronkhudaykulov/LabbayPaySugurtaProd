@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { ASSETS } from "../../../assets/images/assets";
 import { FooterNav, Text } from "../../../components";
 import { APP_ROUTES } from "../../../router";
-import { CashDevice, OpenDevice } from "../../../hook/view";
+import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 
 const Cash = () => {
-  const {getTotal} = socketValueStore()
+  const { getTotal } = socketValueStore();
   CashDevice();
 
   const navigate = useNavigate();

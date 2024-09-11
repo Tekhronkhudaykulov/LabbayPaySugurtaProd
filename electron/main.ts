@@ -21,16 +21,17 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
   win = new BrowserWindow({
-    // frame: false,
-    resizable: true,
-    fullscreen: true,
-    // transparent: true,
+    resizable: false,
+    width: 1440,
     autoHideMenuBar: true,
+    frame: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
+      zoomFactor: 1,
       // nodeIntegration: true,
     },
   });
