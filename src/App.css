@@ -569,4 +569,6 @@ p {
 body {
   user-select: none !important;
   cursor: none !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
