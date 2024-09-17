@@ -3,7 +3,7 @@ import InsuranceInfo from "../component/InsuranceInfo";
 
 const PaymentType = () => {
   return (
-    <div>
+    <div className="flex flex-col h-[100%] ">
       <InsuranceInfo />
       <Outlet />
     </div>

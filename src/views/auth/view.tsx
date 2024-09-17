@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { clientAuthStore, companyStore } from "../../store";
 import { APP_ROUTES } from "../../router";
 import { OpenDevice, useAuthRedirect } from "../../hook/view";
-import { KeyboardComponent } from "../../components";
+import { KeyboardComponent, Loading } from "../../components";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -12,11 +12,10 @@ const Auth = () => {
   useAuthRedirect(APP_ROUTES.HOME);
 
   const [inputs, setInputs] = useState({});
-
+  const [isHas, setIsHas] = useState(false);
 
   const [layoutName, setLayoutName] = useState("default");
   console.log(layoutName);
-  
 
   const { login, loginLoading } = clientAuthStore();
 
@@ -87,63 +86,149 @@ const Auth = () => {
   };
 
   return (
-    <div className="h-[85vh] flex items-center justify-center flex-col">
-      <div className="w-[500px] h-[550px] rounded-[12px] bg-slate-50 flex flex-col gap-y-[30px] p-[30px] mb-[10px]">
-        <div className="text-[50px] font-[700] text-center">Auth</div>
-        <div className="mb-auto">
-          <p className="text-[25px] font-[500] mb-[12px]">Логин</p>
-          <input
-            className="w-full text-[25px] h-[60px] rounded-[10px] outline-none px-[10px]"
-            type="text"
-            value={getInputValue("input1")}
-            onFocus={(e: any) => {
-              e.target.blur();
-              setInputName("input1");
-            }}
-            onChange={onChangeInput}
-          />
-        </div>
-        <div className="mb-auto">
-          <p className="text-[25px] font-[500] mb-[12px]">Пароль</p>
-          <input
-            className="w-full h-[60px] text-[25px] rounded-[10px] outline-none px-[10px]"
-            type="password"
-            value={getInputValue("input2")}
-            onFocus={(e: any) => {
-              e.target.blur();
-              setInputName("input2");
-            }}
-            onChange={onChangeInput}
-          />
-        </div>
+    <div>
 
-        <div className="w-full h-[90px] mb-auto bg-orange flex items-center justify-center text-[30px] text-white rounded-[12px]">
-          <button
-            onClick={() =>
-              login({
-                login: getInputValue("input1"),
-                password: getInputValue("input2"),
-                deviceName: "asfas",
-              }).then((res) => {
-                if (res.data) {
-                  navigate(APP_ROUTES.HOME);
-                  companyRequest();
-                  OpenDevice()
-                }
-              })
-            }
-            type="button"
-          >
-            {loginLoading ? "Loading..." : "Войти"}
-          </button>
-        </div>
-      </div>
-      <KeyboardComponent
-        ref={(r: any) => (keyboard.current = r)}
-        handleKeyPress={handleKeyPress}
-        inputName={inputName}
-        onChange={onChangeAll}
-      />
+      {loginLoading ? (
+        <>
+          <Loading />
+          <>
+            <div className="flex items-center justify-center flex-col h-[100vh] ">
+              <div className="min-w-[500px] h-max rounded-[12px] bg-slate-50  p-[20px] flex flex-col  mb-[10px]">
+                <div className="text-[30px] font-[700] text-center">Auth</div>
+                <div className="mt-[20px]">
+                  <p className="text-[18px] font-[500] !mb-[10px]">Логин</p>
+                  <input
+                    className="w-full text-[18px] h-[40px] rounded-[10px] outline-none px-[10px]"
+                    type="text"
+                    value={getInputValue("input1")}
+                    onFocus={(e: any) => {
+                      setIsHas(true);
+                      e.target.blur();
+                      setInputName("input1");
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </div>
+                <div className="mt-[20px]">
+                  <p className="text-[18px] font-[500] !mb-[10px]">Пароль</p>
+                  <input
+                    className="w-full h-[40px] text-[18px] rounded-[10px] outline-none px-[10px]"
+                    type="password"
+                    value={getInputValue("input2")}
+                    onFocus={(e: any) => {
+                      e.target.blur();
+                      setInputName("input2");
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </div>
+
+                <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
+                  <button
+                    className="h-[50px]"
+                    onClick={() =>
+                      login({
+                        email: getInputValue("input1"),
+                        password: getInputValue("input2"),
+                        deviceName: "asfas",
+                      }).then((res) => {
+                        if (res.data) {
+                          navigate(APP_ROUTES.HOME);
+                          companyRequest();
+                          OpenDevice();
+                        }
+                      })
+                    }
+                    type="button"
+                  >
+                    {loginLoading ? "Loading..." : "Войти"}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {isHas && (
+              <div className="w-[80%] h-max mx-auto ">
+                <KeyboardComponent
+                  ref={(r: any) => (keyboard.current = r)}
+                  handleKeyPress={handleKeyPress}
+                  inputName={inputName}
+                  onChange={onChangeAll}
+                />
+              </div>
+            )}
+          </>
+        </>
+      ) : (
+        <>
+          <div className="flex items-center justify-center flex-col mt-[25px]">
+            <div className="min-w-[500px] h-max rounded-[12px] bg-slate-50  p-[20px] flex flex-col  mb-[10px]">
+              <div className="text-[30px] font-[700] text-center">Auth</div>
+              <div className="mt-[20px]">
+                <p className="text-[18px] font-[500] !mb-[10px]">Логин</p>
+                <input
+                  className="w-full text-[18px] h-[40px] rounded-[10px] outline-none px-[10px]"
+                  type="text"
+                  value={getInputValue("input1")}
+                  onFocus={(e: any) => {
+                    setIsHas(true);
+                    e.target.blur();
+                    setInputName("input1");
+                  }}
+                  onChange={onChangeInput}
+                />
+              </div>
+              <div className="mt-[20px]">
+                <p className="text-[18px] font-[500] !mb-[10px]">Пароль</p>
+                <input
+                  className="w-full h-[40px] text-[18px] rounded-[10px] outline-none px-[10px]"
+                  type="password"
+                  value={getInputValue("input2")}
+                  onFocus={(e: any) => {
+                    e.target.blur();
+                    setInputName("input2");
+                  }}
+                  onChange={onChangeInput}
+                />
+              </div>
+
+              <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
+                <button
+                  className="h-[50px]"
+                  onClick={() =>
+                    login({
+                      email: getInputValue("input1"),
+                      password: getInputValue("input2"),
+                      deviceName: "asfas",
+                    }).then((res) => {
+                      if (res.data) {
+                        navigate(APP_ROUTES.HOME);
+                        companyRequest();
+                        OpenDevice();
+                      }
+                    })
+                  }
+                  type="button"
+                >
+                  {loginLoading ? "Loading..." : "Войти"}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {isHas && (
+            <div className="w-[80%] h-max mx-auto ">
+              <KeyboardComponent
+                ref={(r: any) => (keyboard.current = r)}
+                handleKeyPress={handleKeyPress}
+                inputName={inputName}
+                onChange={onChangeAll}
+              />
+            </div>
+          )}
+        </>
+      )}
+
     </div>
   );
 };

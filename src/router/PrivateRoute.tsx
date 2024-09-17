@@ -9,11 +9,11 @@ interface Props {
 const PrivateRoute: FC<Props> = ({ child }) => {
   ScrollToRefresh();
   return (
-    <>
+    <div className="h-[100vh] flex flex-col">
       <Navbar />
-      <div className="py-[23px] h-full wrapper">{child}</div>
+      <div className="wrapper">{child}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 

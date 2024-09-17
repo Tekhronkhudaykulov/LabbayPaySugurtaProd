@@ -100,13 +100,13 @@ const AddRelativesPerson = () => {
   return (
     <>
       <div className="flex flex-col ">
-        <div className="bg-grayCard py-[20px] gap-y-[25px] px-[25px] rounded-[30px] grid grid-cols-2 gap-x-[25px]">
+        <div className="bg-grayCard py-[10px] gap-y-[15px] px-[25px] rounded-[30px] grid grid-cols-2 gap-x-[25px]">
           <SelectInsurance />
           <div>
-            <p className="mb-[15px] text-[26px] font-[700]">Дата рождения</p>
+            <p className="!mb-[15px] text-[20px] font-[700]">Дата рождения</p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[90px] text-[30px] w-full rounded-[20px]"
+              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
               placeholder="DD.MM.YYYY"
               value={getInputValue("input1")}
               onFocus={(e: any) => {
@@ -117,12 +117,12 @@ const AddRelativesPerson = () => {
             />
           </div>
           <div>
-            <p className="mb-[15px] text-[26px] font-[700]">
+            <p className="!mb-[15px] text-[20px] font-[700]">
               Серия паспорта/ID-card:
             </p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[90px] text-[30px] w-full rounded-[20px]"
+              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
               placeholder="AA"
               value={getInputValue("input2")}
               onFocus={(e: any) => {
@@ -133,12 +133,12 @@ const AddRelativesPerson = () => {
             />
           </div>
           <div>
-            <p className="mb-[15px] text-[26px] font-[700]">
+            <p className="!mb-[15px] text-[20px] font-[700]">
               Номер паспорта/ID-card:
             </p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[90px] text-[30px] w-full rounded-[20px]"
+              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
               placeholder="0 0 0 0 0 0 1"
               value={getInputValue("input3")}
               onFocus={(e: any) => {
@@ -150,16 +150,16 @@ const AddRelativesPerson = () => {
           </div>
         </div>
       </div>
-      <div className="mt-[25px]">
+      <div className="mt-[5px]">
         <KeyboardComponent
-          className="mt-auto"
+          className="mt-auto w-[85%] mx-auto"
           ref={(r: any) => (keyboard.current = r)}
           handleKeyPress={handleKeyPress}
           inputName={inputName}
           onChange={onChangeAll}
         />
       </div>
-      <div className="mt-[10px]">
+      <div className="mt-[-5px]">
         <FooterNav
           prevClick={() => navigate(-1)}
           nextClick={() => navigate(APP_ROUTES.ADDPHONENUMBERCONFIRM)}

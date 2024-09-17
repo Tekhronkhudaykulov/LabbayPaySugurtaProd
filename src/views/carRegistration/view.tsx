@@ -10,13 +10,12 @@ const RegisterCar = () => {
   const navigate = useNavigate();
 
   const { stepOneRequest, stepOneLoading } = stepsStore();
-  console.log(stepOneLoading,stepOneRequest);
-  
+  console.log(stepOneLoading, stepOneRequest);
+
   const [inputs, setInputs] = useState({});
 
   const [layoutName, setLayoutName] = useState("default");
   console.log(layoutName);
-  
 
   const { companyDetailRequest, companyDetailItem } = companyStore();
 
@@ -103,17 +102,17 @@ const RegisterCar = () => {
   // @ts-ignore
   let serviceId = companyDetailItem[0]?.service_id;
   return (
-    <div className="flex flex-col h-[85vh]">
-      <div className="register-car-container">
-        <div className="bg-[#F4F4F4] py-[20px] px-[15px] rounded-[36px] h-[310px]">
+    <div className="flex flex-col ">
+      <div className="register-car-container h-max">
+        <div className="bg-[#F4F4F4] py-[15px] px-[15px] rounded-[36px] ">
           <div>
             <Text
               text="Номер машины"
-              className="text-[25px] font-[500] mb-[10px]"
+              className="text-[20px] font-[500] mb-[5px]"
             />
             <input
               name="input1"
-              className="px-[10px] h-[90px] text-[30px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+              className="px-[20px]  h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border-[10px]  rounded-[21px] "
               type="text"
               placeholder="01A000AA"
               value={getInputValue("input1")}
@@ -128,12 +127,12 @@ const RegisterCar = () => {
           <div className="mt-[15px]">
             <Text
               text="Серия и номер техпаспорта"
-              className="text-[25px] font-[500] mb-[10px]"
+              className="text-[20px]  font-[500] mb-[5px]"
             />
             <div className="input-container">
               <input
                 name="input2"
-                className="px-[20px] h-[90px] text-[30px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                className="px-[10px] h-[60px] text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                 type="text"
                 placeholder="AAF"
                 value={getInputValue("input2")}
@@ -146,7 +145,7 @@ const RegisterCar = () => {
               />
               <input
                 name="input3"
-                className="px-[10px] h-[90px] text-[30px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                className="px-[20px] h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                 type="text"
                 placeholder="номер техпаспорта"
                 value={getInputValue("input3")}
@@ -159,27 +158,27 @@ const RegisterCar = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#F4F4F4] py-[20px] px-[15px] rounded-[36px] ">
+        <div className="bg-[#F4F4F4] py-[10px]  px-[15px] rounded-[36px] ">
           <div className="flex items-center justify-center">
             {/* <img src={ASSETS.InsonLogo} alt="" /> */}
-            <p className="text-[45px] font-bold text-btnGreen">
+            <p className="text-[30px] font-bold text-btnGreen">
               {companyDetailItem[0]?.name}
             </p>
           </div>
-          <div className="bg-white p-[15px] mt-[15px] h-[70%] rounded-[30px]">
+          <div className="bg-white pt-[15px] pb-[12%] px-[15px] mt-[15px]  rounded-[30px]">
             <div className="flex items-center justify-between">
-              <p className="text-[26px] font-[600]">ОСАГО:</p>
-              <p className="text-[26px] font-[600]">117 000 сум</p>
+              <p className="text-[22px] font-[600]">ОСАГО:</p>
+              <p className="text-[22px] font-[600]">117 000 сум</p>
             </div>
             <div className="flex items-center justify-between mt-[15px]">
-              <p className="text-[26px] font-[600]">Сумма покрытия:</p>
-              <p className="text-[26px] font-[600]">117 000 сум</p>
+              <p className="text-[22px] font-[600]">Сумма покрытия:</p>
+              <p className="text-[22px] font-[600]">117 000 сум</p>
             </div>
           </div>
         </div>
       </div>
       <KeyboardComponent
-        className="mt-auto"
+        className=" w-[85%] mx-auto !mt-[10px]"
         ref={(r: any) => (keyboard.current = r)}
         handleKeyPress={handleKeyPress}
         inputName={inputName}
@@ -188,7 +187,7 @@ const RegisterCar = () => {
 
       <div className="mt-auto">
         <FooterNav
-          prevClick={() => navigate(-1)}
+          prevClick={() => navigate(APP_ROUTES.SERVICES)}
           nextClick={() => {
             navigate(APP_ROUTES.DATA_CHECKING_CAR);
           }}

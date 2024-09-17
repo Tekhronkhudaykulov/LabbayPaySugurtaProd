@@ -38,14 +38,14 @@ const AddPhoneNumber = () => {
   return (
     <div className="flex flex-col h-full">
       <div
-        className={`bg-content py-4 px-5 rounded-[36px] w-[810px] mx-auto mt-8`}
+        className={`bg-content py-[20px] px-5 rounded-[36px] w-[810px] mx-auto`}
       >
         <Text
           text="Введите номер телефона:"
-          className="font-[500] text-[25px] mb-2.5"
+          className="font-[500] text-[22px] mb-2.5"
         />
-        <div className="flex items-center gap-[20px] p-[20px] bg-white rounded-[22px]">
-          <div className="text-[41px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
+        <div className="flex items-center gap-[20px] p-[10px] bg-white rounded-[22px]">
+          <div className="text-[22px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
             +998
           </div>
 
@@ -53,7 +53,7 @@ const AddPhoneNumber = () => {
             id="phone"
             name="phone"
             mask="99 999 99 99"
-            className="text-[41px] p-0 h-[50px] !outline-none  !no-caret"
+            className="text-[22px] p-0 h-[50px] !outline-none  !no-caret"
             value={phone}
             onFocus={(e: any) => {
               e.target.blur();
@@ -78,7 +78,10 @@ const AddPhoneNumber = () => {
         inputName={inputName}
         numeric
       />
-      <FooterNav prevClick={() => navigate(-1)} />
+
+      <div className="mt-[20px]">
+        <FooterNav prevClick={() => navigate(-1)} />
+      </div>
     </div>
   );
 };

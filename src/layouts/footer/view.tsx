@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <>
       {showItemInPages(routes, pathname) ? (
-        <footer className="py-4">
+        <footer className="py-4 mt-auto">
           <div className="wrapper">
             <div className="flex items-center justify-between">
               <Text

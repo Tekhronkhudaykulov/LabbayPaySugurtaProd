@@ -27,12 +27,12 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-[72%] mx-auto gap-[50px]">
+    <div className="flex mt-[50px] flex-col items-center justify-center h-full w-[72%] mx-auto gap-[50px]">
       <Text text="Выберите язык:" className="text-[36px]" />
       <div className="grid grid-cols-3 gap-[34px] w-full">
         {list?.map((item, idx) => (
           <SelectCard
-            className="h-[355px]"
+            className="h-[280px]"
             title={item?.title}
             img={item?.img}
             disabled={item?.disabled ? true : false}

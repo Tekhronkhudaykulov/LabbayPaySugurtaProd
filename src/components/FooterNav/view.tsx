@@ -20,9 +20,9 @@ const FooterNav = ({
   showNextButton = true,
 }: Props) => {
   return (
-    <div className="flex items-center justify-center gap-3 py-4 mt-auto">
+    <div className="flex items-center justify-center gap-3 py-4 mt-auto ">
       <Button
-        className="uppercase w-[505px]"
+        className={`uppercase w-[400px]  h-[70px] `}
         onClick={prevClick}
         type="default"
       >
@@ -34,7 +34,7 @@ const FooterNav = ({
           onClick={nextClick}
           loading={nextLoading}
           type="primary"
-          className={`!bg-btnGreen uppercase w-[505px] ${
+          className={`!bg-btnGreen h-[70px] uppercase w-[400px] ${
             nextDisabled && "opacity-50"
           }`}
         >

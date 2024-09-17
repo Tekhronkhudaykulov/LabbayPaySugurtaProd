@@ -56,10 +56,10 @@ const AddPhoneNumberConfirm = () => {
   };
 
   return (
-    <div className="flex flex-col h-[100%]">
+    <div className="flex flex-col ">
       <InsuranceInfo />
-      <div className="mt-[50px] grid grid-cols-[1fr_30%]">
-        <div className="bg-content py-[15px] px-[20px] rounded-[35px] h-[530px]">
+      <div className="mt-[20px] grid grid-cols-[1fr_50%]">
+        <div className="bg-content py-[15px] px-[20px] rounded-[35px] h-max">
           <div>
             <Text
               text="Введите номер телефона"
@@ -67,15 +67,15 @@ const AddPhoneNumberConfirm = () => {
             />
             <div>
               <div
-                className={`flex items-center  gap-[20px] p-[20px] bg-white rounded-[22px] `}
+                className={`flex items-center  gap-[20px] p-[10px] bg-white rounded-[22px] `}
               >
-                <div className="text-[41px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
+                <div className="text-[20px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
                   +998
                 </div>
                 <InputMask
                   name="input1"
                   mask="99 999 99 99"
-                  className="text-[41px] p-0 h-[50px] !outline-none"
+                  className="text-[20px] p-0 h-[45px] !outline-none"
                   value={inputs.input1}
                   onFocus={(e: any) => {
                     setInputName("input1");
@@ -96,18 +96,18 @@ const AddPhoneNumberConfirm = () => {
             <div className="mt-[20px]">
               <Text
                 text="СМС-код"
-                className="text-[25px] font-[500] mb-[10px]"
+                className="text-[20px] font-[500] mb-[10px]"
               />
               <div>
                 <div
-                  className={`flex items-center gap-[20px] p-[20px] bg-white rounded-[22px] `}
+                  className={`flex items-center gap-[10px] p-[10px] bg-white rounded-[22px] `}
                 >
                   <InputMask
                     name="sms"
                     mask="999 999"
-                    className="text-[41px] p-0 h-[50px] !outline-none"
+                    className="text-[20px] p-0 h-[45px] !outline-none"
                     value={inputs.sms}
-                    onFocus={(e:any) => {
+                    onFocus={(e: any) => {
                       setInputName("sms");
                       e.target.blur();
                     }}
@@ -126,14 +126,14 @@ const AddPhoneNumberConfirm = () => {
           <Button
             type="primary"
             onClick={() => setIsHas(true)}
-            className={`!bg-btnGreen uppercase w-[550px] mt-[30px]`}
+            className={`!bg-btnGreen uppercase !text-[20px] h-[60px] w-full mt-[20px]`}
           >
             {isHas ? "Повторно получить СМС-код (59)" : "Получить СМС-код"}
           </Button>
         </div>
-        <div>
+        <div className="flex items-center justify-center">
           <KeyboardComponent
-            className="mx-auto mt-8"
+            className="mx-auto"
             ref={(r: any) => (keyboard.current = r)}
             handleKeyPress={handleKeyPress}
             inputName={inputName}

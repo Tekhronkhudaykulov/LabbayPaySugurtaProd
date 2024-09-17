@@ -1,5 +1,5 @@
 export type LoginClientParamsType = {
-  login?: string;
+  email?: string;
   password: string;
   deviceName?: string;
   ip?: string;

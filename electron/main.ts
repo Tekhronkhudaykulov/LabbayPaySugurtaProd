@@ -21,9 +21,9 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
   win = new BrowserWindow({
+
+    fullscreen: true,
     resizable: false,
-    width: 1440,
-    autoHideMenuBar: true,
     frame: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
 
@@ -31,15 +31,25 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
-      zoomFactor: 1,
       // nodeIntegration: true,
     },
   });
 
-  // Test active push message to Renderer-process.
+
   win.webContents.on("did-finish-load", () => {
-    win?.webContents.send("main-process-message", new Date().toLocaleString());
+    // @ts-ignore
+    win.webContents.setZoomFactor(1); // Zoom ni 100% qilib o'rnatadi
   });
+
+  win.webContents.on("before-input-event", (event, input) => {
+    if (
+      (input.control || input.meta) &&
+      (input.key === "+" || input.key === "-" || input.key === "0")
+    ) {
+      event.preventDefault(); // Ctrl/Command bilan yaqinlashtirish yoki uzoqlashtirishni to'xtatish
+    }
+  });
+
 
   // Open the DevTools in development mode
   if (process.env.NODE_ENV === "development") {

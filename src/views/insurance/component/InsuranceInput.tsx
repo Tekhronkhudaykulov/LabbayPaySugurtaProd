@@ -12,7 +12,7 @@ export const SelectInsurance = () => {
   };
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <p className="mb-[15px] text-[26px] font-[700]">
+      <p className="!mb-[10px] text-[20px] font-[700]">
         Степень родства к владельцу авто:
       </p>
       <Select
@@ -20,7 +20,7 @@ export const SelectInsurance = () => {
         onChange={handleChange}
         displayEmpty
         sx={{ ".MuiOutlinedInput-notchedOutline": { borderStyle: "none" } }}
-        className="!h-[90px] !text-[30px] !bg-white !outline-none !rounded-[20px] !border-none"
+        className="!h-[60px] !text-[20px] !font-bold !bg-white !outline-none !rounded-[20px] !border-none"
         inputProps={{ "aria-label": "Without label" }}
       >
         <MenuItem value={10}>Ten</MenuItem>
@@ -34,7 +34,7 @@ export const SelectInsurance = () => {
 export const InsuranceDate = ({ onFocus, value, ref }: any) => {
   return (
     <div>
-      <p className="mb-[15px] text-[26px] font-[700]">Дата рождения</p>
+      <p className="!mb-[10px] text-[20px] font-[700]">Дата рождения</p>
       <input
         type="text"
         className="bg-white outline-none p-[20px] h-[90px] text-[30px] w-full rounded-[20px]"

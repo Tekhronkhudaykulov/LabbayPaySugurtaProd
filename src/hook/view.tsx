@@ -1,4 +1,4 @@
-import { useEffect,  useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { tokenName } from "../helpers/api";
 import { APP_ROUTES } from "../router";
@@ -47,33 +47,24 @@ export const ScrollToRefresh = () => {
   }, [startY, isRefreshing]);
 };
 
-
-
-
-
-
-
 export const OpenDevice = () => {
-  const {addValue, values, getTotal} = socketValueStore();
+  const { addValue } = socketValueStore();
   useEffect(() => {
     const socket = new WebSocket(Port);
 
     socket.onopen = () => {
-
       // `OPEN` komandani yuborish
-      const openCommand = JSON.stringify({ device: 'BILL_ACCEPTOR', method: 'OPEN' });
+      const openCommand = JSON.stringify({
+        device: "BILL_ACCEPTOR",
+        method: "OPEN",
+      });
       socket.send(openCommand);
     };
 
     socket.onmessage = (event) => {
-      
       const message = JSON.parse(event.data);
 
-
-
       console.log(message, "message");
-      
-      
 
       // Agar qiymat bo'lsa, Zustand do'koniga qo'shish
       if (message.data) {
@@ -83,10 +74,11 @@ export const OpenDevice = () => {
       }
 
       // `STACK` komandani yuborish
-      const stackCommand = JSON.stringify({ device: 'BILL_ACCEPTOR', method: 'STACK' });
+      const stackCommand = JSON.stringify({
+        device: "BILL_ACCEPTOR",
+        method: "STACK",
+      });
       socket.send(stackCommand);
-
-     
     };
 
     // Component unmount bo'lganda WebSocketni tozalash
@@ -96,8 +88,6 @@ export const OpenDevice = () => {
   }, []);
 };
 
-
-
 export const CashDevice = () => {
   const { addValue } = socketValueStore();
 
@@ -105,27 +95,33 @@ export const CashDevice = () => {
     const socket = new WebSocket(Port);
 
     socket.onopen = () => {
-      const openCommand = JSON.stringify({ device: 'BILL_ACCEPTOR', method: 'OPEN' });
+      const openCommand = JSON.stringify({
+        device: "BILL_ACCEPTOR",
+        method: "OPEN",
+      });
       socket.send(openCommand);
     };
 
     socket.onmessage = (event) => {
       try {
         const message = JSON.parse(event.data);
-        console.log('Received message:', message);
+        console.log("Received message:", message);
 
-        if (message.data === 'REJECTED') {
-          alert('Transaction rejected. The amount will not be added.');
+        if (message.data === "REJECTED") {
+          alert("Transaction rejected. The amount will not be added.");
           // Qo'shimcha ishlarni bajarish mumkin (masalan, to'lovni qayta ishlash)
-        } else if (message.method === 'READ' && message.data) {
+        } else if (message.method === "READ" && message.data) {
           const valueObject = { id: Date.now(), amount: message.data };
           addValue(valueObject);
         }
       } catch (error) {
-        console.error('Error parsing message:', error);
+        console.error("Error parsing message:", error);
       }
 
-      const stackCommand = JSON.stringify({ device: 'BILL_ACCEPTOR', method: 'STACK' });
+      const stackCommand = JSON.stringify({
+        device: "BILL_ACCEPTOR",
+        method: "STACK",
+      });
       socket.send(stackCommand);
     };
 
@@ -133,5 +129,4 @@ export const CashDevice = () => {
       socket.close();
     };
   }, [addValue]);
-}
-
+};

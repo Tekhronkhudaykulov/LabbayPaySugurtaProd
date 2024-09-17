@@ -23,13 +23,13 @@ const supportServiceButtonRoutes = [
   APP_ROUTES.CHECK,
   APP_ROUTES.AUTH,
 ];
-const checkButtonRoutes = [
-  APP_ROUTES.SERVICES,
-  APP_ROUTES.SUPPORT_SERVICE,
-  APP_ROUTES.SUCCESS,
-  APP_ROUTES.CHECK,
-  APP_ROUTES.AUTH,
-];
+// const checkButtonRoutes = [
+//   APP_ROUTES.SERVICES,
+//   APP_ROUTES.SUPPORT_SERVICE,
+//   APP_ROUTES.SUCCESS,
+//   APP_ROUTES.CHECK,
+//   APP_ROUTES.AUTH,
+// ];
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -37,20 +37,17 @@ const Navbar = () => {
   // const { t, i18n } = useTranslation();
 
   return (
-    <nav className="bg-white py-[16px] z-[99]">
+    <nav className="bg-white py-[5px] z-[99]">
       <div className="wrapper">
         <div className="flex items-center gap-4">
+          <div onClick={() => navigate(APP_ROUTES.HOME)}>
           <Logo />
-          {unShowItemInPages(checkButtonRoutes, pathname) ? (
-            <button className="ml-auto bg-purple h-[78px] text-[24px] gap-6 rounded-button text-white w-[145px] flex items-center justify-center">
-              Чек
-              <LazyLoadImage src={ASSETS.checkImage} effect="opacity" alt="" />
-            </button>
-          ) : null}
+          </div>
+       
           {unShowItemInPages(supportServiceButtonRoutes, pathname) ? (
             <button
               onClick={() => navigate(APP_ROUTES.SUPPORT_SERVICE)}
-              className="bg-purple h-[78px] text-[24px] gap-6 rounded-button text-white w-[335px] flex items-center justify-center"
+              className="bg-purple ml-auto h-[55px] text-[20px] gap-6 rounded-button text-white w-[335px] flex items-center justify-center"
             >
               Служба поддержки
               <LazyLoadImage src={ASSETS.HelpCenter} effect="opacity" alt="" />
@@ -59,7 +56,7 @@ const Navbar = () => {
           {unShowItemInPages(homeButtonRoutes, pathname) ? (
             <button
               onClick={() => navigate(APP_ROUTES.HOME)}
-              className="bg-orange h-[78px] text-[24px] gap-6 rounded-button text-white w-[355px] flex items-center justify-center"
+              className="bg-orange h-[55px] text-[20px] gap-6 rounded-button text-white w-[355px] flex items-center justify-center"
             >
               Вернуться на главную
               <LazyLoadImage src={ASSETS.HomeImage} effect="opacity" alt="" />

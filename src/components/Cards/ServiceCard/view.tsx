@@ -18,10 +18,12 @@ const ServicesCard = ({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-col pt-[20px] px-[24px] ${className} w-full   bg-card rounded-[36px]`}
+      className={`flex flex-col pt-[20px] px-[24px] h-[280px] ${className} w-full   bg-card rounded-[36px]`}
     >
       <img src={img} alt="" />
-      <p className="text-[20px] mt-[20px] leading-[24px] font-[600]">{title}</p>
+      <p className="text-[20px] !mt-[20px] leading-[24px] font-[600]">
+        {title}
+      </p>
       <button className={classNameButton}>ОФОРМИТЬ</button>
     </div>
   );

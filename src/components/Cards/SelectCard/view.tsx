@@ -20,11 +20,11 @@ const SelectCard = ({ className, onClick, img, disabled, title }: Props) => {
   return (
     <div
       onClick={onClick}
-      className={`flex flex-col relative overflow-hidden ${className} ${
+      className={`flex flex-col relative pt-[20px] overflow-hidden ${className} ${
         disabled && "disabled"
       } bg-card rounded-[36px]`}
     >
-      <div className="text-[36px] pt-[24px] pl-[24px] font-[700]">{title}</div>
+      <div className="text-[30px] text-center font-[700]">{title}</div>
       <img src={img} className="mt-auto text-right max-w-full" alt="" />
       {disabled ? disabledBlock : null}
     </div>

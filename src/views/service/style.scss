@@ -1,6 +1,6 @@
 .bg-gradient-service {
   background: linear-gradient(to right, #ffffff, #e5e5f7);
-  height: 450px;
+  min-height: 250px;
 }
 
 .button-gradient-service {
@@ -19,7 +19,6 @@
   display: grid;
   grid-template-columns: 42% 1fr;
   align-items: center;
-  gap: 50px;
 }
 
 .bg-inson-button {

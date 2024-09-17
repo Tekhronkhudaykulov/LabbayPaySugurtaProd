@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         white: "#ffffff",
+        focusBorder: "#7A80FF",
         black: "#000000",
         section: "#F6F6F6",
         content: "#F4F4F4",

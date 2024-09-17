@@ -12,48 +12,48 @@ const Cash = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="flex justify-between gap-4 mt-[100px] mb-[200px]">
-        <div className="min-w-[787px]">
-          <div className="flex items-center px-[15px] py-[20px] border-[18px] border-purple rounded-[36px]">
+      <div className="flex justify-between gap-4  mt-[10px]">
+        <div className="min-w-[620px]">
+          <div className="flex items-center mb-[15px] px-[15px] py-[20px] border-[12px] border-purple rounded-[36px]">
             <Text
               text="Указанная сумма оплаты:"
-              className="text-[31px] font-[500]"
+              className="text-[22px] font-[500]"
             />
             <Text
               text={getTotal()}
-              className="ml-auto text-right text-[31px] font-[700]"
+              className="ml-auto text-right text-[22px] font-[700]"
             />
           </div>
-          <div className="flex flex-col gap-4 px-[15px] py-[20px] border-[18px] border-purple rounded-[36px]">
+          <div className="flex flex-col gap-4 px-[15px] py-[20px] border-[12px] border-purple rounded-[36px]">
             <div className="flex items-center">
-              <Text text="Введено:" className="text-[31px] font-[500]" />
+              <Text text="Введено:" className="text-[22px] font-[500]" />
               <Text
                 text="0 сум"
-                className="ml-auto text-right text-[31px] font-[700]"
+                className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
             <div className="flex items-center">
-              <Text text="К зачислению:" className="text-[31px] font-[500]" />
+              <Text text="К зачислению:" className="text-[22px] font-[500]" />
               <Text
                 text="0 сум"
-                className="ml-auto text-right text-[31px] font-[700]"
+                className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
             <div className="flex items-center">
               <Text
                 text="Комиссия сервиса:"
-                className="text-[31px] font-[500]"
+                className="text-[22px] font-[500]"
               />
               <Text
                 text="0 сум"
-                className="ml-auto text-right text-[31px] font-[700]"
+                className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
             <div className="flex items-center">
-              <Text text="Лишняя сумма:" className="text-[31px] font-[500]" />
+              <Text text="Лишняя сумма:" className="text-[22px] font-[500]" />
               <Text
                 text="0 сум"
-                className="ml-auto text-right text-[31px] font-[700]"
+                className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
             <Text
@@ -67,32 +67,34 @@ const Cash = () => {
             <div className="flex items-center">
               <Text
                 text="Минимум:"
-                className="text-[26px] font-[700] text-white"
+                className="text-[22px] font-[700] text-white"
               />
               <Text
                 text="5000 сум"
-                className="ml-auto text-right text-[26px] font-[700] text-white"
+                className="ml-auto text-right text-[22px] font-[700] text-white"
               />
             </div>
             <div className="flex items-center">
               <Text
                 text="Максимум:"
-                className="text-[26px] font-[700] text-white"
+                className="text-[22px] font-[700] text-white"
               />
               <Text
                 text="5000 сум"
-                className="ml-auto text-right text-[26px] font-[700] text-white"
+                className="ml-auto text-right text-[22px] font-[700] text-white"
               />
             </div>
           </div>
-          <img src={ASSETS.Money} className="mx-auto mt-8" alt="" />
+          <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <FooterNav
-        nextTitle="Оплатить"
-        prevClick={() => navigate(-1)}
-        nextClick={() => navigate(APP_ROUTES.SUCCESS)}
-      />
+      <div>
+        <FooterNav
+          nextTitle="Оплатить"
+          prevClick={() => navigate(-1)}
+          nextClick={() => navigate(APP_ROUTES.SUCCESS)}
+        />
+      </div>
     </>
   );
 };

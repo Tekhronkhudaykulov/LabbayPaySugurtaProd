@@ -48,6 +48,7 @@ export const _routes = [
     path: APP_ROUTES.HOME,
     element: Home,
     exact: true,
+
   },
   {
     path: APP_ROUTES.SUPPORT_SERVICE,
@@ -101,6 +102,7 @@ export const _routes = [
       {
         path: APP_ROUTES.CASH,
         element: Cash,
+
       },
       {
         path: APP_ROUTES.TERMINAL,

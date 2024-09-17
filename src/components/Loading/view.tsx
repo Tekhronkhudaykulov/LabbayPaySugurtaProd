@@ -1,28 +1,21 @@
-import { Modal } from "antd";
-import { FC } from "react";
-import { ASSETS } from "../../assets/images/assets";
+import "ldrs/ring";
+import { lineWobble } from "ldrs";
 
-interface Props {
-  open?: boolean;
-}
+const Loading = () => {
+  lineWobble.register();
 
-const Loading: FC<Props> = ({ open }) => {
   return (
-    <Modal
-      footer={null}
-      open={open}
-      classNames={{
-        content: "!rounded-[44px] !w-[90vw] h-[90vh]",
-        body: "h-full flex flex-col items-center justify-center",
-      }}
-      className="!w-[90vw] h-[90vh] !m-auto"
-      centered
-    >
-      <div className="text-[38px] font-700 text-center text-purple mb-auto">
-        Загрузка
+    <div className="fixed flex items-center justify-center top-0 bg-black left-0 right-0 bottom-0 w-[100%] h-[105vh] bg-opacity-70">
+      <div className="h-[25px] bg-white flex items-center px-[20px] rounded-full">
+        <l-line-wobble
+          size="400"
+          stroke="10"
+          bg-opacity="0.1"
+          speed="1.75"
+          color="#7A80FF"
+        ></l-line-wobble>
       </div>
-      <img src={ASSETS.loadingImage} className="animate-spin mb-auto" alt="" />
-    </Modal>
+    </div>
   );
 };
 

@@ -7,8 +7,8 @@ interface CheckingCardType {
 const CheckingCard = ({ title, label, className }: CheckingCardType) => {
   return (
     <div className={className}>
-      <p className="text-[22px] font-[500] text-contentText">{label}</p>
-      <p className="text-[24px] font-[700] mt-[15px]">{title}</p>
+      <p className="text-[18px] font-[500] text-contentText">{label}</p>
+      <p className="text-[20px] font-[700] !mt-[10px]">{title}</p>
     </div>
   );
 };

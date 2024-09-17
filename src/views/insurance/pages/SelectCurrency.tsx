@@ -6,7 +6,7 @@ import { APP_ROUTES } from "../../../router";
 const SelectCurrency = () => {
   const navigate = useNavigate();
   return (
-    <div className="mt-[100px] ">
+    <div className="mt-[20px] ">
       <TypePaymentSection
         onCashClick={() =>
           navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.CASH}`)
@@ -15,8 +15,8 @@ const SelectCurrency = () => {
           navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.TERMINAL}`)
         }
       />
-      <div className="flex items-center justify-center mt-[100px]">
-        <Button className="uppercase w-[505px]" type="default">
+      <div className="flex items-center justify-center mt-[10px]">
+        <Button className="uppercase w-[505px] !h-[70px]" type="default">
           Назад
         </Button>
       </div>
