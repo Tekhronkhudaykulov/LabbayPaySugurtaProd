@@ -1,7 +1,9 @@
-export type ServiceDetailType = {
+interface Service {
   id: number;
   name: string;
-  // boshqa kerakli maydonlar
-};
+}
 
-export type ServicesType = ServiceDetailType[] | null;
+interface ServiceDetail {
+  id: number;
+  description: string;
+}

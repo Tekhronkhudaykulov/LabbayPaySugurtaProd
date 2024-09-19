@@ -16,8 +16,6 @@ const Terminal = () => {
     input4: "",
   });
 
-  console.log(inputs, "inputlar");
-
   const [inputName, setInputName] = useState("");
 
   const keyboard = useRef(null);

@@ -28,11 +28,6 @@ const KeyboardComponent = ({
 }: Props) => {
   const [layoutName, setLayoutName] = useState("default");
   const [buttonTheme, setButtonTheme] = useState<any>([]);
-  console.log(buttonTheme, "buttontheme");
-
-  console.log(setLayoutName);
-
-  console.log(numeric, "numeric");
 
   useEffect(() => {
     if (numeric) {

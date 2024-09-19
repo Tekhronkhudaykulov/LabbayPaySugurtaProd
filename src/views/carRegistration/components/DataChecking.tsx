@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { ASSETS } from "../../../assets/images/assets";
 import { FooterNav } from "../../../components";
-import { CheckingCard } from "../../../components/Cards";
 import { APP_ROUTES } from "../../../router";
-import { stepsStore } from "../../../store";
+import { stepOneStore } from "../../../store/usePostStore/usePostStore";
+import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
 
 const DataChecking = () => {
   const navigate = useNavigate();
-  const { dataClient } = stepsStore();
-
-  console.log(dataClient, "dataClient");
+  const { stepOneData } = stepOneStore();
+  console.log(stepOneData, "stepOneData");
 
   return (
     <div className=" flex flex-col">
@@ -30,7 +29,7 @@ const DataChecking = () => {
         <div className="grid grid-cols-4 gap-x-[14px] mt-[15px]">
           <CheckingCard
             label="Модель транспортного средства:"
-            title={dataClient?.vmodel}
+            title={stepOneData?.vmodel}
             className="bg-content rounded-[14px] px-[20px] py-[10px]"
           />
           <CheckingCard
@@ -45,46 +44,46 @@ const DataChecking = () => {
           />
           <CheckingCard
             label="Год выпуска:"
-            title={dataClient?.year}
+            title={stepOneData?.year}
             className="bg-content rounded-[14px] px-[20px] py-[10px] "
           />
         </div>
         <div className="grid grid-cols-2 gap-x-[14px]">
           <CheckingCard
             label="Vehicle body number:"
-            title={dataClient?.dvigatel}
+            title={stepOneData?.dvigatel}
             className="bg-content rounded-[14px] px-[20px] py-[10px] "
           />
           <CheckingCard
             label="Vehicle engine number:"
-            title={dataClient?.kuzov}
+            title={stepOneData?.kuzov}
             className="bg-content rounded-[14px]  px-[20px] py-[10px] "
           />
         </div>
-        <div className="bg-content py-[20px] px-[24px] ">
-          <p className="text-[18px] text-[#0D0D0D] font-[500] !mb-[15px]">
+        <div className="bg-content py-[10px] px-[24px] ">
+          {/* <p className="text-[18px] text-[#0D0D0D] font-[500] !mb-[15px]">
             Данные собственника транспортного средства:
           </p>
           <CheckingCard
             label="Владелец автомобиля:"
             title="TURDIBAEV MARAT JOHON UGLI"
             className="bg-white rounded-[14px] px-[20px] py-[10px] "
-          />
-          <div className="grid grid-cols-3 gap-x-[15px] mt-[15px]">
-            <CheckingCard
+          /> */}
+          <div className="grid grid-cols-3 gap-x-[15px] ">
+            {/* <CheckingCard
               label="ПИНФЛ владельца ТС"
               title="17236812739"
               className="bg-white rounded-[14px] px-[20px] py-[10px] "
-            />
-            <CheckingCard
+            /> */}
+            <CheckingCardInput
               label="Серия паспорта/ID-card:"
-              title="AA"
               className="bg-white rounded-[14px] px-[20px] py-[10px] "
+              ind={0}
             />
-            <CheckingCard
+            <CheckingCardInput
               label="Номер паспорта/ID-card:"
-              title="0 0 0 0 0 0 1"
               className="bg-white rounded-[14px] px-[20px] py-[10px] "
+              ind={1}
             />
           </div>
         </div>

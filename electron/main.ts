@@ -21,7 +21,6 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
   win = new BrowserWindow({
-
     fullscreen: true,
     resizable: false,
     frame: false,
@@ -34,7 +33,6 @@ function createWindow() {
       // nodeIntegration: true,
     },
   });
-
 
   win.webContents.on("did-finish-load", () => {
     // @ts-ignore
@@ -49,7 +47,6 @@ function createWindow() {
       event.preventDefault(); // Ctrl/Command bilan yaqinlashtirish yoki uzoqlashtirishni to'xtatish
     }
   });
-
 
   // Open the DevTools in development mode
   if (process.env.NODE_ENV === "development") {
@@ -82,7 +79,6 @@ app.on("activate", () => {
 
 ipcMain.on("print-command-request", (event, data) => {
   printHTMLContent(data);
-  console.log(event);
 });
 
 function triggerEventInElectron(eventName: any, data: any) {

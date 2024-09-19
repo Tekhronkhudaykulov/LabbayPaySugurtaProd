@@ -17,7 +17,8 @@
 
 // export default Notification;
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import "./style.scss"; // CSS faylini import qiling
 import { ASSETS } from "../../assets/images/assets";
 

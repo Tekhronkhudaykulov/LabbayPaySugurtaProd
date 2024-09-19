@@ -1,14 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { requests } from "../helpers/requests";
 import { LoginClientParamsType } from "../types";
-import { StepOne } from "../types/steps";
 
 export const loginQuery = (payload: LoginClientParamsType) =>
   useQuery({
     queryKey: [payload],
     queryFn: async () => {
       const { data } = await requests.postLoginClient(payload);
-      console.log(data, "data");
       return data.data.items;
     },
   });
@@ -32,11 +30,11 @@ export const servicesDetailQuery = (company_id: any) =>
     },
   });
 
-export const stepOneQuery = () => {
-  return useMutation((payload: StepOne) => {
-    return requests.postStepOne(payload); // Yozilgan API chaqiruvi
-  });
-};
+// export const stepOneQuery = () => {
+//   return useMutation((payload: StepOne) => {
+//     return requests.postStepOne(payload); // Yozilgan API chaqiruvi
+//   });
+// };
 // export const categoriesQuery = () =>
 //   useQuery({
 //     queryKey: ["categories"],

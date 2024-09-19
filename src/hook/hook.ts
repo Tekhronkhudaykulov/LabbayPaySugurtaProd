@@ -5,7 +5,7 @@ import { APP_ROUTES } from "../router";
 import { setToken } from "../helpers/api";
 import { usePostStore } from "../store";
 import { StepOne } from "../types/steps";
-import { usePostError } from "../store/usePostStore/usePostStore";
+import { stepOneStore, usePostError } from "../store/usePostStore/usePostStore";
 
 const useLoginMutation = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const useLoginMutation = () => {
     onSuccess: () => {
       navigate(APP_ROUTES.HOME);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       if (error?.response) {
         setErrorTitle(error.response.data.message);
       }
@@ -47,9 +47,7 @@ const usePostCompany = () => {
     onSuccess: () => {
       navigate(APP_ROUTES.SERVICES);
     },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (error) => {},
   });
 };
 
@@ -59,7 +57,7 @@ const usePostServicesDetail = () => {
   const { setServiceDetail } = usePostStore();
 
   return useMutation({
-    mutationFn: async (company_id) => {
+    mutationFn: async (company_id: any) => {
       const { data } = await requests.postCompanyDetail(company_id);
       setServiceDetail(data.data.result);
       return data;
@@ -75,13 +73,21 @@ const usePostServicesDetail = () => {
 
 const stepOne = () => {
   const { setErrorTitle } = usePostError();
+
+  const { setStepOneData } = stepOneStore();
+
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: async (payload: StepOne) => {
       const { data } = await requests.postStepOne(payload);
+      setStepOneData(data.data.result.data);
       return data;
     },
-    onSuccess: () => {},
-    onError: (error) => {
+    onSuccess: () => {
+      navigate(APP_ROUTES.DATA_CHECKING_CAR);
+    },
+    onError: (error: any) => {
       if (error?.response) {
         setErrorTitle(error.response.data.message);
       }

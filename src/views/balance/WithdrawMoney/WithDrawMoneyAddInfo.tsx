@@ -36,11 +36,7 @@ const WithDrawMoneyAddInfo = () => {
             className="text-[25px] font-[500]"
           />
           <div>
-            <TextFild
-              onchange={() => console.log()}
-              className="!h-[90px]"
-              placeHolder="0 UZS"
-            />
+            <TextFild className="!h-[90px]" placeHolder="0 UZS" />
           </div>
         </div>
       </div>
