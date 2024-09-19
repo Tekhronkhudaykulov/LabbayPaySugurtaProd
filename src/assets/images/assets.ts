@@ -10,7 +10,7 @@ import terminalImage from "./Terminal.svg";
 import cashImage from "./Cash.svg";
 import undovImage from "./Undov.svg";
 import cashGif from "./CashGif.gif";
-import HelpCenter from "./HelpCenter.svg"
+import HelpCenter from "./HelpCenter.svg";
 import loadingImage from "./Loading.png";
 import errorImage from "./Error.png";
 import successfullyImage from "./Successfully.png";
@@ -63,6 +63,7 @@ import Select from "../images/select.svg";
 import SmsImage from "../images/SMSIMAGE.svg";
 import SmsImage2 from "../images/Frame 60.svg";
 import SmsImage3 from "../images/PHONE.svg";
+import Notification from "../images/notifications.svg";
 
 export const ASSETS = {
   logoImage,
@@ -129,4 +130,5 @@ export const ASSETS = {
   SmsImage,
   SmsImage2,
   SmsImage3,
+  Notification,
 };

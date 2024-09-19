@@ -33,6 +33,7 @@ const Home = () => {
   return (
     <>
       {isPending && <LoadingPage />}
+
       <div className="flex mt-[50px] flex-col items-center justify-center h-full w-[72%] mx-auto gap-[50px]">
         <Text text="Выберите язык:" className="text-[36px]" />
         <div className="grid grid-cols-3 gap-[34px] w-full">

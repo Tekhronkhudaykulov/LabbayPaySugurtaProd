@@ -537,7 +537,7 @@ button svg {
 
 input {
   color: black !important;
-  border: none !important;
+  border: none;
 }
 .hg-button-bksp {
   width: 85px !important;

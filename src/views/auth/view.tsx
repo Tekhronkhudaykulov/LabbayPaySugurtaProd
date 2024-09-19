@@ -6,12 +6,16 @@ import { KeyboardComponent } from "../../components";
 
 import LoadingPage from "../../components/Loading/view";
 import { useLoginMutation } from "../../hook/hook";
+import Notification from "../../components/Notification/view";
+import { usePostError } from "../../store/usePostStore/usePostStore";
 
 const Auth = () => {
   const [inputs, setInputs] = useState({});
-  const { mutate, isPending } = useLoginMutation();
+  const { mutate, isPending, isError } = useLoginMutation();
 
   useAuthRedirect(APP_ROUTES.HOME);
+
+  const { errorTitle } = usePostError();
 
   const [isHas, setIsHas] = useState(false);
 
@@ -77,6 +81,7 @@ const Auth = () => {
 
   return (
     <div>
+      {isError && <Notification message={errorTitle} onClose="" />}
       {isPending ? (
         <>
           <LoadingPage />

@@ -7,6 +7,8 @@ import { usePostStore } from "../../store";
 import { useAuthRedirect } from "../../hook/view";
 import { stepOne } from "../../hook/hook";
 import LoadingPage from "../../components/Loading/view";
+import Notification from "../../components/Notification/view";
+import { usePostError } from "../../store/usePostStore/usePostStore";
 
 const RegisterCar = () => {
   const navigate = useNavigate();
@@ -15,7 +17,9 @@ const RegisterCar = () => {
   const companyId = Number(id);
   const { serviceDetail } = usePostStore();
 
-  const { mutate, isPending } = stepOne();
+  const { errorTitle } = usePostError();
+
+  const { mutate, isPending, isError } = stepOne();
 
   const [singleObject] = Array.isArray(serviceDetail) ? serviceDetail : [];
 
@@ -107,6 +111,7 @@ const RegisterCar = () => {
 
   return (
     <>
+      {isError && <Notification message={errorTitle} onClose="" />}
       {isPending && <LoadingPage />}
       <div className="flex flex-col ">
         <div className="register-car-container h-max">

@@ -14,3 +14,8 @@ export const usePostStore = create(
     }
   )
 );
+
+export const usePostError = create((set) => ({
+  errorTitle: null,
+  setErrorTitle: (item: any) => set({ errorTitle: item }),
+}));

@@ -5,9 +5,11 @@ import { APP_ROUTES } from "../router";
 import { setToken } from "../helpers/api";
 import { usePostStore } from "../store";
 import { StepOne } from "../types/steps";
+import { usePostError } from "../store/usePostStore/usePostStore";
 
 const useLoginMutation = () => {
   const navigate = useNavigate();
+  const { setErrorTitle } = usePostError();
 
   return useMutation({
     mutationFn: async (inputs: { email: string; password: string }) => {
@@ -24,7 +26,9 @@ const useLoginMutation = () => {
       navigate(APP_ROUTES.HOME);
     },
     onError: (error) => {
-      console.error("Error during login:", error);
+      if (error?.response) {
+        setErrorTitle(error.response.data.message);
+      }
     },
   });
 };
@@ -44,7 +48,7 @@ const usePostCompany = () => {
       navigate(APP_ROUTES.SERVICES);
     },
     onError: (error) => {
-      console.error("Error during login:", error);
+      console.log(error);
     },
   });
 };
@@ -70,6 +74,7 @@ const usePostServicesDetail = () => {
 };
 
 const stepOne = () => {
+  const { setErrorTitle } = usePostError();
   return useMutation({
     mutationFn: async (payload: StepOne) => {
       const { data } = await requests.postStepOne(payload);
@@ -77,7 +82,9 @@ const stepOne = () => {
     },
     onSuccess: () => {},
     onError: (error) => {
-      console.error("Error during login:", error);
+      if (error?.response) {
+        setErrorTitle(error.response.data.message);
+      }
     },
   });
 };
