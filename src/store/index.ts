@@ -5,6 +5,7 @@ import modalsStore from "./modals";
 import companyStore from "./company/companySlice";
 import stepsStore from "./steps/stepsSlice";
 import socketValueStore from "./socketResult/socketResultSlice";
+import { usePostStore } from "./usePostStore/usePostStore";
 
 export {
   clientAuthStore,
@@ -13,5 +14,6 @@ export {
   modalsStore,
   companyStore,
   stepsStore,
-  socketValueStore
+  socketValueStore,
+  usePostStore,
 };

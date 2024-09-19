@@ -176,7 +176,6 @@ button svg {
   border-radius: 11px !important;
 }
 .hg-button span {
-
   font-size: 30px !important;
   line-height: 1 !important;
   font-weight: bold !important;
@@ -583,7 +582,6 @@ p {
 }
 
 body {
-
   /* user-select: none !important; */
   /* cursor: none !important; */
   overflow: hidden !important;

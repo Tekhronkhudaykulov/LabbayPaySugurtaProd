@@ -1,25 +1,21 @@
-import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { useRef, useState } from "react";
-import { clientAuthStore, companyStore } from "../../store";
 import { APP_ROUTES } from "../../router";
-import { OpenDevice, useAuthRedirect } from "../../hook/view";
-import { KeyboardComponent, Loading } from "../../components";
+import { useAuthRedirect } from "../../hook/view";
+import { KeyboardComponent } from "../../components";
+
+import LoadingPage from "../../components/Loading/view";
+import { useLoginMutation } from "../../hook/hook";
 
 const Auth = () => {
-  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({});
+  const { mutate, isPending } = useLoginMutation();
 
   useAuthRedirect(APP_ROUTES.HOME);
 
-  const [inputs, setInputs] = useState({});
   const [isHas, setIsHas] = useState(false);
 
   const [layoutName, setLayoutName] = useState("default");
-  console.log(layoutName);
-
-  const { login, loginLoading } = clientAuthStore();
-
-  const { companyRequest } = companyStore();
 
   const [inputName, setInputName] = useState("");
 
@@ -72,27 +68,20 @@ const Auth = () => {
     // @ts-ignore
     const value = inputs[inputName] || "";
 
-    // if (inputName === "input3") {
-    //   // Convert to a number first if it's a valid numeric string
-    //   const numericValue = Number(value.replace(/\s+/g, "")); // Remove spaces if any
-
-    //   // Check if the numericValue is a valid number before formatting
-    //   if (!isNaN(numericValue) && numericValue !== 0) {
-    //     return numericValue.toLocaleString("ru-RU");
-    //   }
-    // }
-
     return value;
+  };
+
+  const handleSubmit = () => {
+    mutate({ email: inputs.input1, password: inputs.input2 });
   };
 
   return (
     <div>
-
-      {loginLoading ? (
+      {isPending ? (
         <>
-          <Loading />
+          <LoadingPage />
           <>
-            <div className="flex items-center justify-center flex-col h-[100vh] ">
+            <div className="flex items-center justify-center flex-col h-[100vh]">
               <div className="min-w-[500px] h-max rounded-[12px] bg-slate-50  p-[20px] flex flex-col  mb-[10px]">
                 <div className="text-[30px] font-[700] text-center">Auth</div>
                 <div className="mt-[20px]">
@@ -125,23 +114,11 @@ const Auth = () => {
 
                 <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                   <button
+                    onClick={handleSubmit}
                     className="h-[50px]"
-                    onClick={() =>
-                      login({
-                        email: getInputValue("input1"),
-                        password: getInputValue("input2"),
-                        deviceName: "asfas",
-                      }).then((res) => {
-                        if (res.data) {
-                          navigate(APP_ROUTES.HOME);
-                          companyRequest();
-                          OpenDevice();
-                        }
-                      })
-                    }
                     type="button"
                   >
-                    {loginLoading ? "Loading..." : "Войти"}
+                    Войти
                   </button>
                 </div>
               </div>
@@ -194,23 +171,11 @@ const Auth = () => {
 
               <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                 <button
+                  onClick={handleSubmit}
                   className="h-[50px]"
-                  onClick={() =>
-                    login({
-                      email: getInputValue("input1"),
-                      password: getInputValue("input2"),
-                      deviceName: "asfas",
-                    }).then((res) => {
-                      if (res.data) {
-                        navigate(APP_ROUTES.HOME);
-                        companyRequest();
-                        OpenDevice();
-                      }
-                    })
-                  }
                   type="button"
                 >
-                  {loginLoading ? "Loading..." : "Войти"}
+                  Войти
                 </button>
               </div>
             </div>
@@ -228,7 +193,6 @@ const Auth = () => {
           )}
         </>
       )}
-
     </div>
   );
 };

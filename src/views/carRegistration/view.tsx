@@ -2,28 +2,29 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FooterNav, KeyboardComponent, Text } from "../../components";
 import "./style.scss";
 import { APP_ROUTES } from "../../router";
-import { useEffect, useRef, useState } from "react";
-import { companyStore, stepsStore } from "../../store";
+import { useRef, useState } from "react";
+import { usePostStore } from "../../store";
 import { useAuthRedirect } from "../../hook/view";
+import { stepOne } from "../../hook/hook";
+import LoadingPage from "../../components/Loading/view";
 
 const RegisterCar = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { stepOneRequest, stepOneLoading } = stepsStore();
-  console.log(stepOneLoading, stepOneRequest);
+  const companyId = Number(id);
+  const { serviceDetail } = usePostStore();
+
+  const { mutate, isPending } = stepOne();
+
+  const [singleObject] = Array.isArray(serviceDetail) ? serviceDetail : [];
+
+  console.log(singleObject);
 
   const [inputs, setInputs] = useState({});
 
   const [layoutName, setLayoutName] = useState("default");
   console.log(layoutName);
-
-  const { companyDetailRequest, companyDetailItem } = companyStore();
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    companyDetailRequest({ company_id: id });
-  }, []);
 
   useAuthRedirect(`${APP_ROUTES.REGISTER_CAR}/${id}`);
 
@@ -38,6 +39,9 @@ const RegisterCar = () => {
     }
     if (inputs.input2 && inputs.input2.length > 3) {
       inputs.input2 = inputs.input2.slice(0, 3); // Truncate to 8 characters
+    }
+    if (inputs.input3 && inputs.input3.length > 3) {
+      inputs.input3 = inputs.input3.slice(0, 7); // Truncate to 8 characters
     }
 
     setInputs({ ...inputs });
@@ -86,115 +90,118 @@ const RegisterCar = () => {
     // @ts-ignore
     const value = inputs[inputName] || "";
 
-    // if (inputName === "input3") {
-    //   // Convert to a number first if it's a valid numeric string
-    //   const numericValue = Number(value.replace(/\s+/g, "")); // Remove spaces if any
-
-    //   // Check if the numericValue is a valid number before formatting
-    //   if (!isNaN(numericValue) && numericValue !== 0) {
-    //     return numericValue.toLocaleString("ru-RU");
-    //   }
-    // }
-
     return value;
   };
 
-  // @ts-ignore
-  let serviceId = companyDetailItem[0]?.service_id;
-  return (
-    <div className="flex flex-col ">
-      <div className="register-car-container h-max">
-        <div className="bg-[#F4F4F4] py-[15px] px-[15px] rounded-[36px] ">
-          <div>
-            <Text
-              text="Номер машины"
-              className="text-[20px] font-[500] mb-[5px]"
-            />
-            <input
-              name="input1"
-              className="px-[20px]  h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border-[10px]  rounded-[21px] "
-              type="text"
-              placeholder="01A000AA"
-              value={getInputValue("input1")}
-              onFocus={(e: any) => {
-                e.target.blur();
-                setInputName("input1");
-              }}
-              onChange={onChangeInput}
-              maxLength={8}
-            />
-          </div>
-          <div className="mt-[15px]">
-            <Text
-              text="Серия и номер техпаспорта"
-              className="text-[20px]  font-[500] mb-[5px]"
-            />
-            <div className="input-container">
-              <input
-                name="input2"
-                className="px-[10px] h-[60px] text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
-                type="text"
-                placeholder="AAF"
-                value={getInputValue("input2")}
-                onFocus={(e: any) => {
-                  e.target.blur();
-                  setInputName("input2");
-                }}
-                onChange={onChangeInput}
-                maxLength={3}
-              />
-              <input
-                name="input3"
-                className="px-[20px] h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
-                type="text"
-                placeholder="номер техпаспорта"
-                value={getInputValue("input3")}
-                onFocus={(e: any) => {
-                  e.target.blur();
-                  setInputName("input3");
-                }}
-                onChange={onChangeInput}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#F4F4F4] py-[10px]  px-[15px] rounded-[36px] ">
-          <div className="flex items-center justify-center">
-            {/* <img src={ASSETS.InsonLogo} alt="" /> */}
-            <p className="text-[30px] font-bold text-btnGreen">
-              {companyDetailItem[0]?.name}
-            </p>
-          </div>
-          <div className="bg-white pt-[15px] pb-[12%] px-[15px] mt-[15px]  rounded-[30px]">
-            <div className="flex items-center justify-between">
-              <p className="text-[22px] font-[600]">ОСАГО:</p>
-              <p className="text-[22px] font-[600]">117 000 сум</p>
-            </div>
-            <div className="flex items-center justify-between mt-[15px]">
-              <p className="text-[22px] font-[600]">Сумма покрытия:</p>
-              <p className="text-[22px] font-[600]">117 000 сум</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <KeyboardComponent
-        className=" w-[85%] mx-auto !mt-[10px]"
-        ref={(r: any) => (keyboard.current = r)}
-        handleKeyPress={handleKeyPress}
-        inputName={inputName}
-        onChange={onChangeAll}
-      />
+  const handleClick = () => {
+    mutate({
+      company_id: companyId,
+      service_id: singleObject.service_id,
+      texpsery: inputs.input2,
+      texpnumber: inputs.input3,
+      renumber: inputs.input1,
+    });
+  };
 
-      <div className="mt-auto">
-        <FooterNav
-          prevClick={() => navigate(APP_ROUTES.SERVICES)}
-          nextClick={() => {
-            navigate(APP_ROUTES.DATA_CHECKING_CAR);
-          }}
-          nextTitle="ДАЛЕЕ"
+  // Buttonni bosganda `company_id` uzatish
+
+  return (
+    <>
+      {isPending && <LoadingPage />}
+      <div className="flex flex-col ">
+        <div className="register-car-container h-max">
+          <div className="bg-[#F4F4F4] py-[15px] px-[15px] rounded-[36px] ">
+            <div>
+              <Text
+                text="Номер машины"
+                className="text-[20px] font-[500] mb-[5px]"
+              />
+              <input
+                name="input1"
+                className="px-[20px]  h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px] "
+                type="text"
+                placeholder="01A000AA"
+                value={getInputValue("input1")}
+                onFocus={(e: any) => {
+                  e.target.blur();
+                  setInputName("input1");
+                }}
+                onChange={onChangeInput}
+                maxLength={8}
+              />
+            </div>
+            <div className="mt-[15px]">
+              <Text
+                text="Серия и номер техпаспорта"
+                className="text-[20px]  font-[500] mb-[5px]"
+              />
+              <div className="input-container">
+                <input
+                  name="input2"
+                  className="px-[10px] h-[60px] text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                  type="text"
+                  placeholder="AAF"
+                  value={getInputValue("input2")}
+                  onFocus={(e: any) => {
+                    e.target.blur();
+                    setInputName("input2");
+                  }}
+                  onChange={onChangeInput}
+                  maxLength={3}
+                />
+                <input
+                  name="input3"
+                  className="px-[20px] h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                  type="number"
+                  placeholder="номер техпаспорта"
+                  value={getInputValue("input3")}
+                  onFocus={(e: any) => {
+                    e.target.blur();
+                    setInputName("input3");
+                  }}
+                  onChange={onChangeInput}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="bg-[#F4F4F4] py-[10px]  px-[15px] rounded-[36px] ">
+            <div className="flex items-center justify-center">
+              {/* <img src={ASSETS.InsonLogo} alt="" /> */}
+              {singleObject && (
+                <p className="text-[30px] font-bold text-btnGreen">
+                  {singleObject.name}
+                </p>
+              )}
+            </div>
+            <div className="bg-white pt-[15px] pb-[12%] px-[15px] mt-[15px]  rounded-[30px]">
+              <div className="flex items-center justify-between">
+                <p className="text-[22px] font-[600]">ОСАГО:</p>
+                <p className="text-[22px] font-[600]">117 000 сум</p>
+              </div>
+              <div className="flex items-center justify-between mt-[15px]">
+                <p className="text-[22px] font-[600]">Сумма покрытия:</p>
+                <p className="text-[22px] font-[600]">117 000 сум</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <KeyboardComponent
+          className=" w-[85%] mx-auto !mt-[10px]"
+          ref={(r: any) => (keyboard.current = r)}
+          handleKeyPress={handleKeyPress}
+          inputName={inputName}
+          onChange={onChangeAll}
         />
+
+        <div className="mt-auto">
+          <FooterNav
+            prevClick={() => navigate(APP_ROUTES.SERVICES)}
+            nextTitle="ДАЛЕЕ"
+            nextClick={handleClick}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

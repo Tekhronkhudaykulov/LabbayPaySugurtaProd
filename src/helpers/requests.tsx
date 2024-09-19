@@ -11,7 +11,7 @@ export const requests = {
 
   //get company and service
   postCompany: () => $api.post(`${API_URL}/get-companies`),
-  postCompanyDetail: (company_id: number) =>
+  postCompanyDetail: (company_id: object) =>
     $api.post(`${API_URL}/get-company-services`, company_id),
 
   //step one
