@@ -174,7 +174,7 @@ const Auth = () => {
                 />
               </div>
 
-              <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
+              <div className="w-full mt-[15px] button-animation bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                 <button
                   onClick={handleSubmit}
                   className="h-[50px]"
