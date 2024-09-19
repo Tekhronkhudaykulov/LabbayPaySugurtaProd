@@ -30,10 +30,8 @@ const CheckingCardInput = ({ label, className, ind }: CheckingCardType) => {
   };
 
   return (
-    <div
-      className={`${className} ${
-        isActive ? "border-[2px] border-[#7076FF]" : ""
-      }`}
+    <label
+      className={`${className} ${isActive ? "focus-input" : ""}`}
       onClick={handleClick}
       onBlur={handleBlur}
       tabIndex={ind}
@@ -42,10 +40,11 @@ const CheckingCardInput = ({ label, className, ind }: CheckingCardType) => {
         {label}
       </div>
       <input
-        className="text-[20px]  font-[700] outline-none w-full"
+        typeof="number"
+        className="text-[20px] border-none font-[700] outline-none"
         type="text"
       />
-    </div>
+    </label>
   );
 };
 

@@ -8,7 +8,6 @@ import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
 const DataChecking = () => {
   const navigate = useNavigate();
   const { stepOneData } = stepOneStore();
-  console.log(stepOneData, "stepOneData");
 
   return (
     <div className=" flex flex-col">

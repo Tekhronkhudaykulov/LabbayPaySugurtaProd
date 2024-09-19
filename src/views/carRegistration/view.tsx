@@ -26,6 +26,7 @@ const RegisterCar = () => {
   console.log(singleObject);
 
   const [inputs, setInputs] = useState({});
+  const [isActive, setIsActive] = useState(5);
 
   const [layoutName, setLayoutName] = useState("default");
   console.log(layoutName);
@@ -121,19 +122,25 @@ const RegisterCar = () => {
                 text="Номер машины"
                 className="text-[20px] font-[500] mb-[5px]"
               />
-              <input
-                name="input1"
-                className="px-[20px]  h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px] "
-                type="text"
-                placeholder="01A000AA"
-                value={getInputValue("input1")}
-                onFocus={(e: any) => {
-                  e.target.blur();
-                  setInputName("input1");
-                }}
-                onChange={onChangeInput}
-                maxLength={8}
-              />
+              <div
+                onClick={() => setIsActive(0)}
+                className={isActive === 0 ? "focus-input" : ""}
+                tabIndex={0}
+              >
+                <input
+                  name="input1"
+                  className={`px-[20px]   h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px]`}
+                  type="text"
+                  placeholder="01A000AA"
+                  value={getInputValue("input1")}
+                  onFocus={(e: any) => {
+                    e.target.blur();
+                    setInputName("input1");
+                  }}
+                  onChange={onChangeInput}
+                  maxLength={8}
+                />
+              </div>
             </div>
             <div className="mt-[15px]">
               <Text
@@ -141,31 +148,41 @@ const RegisterCar = () => {
                 className="text-[20px]  font-[500] mb-[5px]"
               />
               <div className="input-container">
-                <input
-                  name="input2"
-                  className="px-[10px] h-[60px] text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
-                  type="text"
-                  placeholder="AAF"
-                  value={getInputValue("input2")}
-                  onFocus={(e: any) => {
-                    e.target.blur();
-                    setInputName("input2");
-                  }}
-                  onChange={onChangeInput}
-                  maxLength={3}
-                />
-                <input
-                  name="input3"
-                  className="px-[20px] h-[60px] text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
-                  type="number"
-                  placeholder="номер техпаспорта"
-                  value={getInputValue("input3")}
-                  onFocus={(e: any) => {
-                    e.target.blur();
-                    setInputName("input3");
-                  }}
-                  onChange={onChangeInput}
-                />
+                <div
+                  onClick={() => setIsActive(1)}
+                  className={isActive === 1 ? "focus-input" : ""}
+                >
+                  <input
+                    name="input2"
+                    className="px-[10px] h-[60px]   text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    type="text"
+                    placeholder="AAF"
+                    value={getInputValue("input2")}
+                    onFocus={(e: any) => {
+                      e.target.blur();
+                      setInputName("input2");
+                    }}
+                    onChange={onChangeInput}
+                    maxLength={3}
+                  />
+                </div>
+                <div
+                  onClick={() => setIsActive(2)}
+                  className={isActive === 2 ? "focus-input" : ""}
+                >
+                  <input
+                    name="input3"
+                    className="px-[20px] h-[60px]   text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    type="number"
+                    placeholder="номер техпаспорта"
+                    value={getInputValue("input3")}
+                    onFocus={(e: any) => {
+                      e.target.blur();
+                      setInputName("input3");
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </div>
               </div>
             </div>
           </div>

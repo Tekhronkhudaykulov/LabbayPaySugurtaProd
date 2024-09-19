@@ -24,7 +24,13 @@ const ServicesCard = ({
       <p className="text-[20px] !mt-[20px] leading-[24px] font-[600]">
         {title}
       </p>
-      <button className={classNameButton}>ОФОРМИТЬ</button>
+      <button
+        className={`${classNameButton} 
+               transform transition-transform duration-150 ease-in-out 
+               active:scale-90`}
+      >
+        ОФОРМИТЬ
+      </button>
     </div>
   );
 };

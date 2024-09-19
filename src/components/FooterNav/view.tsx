@@ -1,4 +1,5 @@
-import { Button } from "antd";
+import "antd/dist/reset.css";
+import "./style.scss";
 
 interface Props {
   prevTitle?: string;
@@ -15,31 +16,27 @@ const FooterNav = ({
   prevClick,
   nextTitle,
   nextClick,
-  nextLoading = false,
   nextDisabled = false,
   showNextButton = true,
 }: Props) => {
   return (
     <div className="flex items-center justify-center gap-3 py-4 mt-auto ">
-      <Button
-        className={`uppercase w-[400px]  h-[70px] `}
+      <button
+        className={`uppercase rounded-[15px] w-[400px] text-[24px] text-black border button-animation h-[70px] `}
         onClick={prevClick}
-        type="default"
       >
         {prevTitle ? prevTitle : "Назад"}
-      </Button>
+      </button>
       {showNextButton ? (
-        <Button
+        <button
           disabled={nextDisabled}
           onClick={nextClick}
-          loading={nextLoading}
-          type="primary"
-          className={`!bg-btnGreen h-[70px] uppercase w-[400px] ${
+          className={`!bg-btnGreen rounded-[15px] button-animation text-[24px] text-white   h-[70px]  uppercase w-[400px] ${
             nextDisabled && "opacity-50"
           }`}
         >
           {nextTitle ? nextTitle : "Продолжить"}
-        </Button>
+        </button>
       ) : null}
     </div>
   );
