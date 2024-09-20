@@ -4,9 +4,8 @@ import { contextBridge, ipcRenderer } from "electron";
 contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(ipcRenderer));
 
 contextBridge.exposeInMainWorld("electron", {
-  ipcRenderer: {
-    invoke: (channel: any, data: any) => ipcRenderer.invoke(channel, data),
-  },
+  sendPrintCheck: (checkData: any) =>
+    ipcRenderer.send("print-check", checkData),
 });
 
 // `exposeInMainWorld` can't detect attributes and methods of `prototype`, manually patching it.
