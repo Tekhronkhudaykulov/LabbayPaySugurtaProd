@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import { exec } from "child_process";
 // @ts-ignore
 import path from "node:path";
 import * as fs from "fs";
@@ -61,6 +62,43 @@ function createWindow() {
   }
 }
 
+ipcMain.handle("print-check", async (event, checkData) => {
+  try {
+    // VK80 printer uchun buyruq satri yoki SDK orqali ma'lumotlarni yuborish
+    const checkContent = `
+      Kiosk ID: ${checkData.kioskId}
+      Address: ${checkData.address}
+      ----------------------------------------
+      ${checkData.list
+        .map((item: any) => `${item.key}: ${item.value}`)
+        .join("\n")}
+      ----------------------------------------
+    `;
+
+    // VK80 printerni SDK yoki buyruq satri orqali chaqirish
+    exec(
+      `vk80_printer_command --print "${checkContent}"`,
+      (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Xatolik: ${error.message}`);
+          throw new Error(error.message);
+        }
+
+        if (stderr) {
+          console.error(`Xatolik (stderr): ${stderr}`);
+          throw new Error(stderr);
+        }
+
+        console.log(`Check muvaffaqiyatli chiqarildi: ${stdout}`);
+      }
+    );
+
+    return "Check muvaffaqiyatli chiqarildi!";
+  } catch (error) {
+    console.error(`Xatolik: ${error?.message}`);
+    return `Xatolik: ${error?.message}`;
+  }
+});
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
