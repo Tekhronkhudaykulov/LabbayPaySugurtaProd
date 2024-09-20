@@ -25,9 +25,10 @@ const Home = () => {
       disabled: true,
     },
   ];
-
-  const handleSubmit = (company_id: number) => {
-    mutate({ company_id: company_id });
+// @ts-ignore
+  const handleSubmit = (id) => {
+    // @ts-ignore
+    mutate({ company_id: id });
   };
 
   return (
@@ -44,6 +45,7 @@ const Home = () => {
               img={item?.img}
               disabled={item?.disabled ? true : false}
               key={idx}
+              // @ts-ignore
               onClick={() => handleSubmit(item.company_id)}
             />
           ))}

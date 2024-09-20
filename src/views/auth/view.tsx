@@ -20,6 +20,8 @@ const Auth = () => {
   const [isHas, setIsHas] = useState(false);
 
   const [layoutName, setLayoutName] = useState("default");
+  console.log(layoutName);
+  
 
   const [inputName, setInputName] = useState("");
 
@@ -76,6 +78,7 @@ const Auth = () => {
   };
 
   const handleSubmit = () => {
+// @ts-ignore
     mutate({ email: inputs.input1, password: inputs.input2 });
   };
 

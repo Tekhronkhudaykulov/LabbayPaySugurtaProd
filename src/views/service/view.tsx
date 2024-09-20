@@ -16,7 +16,8 @@ const Services = () => {
   const { mutate, isPending } = usePostServicesDetail();
 
   // Buttonni bosganda `company_id` uzatish
-  const handleClick = (id: number) => {
+  const handleClick = (id: any) => {
+  
     mutate({ company_id: id });
   };
 

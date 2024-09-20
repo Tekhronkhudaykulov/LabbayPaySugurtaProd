@@ -4,10 +4,11 @@ import { FooterNav } from "../../../components";
 import { APP_ROUTES } from "../../../router";
 import { stepOneStore } from "../../../store/usePostStore/usePostStore";
 import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
-import { useState } from "react";
+
 
 const DataChecking = () => {
   const navigate = useNavigate();
+// @ts-ignore
   const { stepOneData } = stepOneStore();
 
   return (

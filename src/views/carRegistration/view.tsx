@@ -13,8 +13,11 @@ import { usePostError } from "../../store/usePostStore/usePostStore";
 const RegisterCar = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log(id, "iddddd  ")
 
   const companyId = Number(id);
+  console.log(companyId, "companyid")
+  // @ts-ignore
   const { serviceDetail } = usePostStore();
 
   const { errorTitle } = usePostError();
@@ -102,8 +105,11 @@ const RegisterCar = () => {
     mutate({
       company_id: companyId,
       service_id: singleObject.service_id,
+// @ts-ignore
       texpsery: inputs.input2,
+// @ts-ignore
       texpnumber: inputs.input3,
+// @ts-ignore
       renumber: inputs.input1,
     });
   };

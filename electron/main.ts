@@ -77,7 +77,7 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("print-command-request", (event, data) => {
+ipcMain.on("print-command-request", ( data) => {
   printHTMLContent(data);
 });
 

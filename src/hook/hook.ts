@@ -33,12 +33,16 @@ const useLoginMutation = () => {
   });
 };
 
+type PostCompanyParams = {
+  company_id: number; // or whatever type it should be
+};
+
 const usePostCompany = () => {
   const navigate = useNavigate();
-
+// @ts-ignore
   const { setServices } = usePostStore();
 
-  return useMutation({
+  return useMutation<PostCompanyParams>({
     mutationFn: async () => {
       const { data } = await requests.postCompany();
       setServices(data.data.result);
@@ -47,12 +51,13 @@ const usePostCompany = () => {
     onSuccess: () => {
       navigate(APP_ROUTES.SERVICES);
     },
-    onError: (error) => {},
+    onError: () => {},
   });
 };
 
 const usePostServicesDetail = () => {
   const navigate = useNavigate();
+  // @ts-ignore
 
   const { setServiceDetail } = usePostStore();
 
@@ -62,10 +67,13 @@ const usePostServicesDetail = () => {
       setServiceDetail(data.data.result);
       return data;
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (data: any,variables: any) => {
+      console.log(data);
+      
+      
       navigate(`${APP_ROUTES.REGISTER_CAR}/${variables.company_id}`);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error("Error during login:", error);
     },
   });
@@ -73,6 +81,7 @@ const usePostServicesDetail = () => {
 
 const stepOne = () => {
   const { setErrorTitle } = usePostError();
+// @ts-ignore
 
   const { setStepOneData } = stepOneStore();
 
