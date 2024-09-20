@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import { exec } from "child_process";
+const SerialPort = require("serialport");
 
 // @ts-ignore
 import path from "node:path";
@@ -66,24 +66,17 @@ function createWindow() {
 ipcMain.on("print-check", (event, checkData) => {
   console.log(event);
 
-  const binjs = Buffer.from(checkData).toString("hex");
-  // @ts-ignore
-  const prnSets = parseInt(0xf); // Printer sozlamalari (bu qismni kerakli sozlamaga o'zgartiring)
-  const prnType = (prnSets >> 4) & 0xf;
+  const port = new SerialPort({
+    path: "COM3", // Printer porti (buni o'zgartiring)
+    baudRate: 9600,
+  });
 
-  if (prnType === 0) {
-    exec(`popup_msg/vkpii_usb ${binjs}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Xatolik: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`Standart xatolik: ${stderr}`);
-        return;
-      }
-      console.log(`Chiqarish muvaffaqiyatli: ${stdout}`);
-    });
-  }
+  port.write(checkData, (err: any) => {
+    if (err) {
+      return console.log("Error on write: ", err.message);
+    }
+    console.log("Check printed successfully");
+  });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -3,7 +3,7 @@ const { ipcRenderer } = window.require("electron");
 const handlePrint = () => {
   const checkData = {
     kioskId: 1,
-    address: "Tashkent"
+    address: "Tashkent",
     list: [
       { key: "Xizmat", value: "1" },
       { key: "Login", value: "operator" },
