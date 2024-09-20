@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { ASSETS } from "../../../assets/images/assets";
 import { FooterNav, Text } from "../../../components";
-import { APP_ROUTES } from "../../../router";
+
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
+import printCheck from "../../../check/view";
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
@@ -92,7 +93,7 @@ const Cash = () => {
         <FooterNav
           nextTitle="Оплатить"
           prevClick={() => navigate(-1)}
-          nextClick={() => navigate(APP_ROUTES.SUCCESS)}
+          nextClick={() => printCheck()}
         />
       </div>
     </>
