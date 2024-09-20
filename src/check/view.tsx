@@ -1,28 +1,29 @@
 const { ipcRenderer } = window.require("electron");
 
-const printCheck = () => {
-  // Check uchun ma'lumotlar
+const handlePrint = () => {
   const checkData = {
-    kioskId: "12345",
-    address: "Kiosk Address, City, District",
+    kioskId: 1,
+    address: "Tashkent"
     list: [
-      { key: "Service", value: "Product Purchase" },
-      { key: "Payment method", value: "Cash" },
-      { key: "Total amount", value: "50000 sum" },
-      { key: "Transaction number", value: "TXN123456" },
-      // Qo'shimcha ma'lumotlar
+      { key: "Xizmat", value: "1" },
+      { key: "Login", value: "operator" },
+      { key: "To'lov turi", value: "Naqd" },
+      { key: "Sana va vaqt", value: new Date().toLocaleString() },
+      { key: "To'lov summasi", value: 100000 + " so'm" },
+      {
+        key: "Umumiy qiymat",
+        value: 200000 + " so'm",
+        bold: true,
+      },
+      {
+        key: "To'lov holati",
+        value: "TOLANGAN",
+        bold: true,
+      },
     ],
   };
 
-  // IPC orqali Electron asosiy jarayoniga ma'lumot yuborish
-  ipcRenderer
-    .invoke("print-check", checkData)
-    .then((result) => {
-      console.log("Check chiqarildi:", result);
-    })
-    .catch((error) => {
-      console.error("Xatolik:", error);
-    });
+  ipcRenderer.send("print-check", JSON.stringify(checkData));
 };
 
-export default printCheck;
+export default handlePrint;

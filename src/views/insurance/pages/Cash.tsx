@@ -5,6 +5,7 @@ import { FooterNav, Text } from "../../../components";
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 import printCheck from "../../../check/view";
+import handlePrint from "../../../check/view";
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
@@ -93,7 +94,7 @@ const Cash = () => {
         <FooterNav
           nextTitle="Оплатить"
           prevClick={() => navigate(-1)}
-          nextClick={() => printCheck()}
+          nextClick={() => handlePrint()}
         />
       </div>
     </>
