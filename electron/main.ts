@@ -21,6 +21,9 @@ let win: BrowserWindow | null;
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
+// @ts-ignore
+let workerWindow;
+
 function createWindow() {
   win = new BrowserWindow({
     fullscreen: true,
@@ -61,22 +64,46 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
+
+  workerWindow = new BrowserWindow({
+    width: 302,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  workerWindow.loadURL("file://" + __dirname + "/worker.html");
 }
 
-ipcMain.on("print-check", (event, checkData) => {
-  console.log(event);
+ipcMain.on("printPDF", (even, content) => {
+  console.log(even);
+  // @ts-ignore
+  workerWindow.webContents.send("printPDF", content);
+});
 
-  const port = new SerialPort({
-    path: "COM3", // Printer porti (buni o'zgartiring)
-    baudRate: 9600,
-  });
-
-  port.write(checkData, (err: any) => {
-    if (err) {
-      return console.log("Error on write: ", err.message);
-    }
-    console.log("Check printed successfully");
-  });
+ipcMain.on("readyToPrintPDF", (event) => {
+  // @ts-ignore
+  const pdfPath = path.join(os.tmpdir(), "print.pdf");
+  // @ts-ignore
+  workerWindow.webContents
+    .printToPDF({
+      pageSize: { width: 3.14961, height: 7 },
+      margins: { marginType: "none", bottom: 0, left: 0, top: 0, right: 0 },
+    })
+    .then((data: any) => {
+      fs.writeFile(pdfPath, data, function (error) {
+        if (error) {
+          throw error;
+        }
+        // @ts-ignore
+        print(pdfPat).then(console.log);
+        event.sender.send("wrote-pdf", pdfPath);
+      });
+    })
+    .catch((error: any) => {
+      throw error;
+    });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

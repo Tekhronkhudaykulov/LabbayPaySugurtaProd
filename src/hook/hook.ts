@@ -37,6 +37,7 @@ const usePostCompany = () => {
   const navigate = useNavigate();
 
   const { setServices } = usePostStore();
+  const { setErrorTitle } = usePostError();
 
   return useMutation({
     mutationFn: async () => {
@@ -47,7 +48,11 @@ const usePostCompany = () => {
     onSuccess: () => {
       navigate(APP_ROUTES.SERVICES);
     },
-    onError: (error) => {},
+    onError: (error: any) => {
+      if (error?.response) {
+        setErrorTitle(error.response.data.message);
+      }
+    },
   });
 };
 

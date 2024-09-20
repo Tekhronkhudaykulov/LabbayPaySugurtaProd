@@ -4,11 +4,15 @@ import { APP_ROUTES } from "../../router";
 import { useAuthRedirect } from "../../hook/view";
 import { usePostCompany } from "../../hook/hook";
 import LoadingPage from "../../components/Loading/view";
+import Notification from "../../components/Notification/view";
+import { usePostError } from "../../store/usePostStore/usePostStore";
 
 const Home = () => {
   useAuthRedirect(APP_ROUTES.HOME);
 
-  const { mutate, isPending } = usePostCompany();
+  const { mutate, isPending, isError } = usePostCompany();
+
+  const { errorTitle } = usePostError();
 
   const list = [
     {
@@ -32,6 +36,7 @@ const Home = () => {
 
   return (
     <>
+      {isError && <Notification message={errorTitle} onClose="" />}
       {isPending && <LoadingPage />}
 
       <div className="flex mt-[50px] flex-col items-center justify-center h-full w-[72%] mx-auto gap-[50px]">
