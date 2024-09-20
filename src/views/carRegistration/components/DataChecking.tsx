@@ -4,6 +4,7 @@ import { FooterNav } from "../../../components";
 import { APP_ROUTES } from "../../../router";
 import { stepOneStore } from "../../../store/usePostStore/usePostStore";
 import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
+import { useState } from "react";
 
 const DataChecking = () => {
   const navigate = useNavigate();
@@ -24,42 +25,44 @@ const DataChecking = () => {
         </div>
         <img src={ASSETS.Info} alt="" />
       </div>
-      <div className="grid gap-y-[10px]">
-        <div className="grid grid-cols-4 gap-x-[14px] mt-[15px]">
-          <CheckingCard
-            label="Модель транспортного средства:"
-            title={stepOneData?.vmodel}
-            className="bg-content rounded-[14px] px-[20px] py-[10px]"
-          />
-          <CheckingCard
-            label="Вид транспортного средства:"
-            title="Легковой автомобиль"
-            className="bg-content rounded-[14px] px-[20px] py-[10px] "
-          />
-          <CheckingCard
-            label="Регион регистрации:"
-            title="г. Ташкент"
-            className="bg-content rounded-[14px] px-[20px] py-[10px] "
-          />
-          <CheckingCard
-            label="Год выпуска:"
-            title={stepOneData?.year}
-            className="bg-content rounded-[14px] px-[20px] py-[10px] "
-          />
+      <div>
+        <div className="grid gap-y-[10px]">
+          <div className="grid grid-cols-4 gap-x-[14px] mt-[15px]">
+            <CheckingCard
+              label="Модель транспортного средства:"
+              title={stepOneData?.vmodel}
+              className="bg-content rounded-[14px] px-[20px] py-[10px]"
+            />
+            <CheckingCard
+              label="Вид транспортного средства:"
+              title="Легковой автомобиль"
+              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+            />
+            <CheckingCard
+              label="Регион регистрации:"
+              title="г. Ташкент"
+              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+            />
+            <CheckingCard
+              label="Год выпуска:"
+              title={stepOneData?.year}
+              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-x-[14px]">
+            <CheckingCard
+              label="Vehicle body number:"
+              title={stepOneData?.dvigatel}
+              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+            />
+            <CheckingCard
+              label="Vehicle engine number:"
+              title={stepOneData?.kuzov}
+              className="bg-content rounded-[14px]  px-[20px] py-[10px] "
+            />
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-x-[14px]">
-          <CheckingCard
-            label="Vehicle body number:"
-            title={stepOneData?.dvigatel}
-            className="bg-content rounded-[14px] px-[20px] py-[10px] "
-          />
-          <CheckingCard
-            label="Vehicle engine number:"
-            title={stepOneData?.kuzov}
-            className="bg-content rounded-[14px]  px-[20px] py-[10px] "
-          />
-        </div>
-        <div className="bg-content py-[10px] px-[24px] ">
+        <div className="bg-content py-[10px] px-[24px] mt-[15px]">
           {/* <p className="text-[18px] text-[#0D0D0D] font-[500] !mb-[15px]">
             Данные собственника транспортного средства:
           </p>
