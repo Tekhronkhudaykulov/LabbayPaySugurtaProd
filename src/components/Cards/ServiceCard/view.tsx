@@ -16,7 +16,7 @@ const ServicesCard = ({
   title,
   classNameButton,
 }: Props) => {
-  const { t, i18n } = useTranslation();
+  const { t,  } = useTranslation();
 
   return (
     <div

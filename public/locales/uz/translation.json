@@ -1,5 +1,10 @@
 {
   "selectCompany": "Kompaniyani tanlang",
   "cardTitle": "Kanadaning CROSURE IT kompaniyasi bilan birgalikda ishlab chiqilgan",
-  "cardButton": "Rasmiylashtirish"
+  "cardButton": "Rasmiylashtirish",
+  "car_num": "Mashina raqami",
+  "carSeria": "Seria",
+  "and": "va",
+  "num_tex_pass": "ro'yxatga olish raqami",
+  "coverage amount": "Qoplama miqdori"
 }

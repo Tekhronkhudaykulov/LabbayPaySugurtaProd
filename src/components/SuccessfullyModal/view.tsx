@@ -6,7 +6,6 @@ import { vendorStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
 import { APP_ROUTES } from "../../router";
-import { Check } from "..";
 import { CheckOutlined } from "@ant-design/icons";
 import { CheckType } from "../../types";
 import QRCode from "qrcode";
@@ -253,7 +252,7 @@ const SuccessfullyModal: FC<Props> = ({ open }) => {
       <div className="text-[31px] text-center text-green font-400">
         {t("send_check_text")}
       </div>
-      <Check className="w-[300px] mt-10" />
+
       <div className="flex w-full mt-auto">
         <button
           onClick={onPrint}

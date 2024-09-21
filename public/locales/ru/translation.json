@@ -1,5 +1,10 @@
 {
   "selectCompany": "Выберите компанию",
   "cardTitle": "Разработанно совместно с Канадской IT компанией - CROSURE",
-  "cardButton": "ОФОРМИТЬ"
+  "cardButton": "ОФОРМИТЬ",
+  "car_num": "Номер машины",
+  "carSeria": "Серия",
+  "and": "и",
+  "num_tex_pass": "номер техпаспорта",
+  "coverage amount": "Сумма покрытия"
 }

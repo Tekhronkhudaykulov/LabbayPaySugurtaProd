@@ -1,5 +1,10 @@
 {
   "selectCompany": "Select company",
   "cardTitle": "Developed jointly with the Canadian IT company - CROSURE",
-  "cardButton": "Formalization"
+  "cardButton": "Formalization",
+  "car_num": "Car number",
+  "carSeria": "Seria",
+  "and": "and",
+  "num_tex_pass": "registration number",
+  "coverage amount": "Coverage amount"
 }

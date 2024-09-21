@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const Home = () => {
   useAuthRedirect(APP_ROUTES.HOME);
 
-  const { t, i18n } = useTranslation();
+  const {  i18n } = useTranslation();
 
   const { mutate, isPending, isError } = usePostCompany();
 
@@ -65,6 +65,7 @@ const Home = () => {
               key={idx}
 
               onClick={() => {
+              // @ts-ignore
                 handleSubmit(item.company_id);
                 changeLanguage(item.lng);
               }}
