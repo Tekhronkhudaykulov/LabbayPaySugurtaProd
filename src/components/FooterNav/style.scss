@@ -1,0 +1,13 @@
+.button-animation {
+  -webkit-transition: transform 150ms ease-in-out !important;
+  -moz-transition: transform 150ms ease-in-out !important;
+  -o-transition: transform 150ms ease-in-out !important;
+  transition: transform 150ms ease-in-out !important;
+}
+
+.button-animation:active {
+  -webkit-transform: scale(0.9) !important;
+  -moz-transform: scale(0.9) !important;
+  -o-transform: scale(0.9) !important;
+  transform: scale(0.9) !important;
+}

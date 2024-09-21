@@ -5,18 +5,16 @@ const handlePrint = async () => {
     ipcRenderer.send("printPDF", content);
   }
 
-  // "key-value" shaklida JSON obyekt
   const data = {
     title: "Labbay Pay",
     orderNumber: 1,
-    dateTime: new Date().toLocaleString(), // Sana va vaqt
+    dateTime: new Date().toLocaleString(),
     client: "Texron",
     totalLabel: "Итого",
     totalValue: "20 0000",
     message: "Спасибо за покупку!",
   };
 
-  // "sendCommandToWorker" orqali obyektni jo'natamiz
   sendCommandToWorker(data);
 };
 

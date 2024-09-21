@@ -7,9 +7,13 @@ import { useAuthRedirect } from "../../hook/view";
 import { usePostStore } from "../../store";
 import LoadingPage from "../../components/Loading/view";
 import { usePostServicesDetail } from "../../hook/hook";
+import { useTranslation } from "react-i18next";
 
 const Services = () => {
   useAuthRedirect(APP_ROUTES.SERVICES);
+  const { t, i18n } = useTranslation();
+
+  console.log(t("selectCompany"));
 
   const value = usePostStore((state: any) => state.services);
 
@@ -71,11 +75,23 @@ const Services = () => {
         </div>
         <div className="my-[10px]">
           <div className="flex items-center justify-between">
-            <p className="text-[35px] font-[700]">Выберите компанию:</p>
+            <p className="text-[35px] font-[700]">{t("selectCompany")}:</p>
             <div className="flex gap-x-[14px] my-[15px]">
-              <LanguageBtn title="O’Z" img={ASSETS.UzFlag} isHas={false} />
-              <LanguageBtn title="РУ" img={ASSETS.RuFlag} isHas={true} />
-              <LanguageBtn title="EN" img={ASSETS.EngFlag} isHas={false} />
+              <LanguageBtn
+                title="O’Z"
+                img={ASSETS.UzFlag}
+                isHas={i18n.language === "uz"}
+              />
+              <LanguageBtn
+                title="РУ"
+                img={ASSETS.RuFlag}
+                isHas={i18n.language === "ru"}
+              />
+              <LanguageBtn
+                title="EN"
+                img={ASSETS.EngFlag}
+                isHas={i18n.language === "en"}
+              />
             </div>
           </div>
         </div>
@@ -88,7 +104,7 @@ const Services = () => {
                     ? "bg-inson-button"
                     : "bg-kapital-button "
                 } w-full mt-auto h-[65px]  text-[24px] rounded-[15px] font-[600] text-white`}
-                title="Разработанно совместно с Канадской IT компанией - CROSURE"
+                title={t("cardTitle")}
                 className={`w-full  ${
                   item.company_id === 1
                     ? "card-gradient-inson"
