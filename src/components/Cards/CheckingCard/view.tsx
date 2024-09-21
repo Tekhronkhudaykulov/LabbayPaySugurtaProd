@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useClassName } from "../../../hook/context";
 
 interface CheckingCardType {
   title?: string | undefined;
@@ -10,7 +11,7 @@ interface CheckingCardType {
 const CheckingCard = ({ title, label, className }: CheckingCardType) => {
   return (
     <div className={className}>
-      <div className="text-[18px] font-[500] h-[38px] text-contentText">
+      <div className="text-[18px] font-[500] h-[60px] text-contentText">
         {label}
       </div>
       <p className="text-[20px] font-[700] !mt-[10px]">{title}</p>

@@ -4,12 +4,17 @@ import { FooterNav } from "../../../components";
 import { APP_ROUTES } from "../../../router";
 import { stepOneStore } from "../../../store/usePostStore/usePostStore";
 import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
+import { useClassName } from "../../../hook/context";
 
 
 const DataChecking = () => {
   const navigate = useNavigate();
 // @ts-ignore
   const { stepOneData } = stepOneStore();
+
+  const { isHas } = useClassName();
+
+  console.log(isHas)
 
   return (
     <div className=" flex flex-col">
@@ -91,7 +96,7 @@ const DataChecking = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="mt-[15px]">
         <FooterNav
           nextTitle="ДАЛЕЕ"
           nextClick={() => navigate(APP_ROUTES.INSURANCE)}

@@ -611,6 +611,41 @@ body {
 .button-animation:active {
   transform: scale(0.9) !important;
 }
+.button-animation {
+  -webkit-transition: transform 150ms ease-in-out !important;
+  -moz-transition: transform 150ms ease-in-out !important;
+  -o-transition: transform 150ms ease-in-out !important;
+  transition: transform 150ms ease-in-out !important;
+}
+
+.button-animation:active {
+  -webkit-transform: scale(0.9) !important;
+  -moz-transform: scale(0.9) !important;
+  -o-transform: scale(0.9) !important;
+  transform: scale(0.9) !important;
+}
+
+input {
+  -webkit-transition: transform 150ms ease-in-out,
+    border-color 150ms ease-in-out;
+  -moz-transition: transform 150ms ease-in-out, border-color 150ms ease-in-out;
+  -o-transition: transform 150ms ease-in-out, border-color 150ms ease-in-out;
+  transition: transform 150ms ease-in-out, border-color 150ms ease-in-out;
+}
+
+input:focus {
+  -webkit-transform: scale(0.98);
+  -moz-transform: scale(0.98);
+  -o-transform: scale(0.98);
+  transform: scale(0.98);
+}
+
+input:active {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
 
 input {
   border: 2px solid #ccc; /* Dastlabki chegara rangi */
@@ -622,9 +657,4 @@ input {
 .focus-input {
   border: 2px solid #7076ff !important ; /* Aktiv bo'lganda chegarasi */
   border-radius: 21px;
-  transition: transform 150ms ease-in-out;
-}
-
-.focus-input:active {
-  transform: scale(0.9);
 }

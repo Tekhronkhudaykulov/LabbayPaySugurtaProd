@@ -1,29 +1,21 @@
-const { ipcRenderer } = window.require("electron");
+const handlePrint = async () => {
+  const ipcRenderer = window.require("electron").ipcRenderer;
 
-const handlePrint = () => {
-  const checkData = {
-    kioskId: 1,
-    address: "Tashkent",
-    list: [
-      { key: "Xizmat", value: "1" },
-      { key: "Login", value: "operator" },
-      { key: "To'lov turi", value: "Naqd" },
-      { key: "Sana va vaqt", value: new Date().toLocaleString() },
-      { key: "To'lov summasi", value: 100000 + " so'm" },
-      {
-        key: "Umumiy qiymat",
-        value: 200000 + " so'm",
-        bold: true,
-      },
-      {
-        key: "To'lov holati",
-        value: "TOLANGAN",
-        bold: true,
-      },
-    ],
+  function sendCommandToWorker(content: any) {
+    ipcRenderer.send("printPDF", content);
+  }
+
+  const data = {
+    title: "Labbay Pay",
+    orderNumber: 1,
+    dateTime: new Date().toLocaleString(),
+    client: "Texron",
+    totalLabel: "Итого",
+    totalValue: "20 0000",
+    message: "Спасибо за покупку!",
   };
 
-  ipcRenderer.send("print-check", JSON.stringify(checkData));
+  sendCommandToWorker(data);
 };
 
 export default handlePrint;

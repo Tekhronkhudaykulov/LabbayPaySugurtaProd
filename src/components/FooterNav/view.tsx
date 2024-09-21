@@ -22,7 +22,7 @@ const FooterNav = ({
   return (
     <div className="flex items-center justify-center gap-3 py-4 mt-auto ">
       <button
-        className={`uppercase rounded-[15px] w-[400px] text-[24px] text-black border button-animation h-[70px] `}
+        className={`uppercase rounded-[15px] w-[400px]  button-animation text-[24px] text-black border h-[70px] `}
         onClick={prevClick}
       >
         {prevTitle ? prevTitle : "Назад"}
@@ -31,7 +31,7 @@ const FooterNav = ({
         <button
           disabled={nextDisabled}
           onClick={nextClick}
-          className={`!bg-btnGreen rounded-[15px] button-animation text-[24px] text-white   h-[70px]  uppercase w-[400px] ${
+          className={`!bg-btnGreen rounded-[15px] button-animation  text-[24px] text-white   h-[70px]  uppercase w-[400px] ${
             nextDisabled && "opacity-50"
           }`}
         >
