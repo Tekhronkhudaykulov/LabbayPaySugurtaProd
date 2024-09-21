@@ -68,7 +68,7 @@ function createWindow() {
 
 ipcMain.on("run-check", (event, data) => {
   const jsonData = JSON.stringify(data.check);
-  const command = `your-command-here --data '${jsonData}'`; // Buyruqni o'zgartiring
+  const command = `vkpii_usb '${jsonData}'`; // Buyruqni o'zgartiring
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
