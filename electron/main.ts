@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-const SerialPort = require("serialport");
+import { exec } from "child_process";
 
 // @ts-ignore
 import path from "node:path";
@@ -64,46 +64,23 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
-
-  workerWindow = new BrowserWindow({
-    width: 302,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-  workerWindow.loadURL("file://" + __dirname + "/worker.html");
 }
 
-ipcMain.on("printPDF", (even, content) => {
-  console.log(even);
-  // @ts-ignore
-  workerWindow.webContents.send("printPDF", content);
-});
+ipcMain.on("run-check", (event, data) => {
+  const jsonData = JSON.stringify(data.check);
+  const command = `your-command-here --data '${jsonData}'`; // Buyruqni o'zgartiring
 
-ipcMain.on("readyToPrintPDF", (event) => {
-  // @ts-ignore
-  const pdfPath = path.join(os.tmpdir(), "print.pdf");
-  // @ts-ignore
-  workerWindow.webContents
-    .printToPDF({
-      pageSize: { width: 3.14961, height: 7 },
-      margins: { marginType: "none", bottom: 0, left: 0, top: 0, right: 0 },
-    })
-    .then((data: any) => {
-      fs.writeFile(pdfPath, data, function (error) {
-        if (error) {
-          throw error;
-        }
-        // @ts-ignore
-        print(pdfPat).then(console.log);
-        event.sender.send("wrote-pdf", pdfPath);
-      });
-    })
-    .catch((error: any) => {
-      throw error;
-    });
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      event.reply("command-output", `Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      event.reply("command-output", `stderr: ${stderr}`);
+      return;
+    }
+    event.reply("command-output", `stdout: ${stdout}`);
+  });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
