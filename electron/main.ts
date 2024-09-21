@@ -28,6 +28,7 @@ let workerWindow;
 function createWindow() {
   win = new BrowserWindow({
     fullscreen: true,
+
     resizable: false,
     frame: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -71,27 +72,28 @@ ipcMain.on("run-check", (event, data) => {
 
   if (!data || !data.check) {
     event.reply("command-output", "Error: No data received");
-    return;
+    const jsonData = JSON.stringify(data.check);
+    const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
+
+    // Faylning to'liq yo'li
+    const command =
+      path.join(__dirname, "dist-electron", "vkpii_usb") + ` ${binjs}`;
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        event.reply("command-output", `Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        event.reply("command-output", `stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      event.reply("command-output", `stdout: ${stdout}`);
+    });
   }
-
-  const jsonData = JSON.stringify(data.check);
-  const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
-
-  // Faylning to'liq yo'li
-  const command =
-    path.join(__dirname, "dist-electron", "vkpii_usb") + ` ${binjs}`;
-
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      event.reply("command-output", `Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      event.reply("command-output", `stderr: ${stderr}`);
-      return;
-    }
-    event.reply("command-output", `stdout: ${stdout}`);
-  });
 });
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
