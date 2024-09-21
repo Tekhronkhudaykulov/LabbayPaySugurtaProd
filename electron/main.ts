@@ -1,9 +1,14 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import { exec } from "child_process";
+
+import { exec } from "child_process"; // exec funksiyasini import qilish
 
 // @ts-ignore
 import path from "node:path";
 import * as fs from "fs";
+
+import { fileURLToPath } from "url"; // __dirname uchun
+const __filename = fileURLToPath(import.meta.url); // __filename
+const __dirname = path.dirname(__filename);
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -67,34 +72,30 @@ function createWindow() {
 }
 
 ipcMain.on("run-check", (event, data) => {
-  const jsonData = JSON.stringify(data.check);
-  // @ts-ignore
-  const mockData = (jsonData.prototype.hexEncode =
-    function () // String.prototype.hexDecode = function(){ var j;var hexes = this.match(/.{1,4}/g) || [];var back = "";for(j = 0; j<hexes.length; j++){back += String.fromCharCode(parseInt(hexes[j], 16));}return back;}
-    {
-      var hex, i;
-      var result = "";
-      for (i = 0; i < this.length; i++) {
-        hex = this.charCodeAt(i).toString(16);
-        result += ("000" + hex).slice(-4);
+  const jsonString = JSON.stringify(data); // React'dan kelgan JSON ma'lumotlari
+  const binData = Buffer.from(jsonString, "utf8"); // JSONni binar formatga aylantirish
+
+  // `vkpii_usb` ga to'liq yo'lni ko'rsatish
+  const vkpii_usbPath = path.join(__dirname, "vkpii_usb");
+
+  // `exec` orqali `vkpii_usb` buyruqni ishlatish
+  exec(
+    `${vkpii_usbPath} ${binData.toString("hex")}`,
+    (error, stdout, stderr) => {
+      if (error) {
+        event.reply("check-output", { error: error.message });
+        return;
       }
-      return result;
-    });
-  const command = `vkpii_usb '${mockData}'`; // Buyruqni o'zgartiring
+      if (stderr) {
+        event.reply("check-output", { stderr });
+        return;
+      }
 
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      event.reply("command-output", `Error: ${error.message}`);
-      return;
+      // Stdoutni qaytarish (check ma'lumotlari)
+      event.reply("check-output", { stdout });
     }
-    if (stderr) {
-      event.reply("command-output", `stderr: ${stderr}`);
-      return;
-    }
-    event.reply("command-output", `stdout: ${stdout}`);
-  });
+  );
 });
-
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.

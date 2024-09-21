@@ -1,47 +1,46 @@
-// App.js (React komponenti)
-import React, { useEffect, useState } from "react";
-import { ipcRenderer } from "electron";
+import React, { useState } from "react";
+
+const { ipcRenderer } = window.require("electron"); // ipcRenderer-ni chaqirish
 
 const Check = () => {
-  const [output, setOutput] = useState("");
-  console.log(output);
+  const [checkData, setCheckData] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    ipcRenderer.on("command-output", (event, data) => {
-      console.log(event);
+  const sendCheckRequest = () => {
+    const data = {
+      // Kiosk yoki boshqa ma'lumotlarni to'ldirish
+      kioskId: "123",
+      address: "Some address",
+    };
 
-      setOutput(data);
+    // Electronga check yuborish
+    ipcRenderer.send("run-check", data);
+
+    // Javobni olish
+    ipcRenderer.once("check-output", (event, response) => {
+      if (response.error) {
+        setError(response.error);
+      } else if (response.stderr) {
+        setError(response.stderr);
+      } else {
+        setCheckData(response.stdout); // Check natijasini saqlash
+      }
     });
-
-    return () => {
-      ipcRenderer.removeAllListeners("command-output");
-    };
-  }, []);
-
-  const runCheck = () => {
-    const checkData = {
-      check: {
-        name: "check_name",
-        amount: 100,
-        currency: "USD",
-        date: "2024-09-21",
-        details: {
-          item1: {
-            description: "Item 1 description",
-            quantity: 2,
-          },
-          item2: {
-            description: "Item 2 description",
-            quantity: 3,
-          },
-        },
-      },
-    };
-
-    ipcRenderer.send("run-check", checkData);
   };
 
-  runCheck();
+  return (
+    <div>
+      <button onClick={sendCheckRequest}>Run Check</button>
+
+      {error && <div>Error: {error}</div>}
+      {checkData && (
+        <div>
+          <h3>Check Output:</h3>
+          <pre>{checkData}</pre>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Check;
