@@ -6,10 +6,6 @@ import { exec } from "child_process"; // exec funksiyasini import qilish
 import path from "node:path";
 import * as fs from "fs";
 
-import { fileURLToPath } from "url"; // __dirname uchun
-const __filename = fileURLToPath(import.meta.url); // __filename
-const __dirname = path.dirname(__filename);
-
 // ├─┬─┬ dist
 // │ │ | index.html
 // │ ├─┬ dist-electron
@@ -70,31 +66,25 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-
 ipcMain.on("run-check", (event, data) => {
-  const jsonString = JSON.stringify(data); // React'dan kelgan JSON ma'lumotlari
-  const binData = Buffer.from(jsonString, "utf8"); // JSONni binar formatga aylantirish
+  const jsonData = JSON.stringify(data.check);
+  const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
 
-  // `vkpii_usb` ga to'liq yo'lni ko'rsatish
-  const vkpii_usbPath = path.join(__dirname, "vkpii_usb");
+  // Faylning to'liq yo'li
+  const command =
+    path.join(__dirname, "dist-electron", "vkpii_usb") + ` ${binjs}`;
 
-  // `exec` orqali `vkpii_usb` buyruqni ishlatish
-  exec(
-    `${vkpii_usbPath} ${binData.toString("hex")}`,
-    (error, stdout, stderr) => {
-      if (error) {
-        event.reply("check-output", { error: error.message });
-        return;
-      }
-      if (stderr) {
-        event.reply("check-output", { stderr });
-        return;
-      }
-
-      // Stdoutni qaytarish (check ma'lumotlari)
-      event.reply("check-output", { stdout });
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      event.reply("command-output", `Error: ${error.message}`);
+      return;
     }
-  );
+    if (stderr) {
+      event.reply("command-output", `stderr: ${stderr}`);
+      return;
+    }
+    event.reply("command-output", `stdout: ${stdout}`);
+  });
 });
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
