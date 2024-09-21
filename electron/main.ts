@@ -7,18 +7,6 @@ import { exec } from "child_process";
 import path from "node:path";
 import * as fs from "fs";
 
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const vkpii_usbPath = join(__dirname, 'dist-electron', 'vkpii_usb');
-console.log(vkpii_usbPath);
-
-
-
-
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -80,36 +68,26 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-
-
 ipcMain.on("run-check", (event, data) => {
-  const jsonString = JSON.stringify(data); // React'dan kelgan JSON ma'lumotlari
-  const binData = Buffer.from(jsonString, "utf8"); // JSONni binar formatga aylantirish
-
-  // `vkpii_usb` ga to'liq yo'lni ko'rsatish
+  const jsonData = JSON.stringify(data.check);
+  const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
 
 
+  // Faylning to'liq yo'li
+  const command =
+    path.join(__dirname, "dist-electron", "vkpii_usb") + ` ${binjs}`;
 
-const command = `"${vkpii_usbPath}" 7b226b696f736b4964223a22313233222c2261646472657373223a22536f6d652061646472657373227d`;
- 
-
-  // `exec` orqali `vkpii_usb` buyruqni ishlatish
-  exec(
-    `./${command} ${binData.toString("hex")}`,
-    (error, stdout, stderr) => {
-      if (error) {
-        event.reply("check-output", { error: error.message });
-        return;
-      }
-      if (stderr) {
-        event.reply("check-output", { stderr });
-        return;
-      }
-
-      // Stdoutni qaytarish (check ma'lumotlari)
-      event.reply("check-output", { stdout });
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      event.reply("command-output", `Error: ${error.message}`);
+      return;
     }
-  );
+    if (stderr) {
+      event.reply("command-output", `stderr: ${stderr}`);
+      return;
+    }
+    event.reply("command-output", `stdout: ${stdout}`);
+  });
 });
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
