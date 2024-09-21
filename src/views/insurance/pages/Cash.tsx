@@ -88,12 +88,9 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
+      <Check />
       <div>
-        <FooterNav
-          nextTitle="Оплатить"
-          prevClick={() => navigate(-1)}
-          nextClick={() => Check()}
-        />
+        <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>
     </>
   );
