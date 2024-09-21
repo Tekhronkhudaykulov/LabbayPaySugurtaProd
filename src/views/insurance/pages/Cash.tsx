@@ -4,6 +4,7 @@ import { Check, FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
+import handleRunCheck from "../../../components/Check/view";
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
@@ -88,9 +89,13 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <Check />
+
       <div>
-        <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
+        <FooterNav
+          nextTitle="Оплатить"
+          prevClick={() => navigate(-1)}
+          nextClick={() => handleRunCheck()}
+        />
       </div>
     </>
   );

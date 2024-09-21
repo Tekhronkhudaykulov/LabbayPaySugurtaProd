@@ -67,6 +67,13 @@ function createWindow() {
   }
 }
 ipcMain.on("run-check", (event, data) => {
+  console.log(data); // Ma'lumotlarni konsolga chiqarish
+
+  if (!data || !data.check) {
+    event.reply("command-output", "Error: No data received");
+    return;
+  }
+
   const jsonData = JSON.stringify(data.check);
   const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
 
