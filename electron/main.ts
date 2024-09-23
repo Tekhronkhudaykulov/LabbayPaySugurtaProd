@@ -28,7 +28,6 @@ let workerWindow;
 function createWindow() {
   win = new BrowserWindow({
     fullscreen: true,
-
     resizable: false,
     frame: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),

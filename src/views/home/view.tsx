@@ -6,14 +6,9 @@ import { usePostCompany } from "../../hook/hook";
 import LoadingPage from "../../components/Loading/view";
 import Notification from "../../components/Notification/view";
 import { usePostError } from "../../store/usePostStore/usePostStore";
-import { useTranslation } from "react-i18next";
-import { changeLanguage } from "../../../i18n";
-import { useEffect } from "react";
 
 const Home = () => {
   useAuthRedirect(APP_ROUTES.HOME);
-
-  const { t, i18n } = useTranslation();
 
   const { mutate, isPending, isError } = usePostCompany();
 
@@ -38,10 +33,6 @@ const Home = () => {
     },
   ];
 
-  useEffect(() => {
-    i18n.language;
-  }, [i18n.language]);
-
   const handleSubmit = (company_id: number) => {
     // @ts-ignore
     mutate({ company_id: company_id });
@@ -64,7 +55,6 @@ const Home = () => {
               key={idx}
               onClick={() => {
                 handleSubmit(item.company_id);
-                changeLanguage(item.lng);
               }}
             />
           ))}

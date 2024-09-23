@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
 
 interface Props {
   className?: string;
@@ -16,8 +15,6 @@ const ServicesCard = ({
   title,
   classNameButton,
 }: Props) => {
-  const { t, i18n } = useTranslation();
-
   return (
     <div
       onClick={onClick}
@@ -32,7 +29,7 @@ const ServicesCard = ({
                transform transition-transform duration-150 ease-in-out 
                active:scale-90`}
       >
-        {t("cardButton")}
+        ОФОРМИТЬ
       </button>
     </div>
   );

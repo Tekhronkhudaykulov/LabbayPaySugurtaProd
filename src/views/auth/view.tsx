@@ -76,7 +76,11 @@ const Auth = () => {
   };
 
   const handleSubmit = () => {
-    mutate({ email: inputs.input1, password: inputs.input2 });
+    mutate({
+      email: inputs.input1,
+      password: inputs.input2,
+      deviceName: "redmi",
+    });
   };
 
   return (
