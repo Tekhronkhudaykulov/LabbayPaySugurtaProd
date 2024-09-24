@@ -21,7 +21,6 @@ const Services = () => {
 
   // Buttonni bosganda `company_id` uzatish
   const handleClick = (id: any) => {
-  
     mutate({ company_id: id });
   };
 

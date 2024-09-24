@@ -39,7 +39,7 @@ type PostCompanyParams = {
 
 const usePostCompany = () => {
   const navigate = useNavigate();
-// @ts-ignore
+  // @ts-ignore
   const { setServices } = usePostStore();
   const { setErrorTitle } = usePostError();
 
@@ -73,10 +73,9 @@ const usePostServicesDetail = () => {
       setServiceDetail(data.data.result);
       return data;
     },
-    onSuccess: (data: any,variables: any) => {
+    onSuccess: (data: any, variables: any) => {
       console.log(data);
-      
-      
+
       navigate(`${APP_ROUTES.REGISTER_CAR}/${variables.company_id}`);
     },
     onError: (error: any) => {
@@ -87,7 +86,7 @@ const usePostServicesDetail = () => {
 
 const stepOne = () => {
   const { setErrorTitle } = usePostError();
-// @ts-ignore
+  // @ts-ignore
 
   const { setStepOneData } = stepOneStore();
 
@@ -110,4 +109,35 @@ const stepOne = () => {
   });
 };
 
-export { useLoginMutation, usePostCompany, usePostServicesDetail, stepOne };
+const stepTwo = () => {
+  const { setErrorTitle } = usePostError();
+  // @ts-ignore
+
+  const { setStepOneData } = stepOneStore();
+
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (payload: StepOne) => {
+      const { data } = await requests.postStepTwo(payload);
+      setStepOneData(data.data.result.data);
+      return data;
+    },
+    onSuccess: () => {
+      // navigate(APP_ROUTES.DATA_CHECKING_CAR);
+    },
+    onError: (error: any) => {
+      if (error?.response) {
+        setErrorTitle(error.response.data.message);
+      }
+    },
+  });
+};
+
+export {
+  useLoginMutation,
+  usePostCompany,
+  usePostServicesDetail,
+  stepOne,
+  stepTwo,
+};

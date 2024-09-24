@@ -4,9 +4,17 @@ import { useRef, useState } from "react";
 import { FooterNav, KeyboardComponent } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../../router";
+import { stepTwo } from "../../../hook/hook";
+import { usePostStore } from "../../../store";
 
 const AddDocument = () => {
   const { t } = useTranslation();
+
+  const { mutate, isPending, isError } = stepTwo();
+
+  const { serviceDetail } = usePostStore();
+
+  const [singleObject] = Array.isArray(serviceDetail) ? serviceDetail : [];
 
   const keyboard = useRef(null);
 
@@ -82,6 +90,21 @@ const AddDocument = () => {
 
   const handleClick = (index: any) => {
     setIsActive(index);
+  };
+
+  let companyId = localStorage.getItem("companyId");
+
+  const sendValue = () => {
+    mutate({
+      company_id: companyId,
+      service_id: singleObject.service_id,
+      // @ts-ignore
+      texpsery: inputs.input2,
+      // @ts-ignore
+      texpnumber: inputs.input3,
+      // @ts-ignore
+      renumber: inputs.input1,
+    });
   };
 
   return (

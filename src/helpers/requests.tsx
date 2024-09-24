@@ -18,4 +18,6 @@ export const requests = {
 
   postStepOne: (params: StepOne) =>
     $api.post(`${API_URL}/get-step-one`, params),
+
+  postStepTwo: (params: any) => $api.post(`${API_URL}/get-step-two`, params),
 };

@@ -14,12 +14,13 @@ import { useTranslation } from "react-i18next";
 const RegisterCar = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id, "iddddd  ")
 
   const { t } = useTranslation();
 
-  const companyId = Number(id);
-  console.log(companyId, "companyid")
+  let companyId = Number(id);
+
+  localStorage.setItem("companyId", companyId);
+
   // @ts-ignore
   const { serviceDetail } = usePostStore();
 
@@ -106,11 +107,11 @@ const RegisterCar = () => {
     mutate({
       company_id: companyId,
       service_id: singleObject.service_id,
-// @ts-ignore
+      // @ts-ignore
       texpsery: inputs.input2,
-// @ts-ignore
+      // @ts-ignore
       texpnumber: inputs.input3,
-// @ts-ignore
+      // @ts-ignore
       renumber: inputs.input1,
     });
   };

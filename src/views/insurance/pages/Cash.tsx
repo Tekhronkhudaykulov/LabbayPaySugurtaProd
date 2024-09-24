@@ -5,12 +5,27 @@ import { FooterNav, Text } from "../../../components";
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 import handleRunCheck from "../../../components/Check/view";
+import { useState } from "react";
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
+  const [printText, setPrintText] = useState("Привет, мир!");
   CashDevice();
 
   const navigate = useNavigate();
+
+  const handlePrint = async () => {
+    try {
+      const result = await window.electronAPI.handlePrinter(printText);
+      if (result.success) {
+        console.log("Печать успешна:", result.data);
+      } else {
+        console.error("Ошибка при печати:", result.message);
+      }
+    } catch (error) {
+      console.error("Ошибка при печати:", error);
+    }
+  };
   return (
     <>
       <div className="flex justify-between gap-4  mt-[10px]">
@@ -94,7 +109,7 @@ const Cash = () => {
         <FooterNav
           nextTitle="Оплатить"
           prevClick={() => navigate(-1)}
-          nextClick={() => handleRunCheck()}
+          nextClick={() => handlePrint()}
         />
       </div>
     </>
