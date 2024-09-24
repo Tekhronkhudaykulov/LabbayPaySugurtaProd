@@ -6,9 +6,12 @@ import { usePostCompany } from "../../hook/hook";
 import LoadingPage from "../../components/Loading/view";
 import Notification from "../../components/Notification/view";
 import { usePostError } from "../../store/usePostStore/usePostStore";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   useAuthRedirect(APP_ROUTES.HOME);
+
+  const { t, i18n } = useTranslation();
 
   const { mutate, isPending, isError } = usePostCompany();
 
@@ -38,6 +41,11 @@ const Home = () => {
     mutate({ company_id: company_id });
   };
 
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("i18nextLng", lang); // Tilni localStorage'ga yozish
+  };
+
   return (
     <>
       {isError && <Notification message={errorTitle} onClose="" />}
@@ -55,6 +63,7 @@ const Home = () => {
               key={idx}
               onClick={() => {
                 handleSubmit(item.company_id);
+                changeLanguage(item.lng);
               }}
             />
           ))}

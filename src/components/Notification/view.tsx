@@ -56,7 +56,7 @@ const Notification = ({ message, onClose }: any) => {
     <div className={`notification ${visible ? "slide-down" : "slide-up"}`}>
       <div className="w-[90%] bg-white  slide-down-item  px-[20px] gap-x-[15px] py-[10px] rounded-[40px] mx-auto flex items-center">
         <img src={ASSETS.Notification} alt="" />
-        <p className="text-[24px] text-center">{message}</p>
+        <p className="text-[24px] text-center text-[green]">{message}</p>
       </div>
     </div>
   );

@@ -1,26 +1,32 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import Backend from "i18next-http-backend";
-import LanguageDetector from "i18next-browser-languagedetector";
+import en from "./src/i18/en/translation.json";
+import uz from "./src/i18/uz/translation.json";
+import ru from "./src/i18/ru/translation.json";
+
+const savedLanguage = localStorage.getItem("i18nextLng") || "uz"; // Agar localStorage'da til bo'lm
+
+const resources = {
+  en: {
+    translation: en,
+  },
+  ru: {
+    translation: ru,
+  },
+  uz: {
+    translation: uz,
+  },
+};
 
 i18n
-  .use(Backend)
-  .use(LanguageDetector)
-  .use(initReactI18next)
+  .use(initReactI18next) // i18next bilan react-i18next ni bog'lash
   .init({
-    fallbackLng: "ru", // Asosiy til
-    debug: true,
+    resources,
+    lng: savedLanguage, // Sukut bo'yicha til
+    fallbackLng: "ru", // Til topilmasa, qaysi tilga o'tish kerak
     interpolation: {
-      escapeValue: false,
-    },
-    backend: {
-      loadPath: "../src/locales/{{lng}}/translation.json",
+      escapeValue: false, // XSS xavfini oldini olish uchun
     },
   });
 
 export default i18n;
-
-// Til o'zgartirish funksiyasi
-export const changeLanguage = (languageCode: string) => {
-  i18n.changeLanguage(languageCode); // Foydalanuvchi tanlagan til
-};
