@@ -43,7 +43,7 @@ const CheckingCardInput = ({
       </div>
       <input
         typeof="number"
-        className="text-[20px] border-none font-[700] outline-none"
+        className="text-[20px] w-full border-none font-[700] outline-none"
         type="text"
         value={value}
         onChange={onChange}
