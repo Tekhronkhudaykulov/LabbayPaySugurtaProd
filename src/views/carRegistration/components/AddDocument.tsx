@@ -17,8 +17,6 @@ const AddDocument = () => {
   const [layoutName, setLayoutName] = useState("default");
 
   console.log(layoutName);
-  
-
 
   const [inputName, setInputName] = useState("");
 
@@ -87,8 +85,8 @@ const AddDocument = () => {
   };
 
   return (
-    <div className="bg-content py-[10px] px-[24px] mt-[15px]">
-      <div className="grid grid-cols-3 gap-x-[15px] py-[10px]">
+    <div className="bg-content py-[10px] px-[24px] pt-[50px]">
+      <div className="grid grid-cols-3 gap-x-[15px]">
         <CheckingCardInput
           label={t("passport.passportSeria")}
           className={`bg-white rounded-[14px] button-animation px-[20px] py-[10px] ${

@@ -6,6 +6,8 @@
   height: 400px !important;
   border: 4px solid #9070ff !important;
   border-radius: 20px;
+  -webkit-border-radius: 20px; /* Safari */
+  -moz-border-radius: 20px; /* Firefox */
 }
 
 .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
