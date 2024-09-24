@@ -26,8 +26,6 @@ const RegisterCar = () => {
 
   const [singleObject] = Array.isArray(serviceDetail) ? serviceDetail : [];
 
-  console.log(singleObject);
-
   const [inputs, setInputs] = useState({});
   const [isActive, setIsActive] = useState(5);
 

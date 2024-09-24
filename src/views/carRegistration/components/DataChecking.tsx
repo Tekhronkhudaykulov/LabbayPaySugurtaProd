@@ -3,7 +3,7 @@ import { ASSETS } from "../../../assets/images/assets";
 import { FooterNav } from "../../../components";
 import { APP_ROUTES } from "../../../router";
 import { stepOneStore } from "../../../store/usePostStore/usePostStore";
-import { CheckingCard, CheckingCardInput } from "../../../components/Cards";
+import { CheckingCard } from "../../../components/Cards";
 import { useTranslation } from "react-i18next";
 
 const DataChecking = () => {
@@ -12,19 +12,21 @@ const DataChecking = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <div className=" flex flex-col">
+    <div className=" flex flex-col mt-[30px]">
       <div className="flex items-center justify-center">
         <img src={ASSETS.Info} alt="" />
         <div className="grid gap-y-[10px]">
-          <p className="text-orangeInfo text-center text-[22px] font-[700]">
+          <p className="text-orangeInfo text-center text-[35px] font-[700]">
             {t("checkData.title")}!
           </p>
-          <p className="text-[18px] font-[500]">{t("checkData.subtitle")}:</p>
+          <p className="text-[22px] text-center font-[500]">
+            {t("checkData.subtitle")}:
+          </p>
         </div>
         <img src={ASSETS.Info} alt="" />
       </div>
       <div>
-        <div className="grid gap-y-[10px]">
+        <div className="grid gap-y-[10px] mt-[30px]">
           <div className="grid grid-cols-4 gap-x-[14px] mt-[15px]">
             <CheckingCard
               label={t("checkData.model")}
@@ -60,38 +62,11 @@ const DataChecking = () => {
             />
           </div>
         </div>
-        <div className="bg-content py-[10px] px-[24px] mt-[15px]">
-          {/* <p className="text-[18px] text-[#0D0D0D] font-[500] !mb-[15px]">
-            Данные собственника транспортного средства:
-          </p>
-          <CheckingCard
-            label="Владелец автомобиля:"
-            title="TURDIBAEV MARAT JOHON UGLI"
-            className="bg-white rounded-[14px] px-[20px] py-[10px] "
-          /> */}
-          <div className="grid grid-cols-3 gap-x-[15px] ">
-            {/* <CheckingCard
-              label="ПИНФЛ владельца ТС"
-              title="17236812739"
-              className="bg-white rounded-[14px] px-[20px] py-[10px] "
-            /> */}
-            <CheckingCardInput
-              label={t("passport.passportSeria")}
-              className="bg-white rounded-[14px] px-[20px] py-[10px] "
-              ind={0}
-            />
-            <CheckingCardInput
-              label={t("passport.passportNumber")}
-              className="bg-white rounded-[14px] px-[20px] py-[10px] "
-              ind={1}
-            />
-          </div>
-        </div>
       </div>
-      <div className="mt-[15px]">
+      <div className="mt-[25px]">
         <FooterNav
           nextTitle="ДАЛЕЕ"
-          nextClick={() => navigate(APP_ROUTES.INSURANCE)}
+          nextClick={() => navigate(APP_ROUTES.ADD_DOCUMENT)}
           prevClick={() => navigate(-1)}
         />
       </div>

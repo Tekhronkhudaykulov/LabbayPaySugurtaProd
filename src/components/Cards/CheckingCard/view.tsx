@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { useClassName } from "../../../hook/context";
-
 interface CheckingCardType {
   title?: string | undefined;
   label?: string;
   className: string;
   ind?: number;
+  handleClick?: () => void;
+  handleBlur?: () => void;
+  isActive?: any;
+  value?: any;
+  onFocus?: any;
+  onChange?: any;
 }
 
 const CheckingCard = ({ title, label, className }: CheckingCardType) => {
@@ -19,23 +22,21 @@ const CheckingCard = ({ title, label, className }: CheckingCardType) => {
   );
 };
 
-const CheckingCardInput = ({ label, className, ind }: CheckingCardType) => {
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    setIsActive(true);
-  };
-
-  const handleBlur = () => {
-    setIsActive(false);
-  };
-
+const CheckingCardInput = ({
+  label,
+  className,
+  handleClick,
+  handleBlur,
+  value,
+  onFocus,
+  onChange,
+}: CheckingCardType) => {
   return (
     <label
-      className={`${className} ${isActive ? "focus-input" : ""}`}
+      className={`${className} `}
       onClick={handleClick}
       onBlur={handleBlur}
-      tabIndex={ind}
+      onFocus={onFocus}
     >
       <div className="text-[18px] font-[500] h-[38px] text-contentText">
         {label}
@@ -44,6 +45,8 @@ const CheckingCardInput = ({ label, className, ind }: CheckingCardType) => {
         typeof="number"
         className="text-[20px] border-none font-[700] outline-none"
         type="text"
+        value={value}
+        onChange={onChange}
       />
     </label>
   );
