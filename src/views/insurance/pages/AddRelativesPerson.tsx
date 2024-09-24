@@ -162,7 +162,9 @@ const AddRelativesPerson = () => {
       <div className="mt-[-5px]">
         <FooterNav
           prevClick={() => navigate(-1)}
-          nextClick={() => navigate(APP_ROUTES.ADDPHONENUMBERCONFIRM)}
+          nextClick={() =>
+            navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.SELECTCURRENCY}`)
+          }
         />
       </div>
     </>

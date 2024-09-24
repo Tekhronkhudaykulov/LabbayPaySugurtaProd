@@ -125,12 +125,12 @@ const RegisterCar = () => {
               />
               <div
                 onClick={() => setIsActive(0)}
-                className={isActive === 0 ? "focus-input" : ""}
+                className={isActive === 0 ? "focus-input button-animation" : ""}
                 tabIndex={0}
               >
                 <input
                   name="input1"
-                  className={`px-[20px]   h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px]`}
+                  className={`px-[20px] border-none  h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px]`}
                   type="text"
                   placeholder="01A000AA"
                   value={getInputValue("input1")}
@@ -151,11 +151,13 @@ const RegisterCar = () => {
               <div className="input-container">
                 <div
                   onClick={() => setIsActive(1)}
-                  className={isActive === 1 ? "focus-input" : ""}
+                  className={
+                    isActive === 1 ? "focus-input button-animation" : ""
+                  }
                 >
                   <input
                     name="input2"
-                    className="px-[10px] h-[60px]   text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    className="px-[10px] h-[60px] border-none  text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                     type="text"
                     placeholder="AAF"
                     value={getInputValue("input2")}
@@ -169,11 +171,13 @@ const RegisterCar = () => {
                 </div>
                 <div
                   onClick={() => setIsActive(2)}
-                  className={isActive === 2 ? "focus-input" : ""}
+                  className={
+                    isActive === 2 ? "focus-input button-animation" : ""
+                  }
                 >
                   <input
                     name="input3"
-                    className="px-[20px] h-[60px]   text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    className="px-[20px] h-[60px] border-none   text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                     type="number"
                     placeholder={t("serviceDetail.numberTexPass")}
                     value={getInputValue("input3")}

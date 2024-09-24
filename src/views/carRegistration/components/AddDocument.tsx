@@ -87,7 +87,7 @@ const AddDocument = () => {
       <div className="grid grid-cols-3 gap-x-[15px] py-[10px]">
         <CheckingCardInput
           label={t("passport.passportSeria")}
-          className={`bg-white rounded-[14px] px-[20px] py-[10px] ${
+          className={`bg-white rounded-[14px] button-animation px-[20px] py-[10px] ${
             isActive === 0 ? "focus-input" : ""
           }`}
           value={getInputValue("input1")}
@@ -103,7 +103,7 @@ const AddDocument = () => {
         />
         <CheckingCardInput
           label={t("passport.passportNumber")}
-          className={`bg-white rounded-[14px] px-[20px] py-[10px] ${
+          className={`bg-white rounded-[14px] button-animation px-[20px] py-[10px] ${
             isActive === 1 ? "focus-input" : ""
           }`}
           value={getInputValue("input2")}
