@@ -76,6 +76,9 @@ const Cash = lazy(() => import("./insurance/pages/Cash"));
 const Terminal = lazy(() => import("./insurance/pages/Terminal"));
 const Sms = lazy(() => import("./insurance/pages/Sms"));
 const Auth = lazy(() => import("./auth/view"));
+const AddDocument = lazy(
+  () => import("./carRegistration/components/AddDocument")
+);
 export {
   Home,
   SupportService,
@@ -117,4 +120,5 @@ export {
   Sms,
   Terminal,
   Auth,
+  AddDocument,
 };

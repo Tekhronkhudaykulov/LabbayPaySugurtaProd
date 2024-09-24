@@ -19,6 +19,7 @@ export const APP_ROUTES = {
   OVER_PLAY_SEND_CHECK: "/over_play_send_check",
   REGISTER_CAR: "/register_car",
   DATA_CHECKING_CAR: "/checking_car",
+  ADD_DOCUMENT: "/addDocument",
   PAYMENT_OF_REGISTER_CAR: "/payment_of_register_car",
   PAYMENT_OF_REGISTER_CAR_TYPE: "payment_of_register_car_type",
   PAYMENT_OF_REGISTER_CAR_CASH: "payment_of_register_car_cash",

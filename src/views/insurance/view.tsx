@@ -7,6 +7,7 @@ import { useState } from "react";
 import "./pages/index.scss";
 import "antd/dist/reset.css";
 import { AddPhoneNumber } from "..";
+import { useTranslation } from "react-i18next";
 
 const Insurance = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const Insurance = () => {
   const handleClick = (index: number) => {
     setActiveIndex(index);
   };
+
+  const { t } = useTranslation();
 
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -51,12 +54,12 @@ const Insurance = () => {
       >
         <AddPhoneNumber />
       </Modal>
-      <div className="flex flex-col ">
+      <div className="flex flex-col">
         <div className="bg-[#F4F4F4] rounded-[20px] px-[25px] py-[15px]">
           <div className="bg-white px-[25px] flex items-center gap-y-[10px]  py-[25px] rounded-[36px]">
             <div>
               <Text
-                text="Номер телефона:"
+                text={t("phone")}
                 className="text-[20px] font-[500] mb-[15px]"
               />
               <div>
@@ -74,7 +77,7 @@ const Insurance = () => {
               </div>
               <div className="flex items-center justify-between   gap-[20px] mt-[20px] py-[25px] px-[20px] bg-[#F7F7F7] rounded-[22px] ">
                 <label className="text-[25px] font-[500]">
-                  Владелец является заявителем
+                  {t("insurance.howI")}
                 </label>
 
                 <input
@@ -85,21 +88,24 @@ const Insurance = () => {
             </div>
             <div className="f w-[40%] mx-auto">
               <p className=" text-center text-[20px] text-[red] ">
-                Введите существующий номер телефона, так как СМС о покупке
-                полиса будет отправлено на этот номер.
+                {t("insurance.titleSms")}
               </p>
             </div>
           </div>
           <div className="flex flex-col gap-y-[15px] mt-[15px]">
             <div className="grid grid-cols-3 items-center gap-x-[25px]">
-              <div className="text-[20px] font-[700]">Выберите тип полиса:</div>
+              <div className="text-[20px] font-[700]">
+                {t("insurance.policeType")}:
+              </div>
               <div
                 onClick={() => handleClick(0)}
                 className={`flex items-center gap-x-[30px] h-[70px] px-[20px] justify-between bg-white  rounded-[15px] ${
                   activeIndex === 0 && "border border-purple"
                 }`}
               >
-                <p className="text-[20px] font-[700]">Неограничено : </p>
+                <p className="text-[20px] font-[700]">
+                  {t("insurance.Unlimited")} :{" "}
+                </p>
                 <img
                   className="w-[50px] h-[50px]"
                   src={ASSETS.Infinite}
@@ -112,13 +118,15 @@ const Insurance = () => {
                   activeIndex === 1 && "border border-purple"
                 }`}
               >
-                <p className="text-[20px] font-[700]">До 5 человек: </p>
+                <p className="text-[20px] font-[700]">
+                  {t("insurance.PeopleTotal")}:{" "}
+                </p>
                 <img className="w-[50px] h-[50px]" src={ASSETS.Mens} alt="" />
               </div>
             </div>
             <div className="grid grid-cols-3  gap-x-[25px] items-center">
               <div className="text-[20px] font-[700]">
-                Выберите период <br /> страхования:
+                {t("insurance.insuranceYear")}
               </div>
               <div
                 onClick={() => handleClick(2)}
@@ -126,7 +134,7 @@ const Insurance = () => {
                   activeIndex === 2 && "border border-purple"
                 }`}
               >
-                <p className="text-[20px] font-[700]">1 год: </p>
+                <p className="text-[20px] font-[700]">{t("insurance.year")} </p>
                 <p className="text-[20px] font-[700] text-[#7076FF]">
                   168 000 сум
                 </p>
@@ -138,7 +146,9 @@ const Insurance = () => {
                     activeIndex === 3 && "border border-purple"
                   }`}
                 >
-                  <p className="text-[20px] font-[700]">6 месяцев: </p>
+                  <p className="text-[20px] font-[700]">
+                    {t("insurance.month")}:{" "}
+                  </p>
                   <p className="text-[20px] font-[700] text-[#7076FF]">
                     117 600 сум
                   </p>
@@ -146,7 +156,9 @@ const Insurance = () => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-[20px] font-[700]">Дата страхования:</p>
+              <p className="text-[20px] font-[700]">
+                {t("insurance.insuranceDate")}:
+              </p>
               <div className="h-[60px] gap-x-[20px]  px-[25px] rounded-[15px] bg-white flex items-center justify-between">
                 <div onClick={handleClickDate1}>
                   <DatePicker
@@ -173,7 +185,10 @@ const Insurance = () => {
           </div>
         </div>
         <div className="mt-auto">
-          <FooterNav prevClick={() => navigate(-1)} nextClick={() => navigate(APP_ROUTES.ADDRELATIVES)} />
+          <FooterNav
+            prevClick={() => navigate(-1)}
+            nextClick={() => navigate(APP_ROUTES.ADDRELATIVES)}
+          />
         </div>
       </div>
     </>

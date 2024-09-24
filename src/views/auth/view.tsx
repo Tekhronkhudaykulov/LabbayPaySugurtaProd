@@ -80,8 +80,14 @@ const Auth = () => {
   const handleSubmit = () => {
 
     mutate({
+    // @ts-ignore
+
       email: inputs.input1,
+    // @ts-ignore
+
       password: inputs.input2,
+    // @ts-ignore
+
       deviceName: "redmi",
     });
   };

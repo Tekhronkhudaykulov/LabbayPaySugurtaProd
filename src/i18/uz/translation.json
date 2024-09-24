@@ -1,1 +1,55 @@
+{
+  "home": {
+    "bannerTitle": "Avtomobilingiz uchun OSAGO sug'urtasi ",
 
+    "bannerTitleSpan": "tez va qulay",
+    "bannerTitleLast": "Sugurtapolis bilan",
+    "selectCompany": "Kompaniyani tanlang",
+    "cardTitle": "Kanadaning CROSURE IT kompaniyasi bilan birgalikda ishlab chiqilgan",
+    "cardButton": "Yuborish"
+  },
+  "serviceDetail": {
+    "carNum": "Mashinaning raqami",
+    "carSeria": "Seriya bilan raqam texpassport",
+    "CoverageAmount": "Qoplash miqdori",
+    "numberTexPass": "Tex passport raqam"
+  },
+  "checkData": {
+    "title": "Ma`lumotlarni tekshiring",
+    "subtitle": "Avtotransport vositasini ro'yxatdan o'tkazish guvohnomasi (ro'yxatga olish guvohnomasi) tafsilotlari:",
+    "model": "Avtomobil modeli:",
+    "typeCar": "Avtomobil turi",
+    "regionRegister": "Ro'yxatdan o'tish hududi:",
+    "yearCard": "Ishlab chiqarilgan yili:",
+    "bodyNumber": "Avtomobil kuzov raqami:",
+    "VehicleNumber": "Avtomobil dvigateli raqami:"
+  },
+
+  "insurance": {
+    "howI": "Egasi ariza beruvchi hisoblanadi",
+    "titleSms": "Mavjud telefon raqamini kiriting, chunki bu raqamga siyosat sotib olish haqida SMS yuboriladi",
+    "policeType": "Sug`urta turini tanlang",
+    "Unlimited": "Cheksiz",
+    "PeopleTotal": "5 kishigacha",
+    "insuranceYear": "Sug'urta muddatini tanlang",
+    "year": "1 yil",
+    "month": "6 oy",
+    "insuranceDate": "Sugurta vaqti"
+  },
+
+  "passport": {
+    "passportSeria": "Seriyali pasport / ID karta:",
+    "passportNumber": "Pasport raqami/ID-karta:"
+  },
+  "navbarTitle": {
+    "atHome": "Asosiy sahifaga  qaytish",
+    "supportTitle": "Yordam stoli"
+  },
+  "phone": "Telefon raqam",
+  "enterPhone": "Telefon raqamingizni kiriting",
+  "buttons": {
+    "prev": "Ortga",
+
+    "next": "Oldinga"
+  }
+}

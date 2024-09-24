@@ -41,6 +41,7 @@ import {
   Sms,
   Terminal,
   Auth,
+  AddDocument,
 } from "../views";
 
 export const _routes = [
@@ -48,7 +49,6 @@ export const _routes = [
     path: APP_ROUTES.HOME,
     element: Home,
     exact: true,
-
   },
   {
     path: APP_ROUTES.SUPPORT_SERVICE,
@@ -66,6 +66,10 @@ export const _routes = [
   {
     path: APP_ROUTES.DATA_CHECKING_CAR,
     element: DataCheckingCar,
+  },
+  {
+    path: APP_ROUTES.ADD_DOCUMENT,
+    element: AddDocument,
   },
   {
     path: APP_ROUTES.INSURANCE,
@@ -102,7 +106,6 @@ export const _routes = [
       {
         path: APP_ROUTES.CASH,
         element: Cash,
-
       },
       {
         path: APP_ROUTES.TERMINAL,

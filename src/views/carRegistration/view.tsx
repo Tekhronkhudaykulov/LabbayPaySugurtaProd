@@ -9,11 +9,14 @@ import { stepOne } from "../../hook/hook";
 import LoadingPage from "../../components/Loading/view";
 import Notification from "../../components/Notification/view";
 import { usePostError } from "../../store/usePostStore/usePostStore";
+import { useTranslation } from "react-i18next";
 
 const RegisterCar = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id, "iddddd  ")
+
+  const { t } = useTranslation();
 
   const companyId = Number(id);
   console.log(companyId, "companyid")
@@ -25,8 +28,6 @@ const RegisterCar = () => {
   const { mutate, isPending, isError } = stepOne();
 
   const [singleObject] = Array.isArray(serviceDetail) ? serviceDetail : [];
-
-  console.log(singleObject);
 
   const [inputs, setInputs] = useState({});
   const [isActive, setIsActive] = useState(5);
@@ -125,17 +126,17 @@ const RegisterCar = () => {
           <div className="bg-[#F4F4F4] py-[15px] px-[15px] rounded-[36px] ">
             <div>
               <Text
-                text="Номер машины"
+                text={t("serviceDetail.carNum")}
                 className="text-[20px] font-[500] mb-[5px]"
               />
               <div
                 onClick={() => setIsActive(0)}
-                className={isActive === 0 ? "focus-input" : ""}
+                className={isActive === 0 ? "focus-input button-animation" : ""}
                 tabIndex={0}
               >
                 <input
                   name="input1"
-                  className={`px-[20px]   h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px]`}
+                  className={`px-[20px] border-none  h-[60px] text-[22px] w-full font-[500]  outline-none text-[#E8E8E8]   rounded-[21px]`}
                   type="text"
                   placeholder="01A000AA"
                   value={getInputValue("input1")}
@@ -150,17 +151,19 @@ const RegisterCar = () => {
             </div>
             <div className="mt-[15px]">
               <Text
-                text="Серия и номер техпаспорта"
+                text={t("serviceDetail.carSeria")}
                 className="text-[20px]  font-[500] mb-[5px]"
               />
               <div className="input-container">
                 <div
                   onClick={() => setIsActive(1)}
-                  className={isActive === 1 ? "focus-input" : ""}
+                  className={
+                    isActive === 1 ? "focus-input button-animation" : ""
+                  }
                 >
                   <input
                     name="input2"
-                    className="px-[10px] h-[60px]   text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    className="px-[10px] h-[60px] border-none  text-[20px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                     type="text"
                     placeholder="AAF"
                     value={getInputValue("input2")}
@@ -174,13 +177,15 @@ const RegisterCar = () => {
                 </div>
                 <div
                   onClick={() => setIsActive(2)}
-                  className={isActive === 2 ? "focus-input" : ""}
+                  className={
+                    isActive === 2 ? "focus-input button-animation" : ""
+                  }
                 >
                   <input
                     name="input3"
-                    className="px-[20px] h-[60px]   text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
+                    className="px-[20px] h-[60px] border-none   text-[22px] w-full font-[500] outline-none text-[#E8E8E8] border rounded-[21px]"
                     type="number"
-                    placeholder="номер техпаспорта"
+                    placeholder={t("serviceDetail.numberTexPass")}
                     value={getInputValue("input3")}
                     onFocus={(e: any) => {
                       e.target.blur();
@@ -207,7 +212,9 @@ const RegisterCar = () => {
                 <p className="text-[22px] font-[600]">117 000 сум</p>
               </div>
               <div className="flex items-center justify-between mt-[15px]">
-                <p className="text-[22px] font-[600]">Сумма покрытия:</p>
+                <p className="text-[22px] font-[600]">
+                  {t("serviceDetail.CoverageAmount")}:
+                </p>
                 <p className="text-[22px] font-[600]">117 000 сум</p>
               </div>
             </div>
@@ -224,7 +231,6 @@ const RegisterCar = () => {
         <div className="mt-auto">
           <FooterNav
             prevClick={() => navigate(APP_ROUTES.SERVICES)}
-            nextTitle="ДАЛЕЕ"
             nextClick={handleClick}
           />
         </div>

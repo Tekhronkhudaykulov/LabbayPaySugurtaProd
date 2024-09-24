@@ -3,8 +3,10 @@ import { useRef, useState } from "react";
 import InputMask from "react-input-mask";
 import { FooterNav, KeyboardComponent, Text } from "../../../components";
 import { numericKeyboard } from "../../../components/Keyboard/typesKeyboars";
+import { useTranslation } from "react-i18next";
 
 const AddPhoneNumber = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
   const [inputName, setInputName] = useState<string>("");
@@ -41,7 +43,7 @@ const AddPhoneNumber = () => {
         className={`bg-content py-[20px] px-5 rounded-[36px] w-[810px] mx-auto`}
       >
         <Text
-          text="Введите номер телефона:"
+          text={t("enterPhone")}
           className="font-[500] text-[22px] mb-2.5"
         />
         <div className="flex items-center gap-[20px] p-[10px] bg-white rounded-[22px]">
@@ -53,7 +55,7 @@ const AddPhoneNumber = () => {
             id="phone"
             name="phone"
             mask="99 999 99 99"
-            className="text-[22px] p-0 h-[50px] !outline-none  !no-caret"
+            className="text-[22px] p-0 h-[50px] !outline-none border-none !no-caret"
             value={phone}
             onFocus={(e: any) => {
               e.target.blur();

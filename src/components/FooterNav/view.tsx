@@ -1,5 +1,6 @@
 import "antd/dist/reset.css";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   prevTitle?: string;
@@ -19,13 +20,15 @@ const FooterNav = ({
   nextDisabled = false,
   showNextButton = true,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex items-center justify-center gap-3 py-4 mt-auto ">
       <button
         className={`uppercase rounded-[15px] w-[400px]  button-animation text-[24px] text-black border h-[70px] `}
         onClick={prevClick}
       >
-        {prevTitle ? prevTitle : "Назад"}
+        {prevTitle ? prevTitle : t("buttons.prev")}
       </button>
       {showNextButton ? (
         <button
@@ -35,7 +38,7 @@ const FooterNav = ({
             nextDisabled && "opacity-50"
           }`}
         >
-          {nextTitle ? nextTitle : "Продолжить"}
+          {nextTitle ? nextTitle : t("buttons.next")}
         </button>
       ) : null}
     </div>
