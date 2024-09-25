@@ -99,20 +99,18 @@ const printHTML = (htmlContent: any) => {
     },
   });
 
-  // HTMLni yuklash
   printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
 
-  // Yuklash tugallangandan keyin chop etish
   printWindow.webContents.on("did-finish-load", () => {
     printWindow.webContents.print(
-      { silent: true, deviceName: "VKP80" }, // Printerni avtomatik tanlash uchun silent mode
+      { silent: true, deviceName: "VKP80" }, // Avtomatik printer tanlash
       (error) => {
         if (error) {
           console.error("Failed to print:", error);
         } else {
           console.log("Print job sent successfully!");
         }
-        printWindow.close(); // Oynani yopish
+        printWindow.close();
       }
     );
   });
