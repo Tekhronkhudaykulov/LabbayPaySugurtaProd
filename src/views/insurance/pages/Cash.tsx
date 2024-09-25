@@ -20,18 +20,32 @@ const Cash = () => {
 
   const navigate = useNavigate();
 
-  const [text, setText] = useState("Salom texron");
+
+  const [text, setText] = useState("HELLO WORLD");
   console.log(setText);
   
+  const [message, setMessage] = useState("HELLO WORL");
 
-  const handlePrint = async () => {
+  console.log(message);
+  
+
+  const printText = async () => {
     try {
-      const result = await window.printer.printText(text);
-      console.log("Print Success:", result);
-    } catch (error) {
-      console.error("Print Error:", error);
+      const response = await fetch("http://localhost:3001/print", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      const result = await response.text();
+      setMessage(result);
+    } catch (error: any) {
+      setMessage(`Error: ${error.message}`);
     }
   };
+
   return (
     <>
       <div className="flex justify-between gap-4  mt-[10px]">
@@ -115,7 +129,7 @@ const Cash = () => {
         <FooterNav
           nextTitle="Оплатить"
           prevClick={() => navigate(-1)}
-          nextClick={() => handlePrint()}
+          nextClick={() => printText()}
         />
       </div>
     </>
