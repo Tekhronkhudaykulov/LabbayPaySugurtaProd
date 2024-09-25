@@ -68,58 +68,27 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-const printHTML = (htmlContent: any, printerName: any) => {
-  const printWindow = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
 
-  printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
-
-  printWindow.webContents.on("did-finish-load", () => {
-    printWindow.webContents.print(
-      { printBackground: true, deviceName: printerName },
-      (error) => {
-        if (error) {
-          console.error("Failed to print:", error);
-        } else {
-          console.log("Print job sent successfully!");
-        }
-        printWindow.close();
-      }
-    );
+const printText = (text: any) => {
+  const command = `echo "${text}" | lp -d ${printerName}`;
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    if (stderr) {
+      console.error(stderr);
+      return;
+    }
+    console.log(stdout);
   });
 };
 
-ipcMain.on("print-request", (event, { htmlContent, printerName }) => {
+ipcMain.on("print-request", (event, text) => {
   console.log(event);
 
-  printHTML(htmlContent, printerName);
+  printText(text);
 });
-
-// const printText = (text: any) => {
-//   const command = `echo "${text}" | lp -d ${printerName}`;
-//   exec(command, (error, stdout, stderr) => {
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
-//     if (stderr) {
-//       console.error(stderr);
-//       return;
-//     }
-//     console.log(stdout);
-//   });
-// };
-
-// ipcMain.on("print-request", (event, text) => {
-//   console.log(event);
-
-//   printText(text);
-// });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
