@@ -51,7 +51,9 @@ const Cash = () => {
       </body>
     </html>
   `;
-    ipcRenderer.send("print-request", htmlContent);
+    const printerName = "VKP80";
+
+    ipcRenderer.send("print-request", { htmlContent, printerName });
   };
 
   return (
