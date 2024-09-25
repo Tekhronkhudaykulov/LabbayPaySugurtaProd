@@ -4,15 +4,7 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
-import { useState } from "react";
-
-declare global {
-  interface Window {
-    printer: {
-      printText: (text: string) => Promise<string>;
-    };
-  }
-}
+const { ipcRenderer } = window.require("electron");
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
@@ -21,29 +13,8 @@ const Cash = () => {
   const navigate = useNavigate();
 
 
-  const [text, setText] = useState("HELLO WORLD");
-  console.log(setText);
-  
-  const [message, setMessage] = useState("HELLO WORL");
-
-  console.log(message);
-  
-
-  const printText = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/print", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text }),
-      });
-
-      const result = await response.text();
-      setMessage(result);
-    } catch (error: any) {
-      setMessage(`Error: ${error.message}`);
-    }
+  const handlePrint = () => {
+    ipcRenderer.send("print-request", "HELLO WORLD");
   };
 
   return (
@@ -124,13 +95,9 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-
+      <button onClick={handlePrint}>Print "HELLO WORLD"</button>
       <div>
-        <FooterNav
-          nextTitle="Оплатить"
-          prevClick={() => navigate(-1)}
-          nextClick={() => printText()}
-        />
+        <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>
     </>
   );

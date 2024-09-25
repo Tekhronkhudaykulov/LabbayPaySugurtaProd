@@ -25,6 +25,8 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 // @ts-ignore
 let workerWindow;
 
+const printerName = "VKP80";
+
 function createWindow() {
   win = new BrowserWindow({
     fullscreen: true,
@@ -66,25 +68,28 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-ipcMain.handle("print-text", async (event, text: string) => {
+
+// Print Text Function
+const printText = (text: any) => {
+  const command = `echo "${text}" | lp -d ${printerName}`;
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    if (stderr) {
+      console.error(stderr);
+      return;
+    }
+    console.log(stdout);
+  });
+};
+
+// IPC Listener for Print Request
+ipcMain.on("print-request", (event, text) => {
   console.log(event);
 
-  const printerName = "VKP80";
-  const command = `echo "${text}" | lp -d ${printerName}`;
-
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        reject(error.message);
-        return;
-      }
-      if (stderr) {
-        reject(stderr);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
+  printText(text);
 });
 
 
