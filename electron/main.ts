@@ -67,8 +67,7 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-
-const printHTML = (htmlContent: string) => {
+const printHTML = (htmlContent: any, printerName: any) => {
   const printWindow = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -80,21 +79,25 @@ const printHTML = (htmlContent: string) => {
   printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
 
   printWindow.webContents.on("did-finish-load", () => {
-    printWindow.webContents.print({}, (error) => {
-      if (error) {
-        console.error("Failed to print:", error);
-      } else {
-        console.log("Print job sent successfully!");
+    printWindow.webContents.print(
+      { printBackground: true, deviceName: printerName },
+      (error) => {
+        if (error) {
+          console.error("Failed to print:", error);
+        } else {
+          console.log("Print job sent successfully!");
+        }
+        printWindow.close();
       }
-      printWindow.close();
-    });
+    );
   });
 };
 
-ipcMain.on("print-request", (event, htmlContent) => {
+
+ipcMain.on("print-request", (event, { htmlContent, printerName }) => {
   console.log(event);
-  
-  printHTML(htmlContent);
+
+  printHTML(htmlContent, printerName);
 });
 
 
