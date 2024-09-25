@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-
+import {exec} from "child_process"
 
 // @ts-ignore
 import path from "node:path";
@@ -23,8 +23,6 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 // @ts-ignore
 let workerWindow;
-
-// const printerName = "VKP80";
 
 function createWindow() {
   win = new BrowserWindow({
@@ -68,129 +66,30 @@ function createWindow() {
   }
 }
 
-// const printText = (text: any) => {
-//   const command = `echo "${text}" | lp -d ${printerName}`;
-//   exec(command, (error, stdout, stderr) => {
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
-//     if (stderr) {
-//       console.error(stderr);
-//       return;
-//     }
-//     console.log(stdout);
-//   });
-// };
 
-// ipcMain.on("print-request", (event, text) => {
-//   console.log(event, "eveenn");
-//   console.log(text);
-
-//   printText(event);
-// });
-
-function createPrint(checkData: any) {
-  const printWindow = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  // Dinamik ma'lumotlarni HTML tarkibiga qo'shish
-  const contentWithStyle = `
-    <html>
-    <head>
-      <style>
-        body {
-          font-family: monospace;
-          padding: 5px;
-          font-size: 10px; /* Kichik o'lcham, VKP 80 printerga mos */
-          line-height: 1.2;
-        }
-        .title {
-          text-align: center;
-          font-size: 14px;
-          font-weight: bold;
-        }
-        .line {
-          border-bottom: 1px dashed #000;
-          margin: 5px 0;
-        }
-        .content {
-          margin-top: 10px;
-        }
-        .item-row {
-          display: flex;
-          justify-content: space-between;
-        }
-        .item-row p {
-          margin: 0;
-        }
-        .footer {
-          text-align: center;
-          margin-top: 10px;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="title">${checkData.title}</div>
-      <div class="line"></div>
-      <div class="content">
-        ${checkData.items
-          .map(
-            (item: any) => `
-          <div class="item-row">
-            <p>${item.name}</p>
-            <p>$${item.price.toFixed(2)}</p>
-          </div>
-        `
-          )
-          .join("")}
-        <div class="line"></div>
-        <div class="item-row">
-          <p><strong>Total:</strong></p>
-          <p><strong>$${checkData.total.toFixed(2)}</strong></p>
-        </div>
-      </div>
-      <div class="footer">
-        <p>${checkData.thankYouMessage}</p>
-      </div>
-    </body>
-    </html>
-  `;
-
-  // HTML ni yuklash va chop etish
-  printWindow.loadURL(
-    `data:text/html;charset=utf-8,${encodeURI(contentWithStyle)}`
-  );
-
-  printWindow.webContents.on("did-finish-load", () => {
-    printWindow.webContents.print(
-      {
-        silent: true,
-        printBackground: true,
-      },
-      (error) => {
-        if (error) {
-          console.error("Print Error:", error);
-        } else {
-          console.log("Print job sent to VKP 80!");
-        }
-        printWindow.close();
-      }
-    );
-  });
-}
 
 
 // IPC bilan printerga buyruq yuborish
-ipcMain.on("print-check", (event, checkData) => {
+
+ipcMain.handle("print-text", async (event, text: string) => {
   console.log(event);
 
-  createPrint(checkData);
+  const printerName = "VKP80";
+  const command = `echo "${text}" | lp -d ${printerName}`;
+
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error.message);
+        return;
+      }
+      if (stderr) {
+        reject(stderr);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
 });
 
 app.on("window-all-closed", () => {

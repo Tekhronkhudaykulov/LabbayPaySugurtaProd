@@ -5,32 +5,29 @@ import { FooterNav, Text } from "../../../components";
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 
+const { ipcRenderer } = window.require("electron");
+
 const Cash = () => {
   const { getTotal } = socketValueStore();
   CashDevice();
 
   const navigate = useNavigate();
 
-
   const handlePrint = () => {
-    // Yuborilayotgan dinamik ma'lumotlar
-    const checkData = {
-      title: "Check Title",
-      items: [
-        { name: "Item 1", price: 10.0 },
-        { name: "Item 2", price: 15.0 },
-      ],
-      total: 25.0,
-      thankYouMessage: "Thank you for your purchase!",
-    };
-    // @ts-ignore
-    if (window.electron) {
-      // @ts-ignore
+    const htmlContent = `
+      <html>
+        <body>
+          <h1>Order Receipt</h1>
+          <p><strong>Product:</strong> ABC Widget</p>
+          <p><strong>Price:</strong> $50</p>
+          <p><strong>Total:</strong> $150</p>
+          <p>Thank you for your purchase!</p>
+        </body>
+      </html>
+    `;
 
-      window.electron.ipcRenderer.send("print-check", checkData);
-    } else {
-      console.error("Electron is not available.");
-    }
+    // HTML tarkibini 'print-request' kanali orqali jo'natish
+    ipcRenderer.send("print-request", htmlContent);
   };
 
   return (
