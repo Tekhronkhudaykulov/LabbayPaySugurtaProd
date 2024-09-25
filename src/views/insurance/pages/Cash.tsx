@@ -14,65 +14,72 @@ const Cash = () => {
   const navigate = useNavigate();
   const handlePrint = () => {
     const htmlContent = `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            width: 80mm; /* Qog'oz kengligi */
-            max-height: 500mm; /* Maksimal qog'oz uzunligi */
-          }
-          .receipt-container {
-            padding: 10px;
-            border: 1px dashed #000;
-          }
-          .receipt-header {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-          }
-          .receipt-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-          }
-          .receipt-total {
-            margin-top: 20px;
-            font-weight: bold;
-            border-top: 1px solid #000;
-            padding-top: 10px;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="receipt-container">
-          <div class="receipt-header">Labbay Pay</div>
-          <div class="receipt-item">
-            <span>Product 1</span>
-            <span>$50</span>
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 20px;
+              width: 80mm; /* Qog'oz kengligi */
+              max-height: 500mm; /* Maksimal qog'oz uzunligi */
+            }
+            .receipt-container {
+              padding: 10px;
+              border: 1px dashed #000;
+            }
+            .receipt-header {
+              text-align: center;
+              font-size: 24px;
+              margin-bottom: 20px;
+            }
+            .receipt-item {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 5px;
+            }
+            .receipt-total {
+              margin-top: 20px;
+              font-weight: bold;
+              border-top: 1px solid #000;
+              padding-top: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="receipt-container">
+            <div class="receipt-header">Order Receipt</div>
+            <div class="receipt-item">
+              <span>Product 1</span>
+              <span>$50</span>
+            </div>
+            <div class="receipt-item">
+              <span>Product 2</span>
+              <span>$100</span>
+            </div>
+            <div class="receipt-item">
+              <span>Product 3</span>
+              <span>$30</span>
+            </div>
+            <div class="receipt-total">
+              <span>Total:</span>
+              <span>$180</span>
+            </div>
+            <p>Thank you for your purchase!</p>
           </div>
-          <div class="receipt-item">
-            <span>Product 2</span>
-            <span>$100</span>
-          </div>
-          <div class="receipt-item">
-            <span>Product 3</span>
-            <span>$30</span>
-          </div>
-          <div class="receipt-total">
-            <span>Total:</span>
-            <span>$180</span>
-          </div>
-          <p>Thank you for your purchase!</p>
-        </div>
-      </body>
-    </html>
-  `;
+        </body>
+      </html>
+    `;
 
-    // HTML tarkibini 'print-request' kanali orqali jo'natish
-    ipcRenderer.send("print-request", htmlContent);
+    // @ts-ignore
+    if (window.electron) {
+      // @ts-ignore
+      window.electron.print(htmlContent);
+    } else {
+      console.error("Electron is not available");
+    }
+    // // HTML tarkibini 'print-request' kanali orqali jo'natish
+    // ipcRenderer.send("print-request", htmlContent);
   };
 
   return (
