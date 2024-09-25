@@ -1,11 +1,22 @@
 import { contextBridge, ipcRenderer } from "electron";
 
+contextBridge.exposeInMainWorld("printer", {
+  printText: (text: string) => ipcRenderer.invoke("print-text", text),
+});
+
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(ipcRenderer));
 
-contextBridge.exposeInMainWorld("electronAPI", {
-  handlePrinter: (text: any) => ipcRenderer.invoke("handle-printer", text),
+contextBridge.exposeInMainWorld("electron", {
+  printDocument: (document: any) =>
+    ipcRenderer.invoke("print-document", document),
 });
+
+// contextBridge.exposeInMainWorld("electron", {
+//   send: (channel: any, data: any) => ipcRenderer.send(channel, data),
+//   on: (channel: any, callback: any) =>
+//     ipcRenderer.on(channel, (event, ...args) => callback(...args)),
+// });
 
 // `exposeInMainWorld` can't detect attributes and methods of `prototype`, manually patching it.
 function withPrototype(obj: Record<string, any>) {

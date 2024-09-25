@@ -6,25 +6,30 @@ import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 import { useState } from "react";
 
+declare global {
+  interface Window {
+    printer: {
+      printText: (text: string) => Promise<string>;
+    };
+  }
+}
+
 const Cash = () => {
   const { getTotal } = socketValueStore();
-  const [printText, setPrintText] = useState("Привет, мир!");
-  console.log(setPrintText);
-  
   CashDevice();
 
   const navigate = useNavigate();
 
+  const [text, setText] = useState("Salom texron");
+  console.log(setText);
+  
+
   const handlePrint = async () => {
     try {
-      const result = await window.electronAPI.handlePrinter(printText);
-      if (result.success) {
-        console.log("Печать успешна:", result.data);
-      } else {
-        console.error("Ошибка при печати:", result.message);
-      }
+      const result = await window.printer.printText(text);
+      console.log("Print Success:", result);
     } catch (error) {
-      console.error("Ошибка при печати:", error);
+      console.error("Print Error:", error);
     }
   };
   return (
