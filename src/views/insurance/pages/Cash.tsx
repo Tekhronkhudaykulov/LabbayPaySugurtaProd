@@ -4,6 +4,7 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
+
 const { ipcRenderer } = window.require("electron");
 
 const Cash = () => {
@@ -14,7 +15,44 @@ const Cash = () => {
 
 
   const handlePrint = () => {
-    ipcRenderer.send("print-request", "HELLO WORLD");
+    const htmlContent = `
+    <html>
+      <head>
+        <style>
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: left;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Receipt</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+          <td>Texron</td>
+          <td>20000</td>
+          <td>5</td>
+        </tr>
+          </tbody>
+        </table>
+        <h2>Total: 20000</h2>
+      </body>
+    </html>
+  `;
+    ipcRenderer.send("print-request", htmlContent);
   };
 
   return (
