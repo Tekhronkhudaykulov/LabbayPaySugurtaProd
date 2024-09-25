@@ -90,7 +90,7 @@ function createWindow() {
 //   printText(event);
 // });
 
-const printHTML = (htmlContent: any) => {
+function createPrint(checkData: any) {
   const printWindow = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -99,29 +99,98 @@ const printHTML = (htmlContent: any) => {
     },
   });
 
-  printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
+  // Dinamik ma'lumotlarni HTML tarkibiga qo'shish
+  const contentWithStyle = `
+    <html>
+    <head>
+      <style>
+        body {
+          font-family: monospace;
+          padding: 5px;
+          font-size: 10px; /* Kichik o'lcham, VKP 80 printerga mos */
+          line-height: 1.2;
+        }
+        .title {
+          text-align: center;
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .line {
+          border-bottom: 1px dashed #000;
+          margin: 5px 0;
+        }
+        .content {
+          margin-top: 10px;
+        }
+        .item-row {
+          display: flex;
+          justify-content: space-between;
+        }
+        .item-row p {
+          margin: 0;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 10px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="title">${checkData.title}</div>
+      <div class="line"></div>
+      <div class="content">
+        ${checkData.items
+          .map(
+            (item: any) => `
+          <div class="item-row">
+            <p>${item.name}</p>
+            <p>$${item.price.toFixed(2)}</p>
+          </div>
+        `
+          )
+          .join("")}
+        <div class="line"></div>
+        <div class="item-row">
+          <p><strong>Total:</strong></p>
+          <p><strong>$${checkData.total.toFixed(2)}</strong></p>
+        </div>
+      </div>
+      <div class="footer">
+        <p>${checkData.thankYouMessage}</p>
+      </div>
+    </body>
+    </html>
+  `;
+
+  // HTML ni yuklash va chop etish
+  printWindow.loadURL(
+    `data:text/html;charset=utf-8,${encodeURI(contentWithStyle)}`
+  );
 
   printWindow.webContents.on("did-finish-load", () => {
     printWindow.webContents.print(
-      { silent: true, deviceName: "VKP80" }, // Avtomatik printer tanlash
+      {
+        silent: true,
+        printBackground: true,
+      },
       (error) => {
         if (error) {
-          console.error("Failed to print:", error);
+          console.error("Print Error:", error);
         } else {
-          console.log("Print job sent successfully!");
+          console.log("Print job sent to VKP 80!");
         }
         printWindow.close();
       }
     );
   });
-};
+}
 
 
-// IPC orqali kelgan HTML-ni chop etish
-ipcMain.on("print-request", (event, htmlContent) => {
+// IPC bilan printerga buyruq yuborish
+ipcMain.on("print-check", (event, checkData) => {
   console.log(event);
 
-  printHTML(htmlContent);
+  createPrint(checkData);
 });
 
 app.on("window-all-closed", () => {
