@@ -1,9 +1,10 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 
+import { exec } from "child_process";
+
 // @ts-ignore
 import path from "node:path";
 import * as fs from "fs";
-import axios from "axios";
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -65,61 +66,29 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-// ipcMain.on("run-check", (event, data) => {
-//   console.log(data); // Ma'lumotlarni konsolga chiqarish
+ipcMain.handle("print-text", async (event, text: string) => {
+  console.log(event);
 
-//   if (!data || !data.check) {
-//     event.reply("command-output", "Error: No data received");
-//     return;
-//   }
+  const printerName = "VKP80";
+  const command = `echo "${text}" | lp -d ${printerName}`;
 
-//   const jsonData = JSON.stringify(data.check);
-//   const binjs = Buffer.from(jsonData).toString("hex"); // Binar formatga o'zgartirish
-
-//   // Faylning to'liq yo'li
-//   const command =
-//     path.join(__dirname, "dist-electron", "vkpii_usb") + ` ${binjs}`;
-
-//   exec(command, (error, stdout, stderr) => {
-//     if (error) {
-//       event.reply("command-output", `Error: ${error.message}`);
-//       return;
-//     }
-//     if (stderr) {
-//       event.reply("command-output", `stderr: ${stderr}`);
-//       return;
-//     }
-//     event.reply("command-output", `stdout: ${stdout}`);
-//   });
-// });
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error.message);
+        return;
+      }
+      if (stderr) {
+        reject(stderr);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
+});
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-
-ipcMain.handle("handle-printer", async (event, text) => {
-  const printerName = "VKP80";
-  const url = `http://localhost:631/printers/${printerName}`;
-
-  // Format the text
-  const formattedText = `
-    \x1B\x40         // Инициализация принтера
-    \x1B\x61\x01    // Центрирование текста
-    ${text}         // Ваш текст
-    \x0A            // Перевод строки
-  `;
-
-  try {
-    const response = await axios.post(url, formattedText, {
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-    return { success: true, data: response.data };
-  } catch (error) {
-    return { success: false, message: error };
-  }
-});
-
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();

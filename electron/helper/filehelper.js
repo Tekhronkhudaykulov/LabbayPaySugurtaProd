@@ -6,7 +6,7 @@ const fs = require("fs");
 // // data folder bor bo'lsa oladi yo'q bo'lsa data folder yaratadi
 
 //lokalnida ishlatsa boladi
-const dataDir = path.join(process.cwd(), "data"); 
+const dataDir = path.join(process.cwd(), "data");
 
 //build qiganda ikta nuqta bilan
 // const dataDir = path.join(process.cwd(), "../data");
