@@ -25,7 +25,7 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 // @ts-ignore
 let workerWindow;
 
-const printerName = "VKP80";
+// const printerName = "VKP80";
 
 function createWindow() {
   win = new BrowserWindow({
@@ -69,25 +69,61 @@ function createWindow() {
   }
 }
 
-const printText = (text: any) => {
-  const command = `echo "${text}" | lp -d ${printerName}`;
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    if (stderr) {
-      console.error(stderr);
-      return;
-    }
-    console.log(stdout);
+// const printText = (text: any) => {
+//   const command = `echo "${text}" | lp -d ${printerName}`;
+//   exec(command, (error, stdout, stderr) => {
+//     if (error) {
+//       console.error(error);
+//       return;
+//     }
+//     if (stderr) {
+//       console.error(stderr);
+//       return;
+//     }
+//     console.log(stdout);
+//   });
+// };
+
+// ipcMain.on("print-request", (event, text) => {
+//   console.log(event, "eveenn");
+//   console.log(text);
+
+//   printText(event);
+// });
+
+const printHTML = (htmlContent: any) => {
+  const printWindow = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+
+  // HTMLni yuklash
+  printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
+
+  // Yuklash tugallangandan keyin chop etish
+  printWindow.webContents.on("did-finish-load", () => {
+    printWindow.webContents.print(
+      { silent: true, deviceName: "VKP80" }, // Printerni avtomatik tanlash uchun silent mode
+      (error) => {
+        if (error) {
+          console.error("Failed to print:", error);
+        } else {
+          console.log("Print job sent successfully!");
+        }
+        printWindow.close(); // Oynani yopish
+      }
+    );
   });
 };
 
-ipcMain.on("print-request", (event, text) => {
+// IPC orqali kelgan HTML-ni chop etish
+ipcMain.on("print-request", (event, htmlContent) => {
   console.log(event);
 
-  printText(text);
+  printHTML(htmlContent);
 });
 
 app.on("window-all-closed", () => {

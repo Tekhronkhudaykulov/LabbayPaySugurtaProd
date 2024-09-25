@@ -12,47 +12,21 @@ const Cash = () => {
   CashDevice();
 
   const navigate = useNavigate();
-
   const handlePrint = () => {
     const htmlContent = `
-    <html>
-      <head>
-        <style>
-          table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          th, td {
-            border: 1px solid #000;
-            padding: 5px;
-            text-align: left;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Receipt</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Price</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-          <td>Texron</td>
-          <td>20000</td>
-          <td>5</td>
-        </tr>
-          </tbody>
-        </table>
-        <h2>Total: 20000</h2>
-      </body>
-    </html>
-  `;
+      <html>
+        <body>
+          <h1>Order Receipt</h1>
+          <p><strong>Product:</strong> ABC Widget</p>
+          <p><strong>Price:</strong> $50</p>
+          <p><strong>Total:</strong> $150</p>
+          <p>Thank you for your purchase!</p>
+        </body>
+      </html>
+    `;
 
-    ipcRenderer.send("print-request", { htmlContent });
+    // HTML tarkibini 'print-request' kanali orqali jo'natish
+    ipcRenderer.send("print-request", htmlContent);
   };
 
   return (
