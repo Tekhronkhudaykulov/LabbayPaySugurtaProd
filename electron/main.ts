@@ -69,28 +69,53 @@ function createWindow() {
   }
 }
 
-// Print Text Function
-const printText = (text: any) => {
-  const command = `echo "${text}" | lp -d ${printerName}`;
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    if (stderr) {
-      console.error(stderr);
-      return;
-    }
-    console.log(stdout);
+const printHTML = (htmlContent: string) => {
+  const printWindow = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+
+  printWindow.loadURL(`data:text/html;charset=utf-8,${encodeURI(htmlContent)}`);
+
+  printWindow.webContents.on("did-finish-load", () => {
+    printWindow.webContents.print({}, (error) => {
+      if (error) {
+        console.error("Failed to print:", error);
+      } else {
+        console.log("Print job sent successfully!");
+      }
+      printWindow.close();
+    });
   });
 };
 
-// IPC Listener for Print Request
-ipcMain.on("print-request", (event, text) => {
-  console.log(event);
-
-  printText(text);
+ipcMain.on("print-request", (event, htmlContent) => {
+  printHTML(htmlContent);
 });
+
+// const printText = (text: any) => {
+//   const command = `echo "${text}" | lp -d ${printerName}`;
+//   exec(command, (error, stdout, stderr) => {
+//     if (error) {
+//       console.error(error);
+//       return;
+//     }
+//     if (stderr) {
+//       console.error(stderr);
+//       return;
+//     }
+//     console.log(stdout);
+//   });
+// };
+
+// ipcMain.on("print-request", (event, text) => {
+//   console.log(event);
+
+//   printText(text);
+// });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
