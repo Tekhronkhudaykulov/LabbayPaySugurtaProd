@@ -17,9 +17,7 @@ const RegisterCar = () => {
 
   const { t } = useTranslation();
 
-  let companyId = Number(id);
 
-  localStorage.setItem("companyId", companyId);
 
   // @ts-ignore
   const { serviceDetail } = usePostStore();
@@ -105,7 +103,9 @@ const RegisterCar = () => {
 
   const handleClick = () => {
     mutate({
-      company_id: companyId,
+    // @ts-ignore
+
+      company_id: 1,
       service_id: singleObject.service_id,
       // @ts-ignore
       texpsery: inputs.input2,

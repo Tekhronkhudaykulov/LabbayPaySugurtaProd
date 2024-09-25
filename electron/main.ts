@@ -97,6 +97,8 @@ function createWindow() {
 // explicitly with Cmd + Q.
 
 ipcMain.handle("handle-printer", async (event, text) => {
+  console.log(event);
+  
   const printerName = "VKP80";
   const url = `http://localhost:631/printers/${printerName}`;
 

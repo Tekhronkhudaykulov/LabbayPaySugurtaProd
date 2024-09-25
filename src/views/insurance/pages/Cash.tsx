@@ -4,12 +4,13 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
-import handleRunCheck from "../../../components/Check/view";
 import { useState } from "react";
 
 const Cash = () => {
   const { getTotal } = socketValueStore();
   const [printText, setPrintText] = useState("Привет, мир!");
+  console.log(setPrintText);
+  
   CashDevice();
 
   const navigate = useNavigate();

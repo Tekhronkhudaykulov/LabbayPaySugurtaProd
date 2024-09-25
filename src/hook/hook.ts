@@ -115,7 +115,6 @@ const stepTwo = () => {
 
   const { setStepOneData } = stepOneStore();
 
-  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (payload: StepOne) => {
