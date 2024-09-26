@@ -30,3 +30,25 @@
 .ant-picker-input input {
   font: 35px !important;
 }
+
+.custom-input {
+  outline: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.custom-input:hover {
+  border: none !important;
+}
+
+.ant-picker
+  .ant-picker-range
+  .ant-picker-outlined
+  css-dev-only-do-not-override-m4timi
+  .custom-input {
+  padding: 0 !important;
+}
+
+.anticon svg {
+  display: none !important;
+}
