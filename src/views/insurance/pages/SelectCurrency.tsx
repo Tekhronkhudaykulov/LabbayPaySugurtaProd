@@ -16,7 +16,11 @@ const SelectCurrency = () => {
         }
       />
       <div className="flex items-center justify-center mt-[10px]">
-        <Button className="uppercase w-[505px] !h-[70px]" type="default">
+        <Button
+          onClick={() => navigate(-1)}
+          className="uppercase w-[505px] !h-[70px]"
+          type="default"
+        >
           Назад
         </Button>
       </div>

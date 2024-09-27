@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 const AddPhoneNumber = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [active, setActive] = useState(1);
   const [phone, setPhone] = useState("");
   const [inputName, setInputName] = useState<string>("");
   const keyboard = useRef(null);
@@ -46,7 +47,12 @@ const AddPhoneNumber = () => {
           text={t("enterPhone")}
           className="font-[500] text-[22px] mb-2.5"
         />
-        <div className="flex items-center gap-[20px] p-[10px] bg-white rounded-[22px]">
+        <div
+          onClick={() => setActive(1)}
+          className={`${
+            active === 1 && "focus-input"
+          } flex items-center gap-[20px] p-[10px] bg-white rounded-[22px]`}
+        >
           <div className="text-[22px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
             +998
           </div>

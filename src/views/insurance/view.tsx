@@ -1,4 +1,3 @@
-import { DatePicker, Input, Modal } from "antd";
 import { FooterNav, Text } from "../../components";
 import { ASSETS } from "../../assets/images/assets";
 import { useNavigate } from "react-router-dom";
@@ -8,18 +7,28 @@ import "./pages/index.scss";
 import "antd/dist/reset.css";
 import { AddPhoneNumber } from "..";
 import { useTranslation } from "react-i18next";
+import { DatePicker, Space, Modal } from "antd";
+import moment from "moment";
+
+const { RangePicker } = DatePicker;
 
 const Insurance = () => {
   const navigate = useNavigate();
-  const [activeIndex, setActiveIndex] = useState<number>();
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeYear, setActiveYear] = useState(0);
+  console.log(setActiveYear);
+  
+  const [activePicker, setActivePicker] = useState(0);
+  const [dates, setDates] = useState<
+    [moment.Moment | null, moment.Moment | null]
+  >([null, null]);
+
+  const [isFocuc, setIsFocus] = useState(0);
   const handleClick = (index: number) => {
     setActiveIndex(index);
   };
 
   const { t } = useTranslation();
-
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,12 +44,14 @@ const Insurance = () => {
     setIsModalOpen(false);
   };
 
-  const handleClickDate1 = () => {
-    setOpen1(true);
-  };
-
-  const handleClickDate2 = () => {
-    setOpen2(true);
+  const handleCalendarChange = (values: any) => {
+    if (values && values[0]) {
+      const startDate = values[0];
+      const endDate = startDate.clone().add(364, "days");
+      setDates([startDate, endDate]);
+    } else {
+      setDates([null, null]);
+    }
   };
 
   return (
@@ -64,27 +75,40 @@ const Insurance = () => {
               />
               <div>
                 <div
-                  className={`flex items-center  gap-[20px] p-[10px] bg-[#F7F7F7] rounded-[22px] `}
+                  onClick={() => {
+                    setIsFocus(1);
+                    showModal();
+                  }}
+                  className={`${
+                    isFocuc === 1 && "focus-input"
+                  } flex items-center  gap-[20px] p-[10px] bg-[#F7F7F7] rounded-[22px] `}
                 >
                   <div className="text-[25px] font-[500] border-r-[5px] border-[#E8E8E8] pr-[20px]">
                     +998
                   </div>
-                  <Input
-                    onClick={showModal}
-                    className={`border-transparent bg-[#F7F7F7] outline-none  text-[25px]  `}
+                  <input
+                    className={`border-transparent bg-[#F7F7F7] !outline-none  text-[25px]  `}
+                    type="text"
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-between   gap-[20px] mt-[20px] py-[25px] px-[20px] bg-[#F7F7F7] rounded-[22px] ">
+              <label
+                id="my"
+                onClick={() => setIsFocus(2)}
+                className={`${
+                  isFocuc === 2 && "focus-input"
+                } flex items-center justify-between   gap-[20px] mt-[20px] py-[25px] px-[20px] bg-[#F7F7F7] rounded-[22px]`}
+              >
                 <label className="text-[25px] font-[500]">
                   {t("insurance.howI")}
                 </label>
 
                 <input
+                  id="my"
                   type="checkbox"
                   className="ml-2 h-6 w-6 rounded border-gray-300 focus:ring-blue-500"
                 />
-              </div>
+              </label>
             </div>
             <div className="f w-[40%] mx-auto">
               <p className=" text-center text-[20px] text-[red] ">
@@ -100,7 +124,7 @@ const Insurance = () => {
               <div
                 onClick={() => handleClick(0)}
                 className={`flex items-center gap-x-[30px] h-[70px] px-[20px] justify-between bg-white  rounded-[15px] ${
-                  activeIndex === 0 && "border border-purple"
+                  activeIndex === 0 && "focus-input"
                 }`}
               >
                 <p className="text-[20px] font-[700]">
@@ -115,7 +139,7 @@ const Insurance = () => {
               <div
                 onClick={() => handleClick(1)}
                 className={`flex items-center gap-x-[30px] h-[70px] px-[20px] justify-between bg-white   rounded-[15px] ${
-                  activeIndex === 1 && "border border-purple"
+                  activeIndex === 1 && "focus-input"
                 }`}
               >
                 <p className="text-[20px] font-[700]">
@@ -131,7 +155,7 @@ const Insurance = () => {
               <div
                 onClick={() => handleClick(2)}
                 className={`flex items-center gap-x-[30px] h-[70px] px-[20px] justify-between bg-white  rounded-[15px] ${
-                  activeIndex === 2 && "border border-purple"
+                  activeYear === 0 && "focus-input"
                 }`}
               >
                 <p className="text-[20px] font-[700]">{t("insurance.year")} </p>
@@ -139,11 +163,11 @@ const Insurance = () => {
                   168 000 сум
                 </p>
               </div>
-              <div>
+              {/* <div>
                 <div
                   onClick={() => handleClick(3)}
                   className={`flex items-center gap-x-[30px] h-[70px] px-[20px] justify-between bg-white  rounded-[15px] ${
-                    activeIndex === 3 && "border border-purple"
+                    activeIndex === 3 && "focus-input"
                   }`}
                 >
                   <p className="text-[20px] font-[700]">
@@ -153,33 +177,29 @@ const Insurance = () => {
                     117 600 сум
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
-            <div className="flex items-center justify-between">
+            <div className="grid grid-cols-3 gap-x-[25px]">
               <p className="text-[20px] font-[700]">
                 {t("insurance.insuranceDate")}:
               </p>
-              <div className="h-[60px] gap-x-[20px]  px-[25px] rounded-[15px] bg-white flex items-center justify-between">
-                <div onClick={handleClickDate1}>
-                  <DatePicker
-                    placeholder="Выберите"
-                    className="custom-date-picker !text-[25px]"
-                    open={open1}
-                    onOpenChange={(status) => setOpen1(status)}
+              <div
+                onClick={() => setActivePicker(1)}
+                className={`${
+                  activePicker === 1 && "focus-input"
+                } h-[70px]  px-[25px] rounded-[15px]  bg-white flex items-center justify-between`}
+              >
+                <Space direction="vertical" size={12}>
+                  <RangePicker
+                    placeholder={["Дата", "Дата"]}
+                   
+                    className="custom-input"
+                    onCalendarChange={handleCalendarChange}
+                    placement="topLeft"
+                    // @ts-ignore
+                    value={dates}
                   />
-                  {/* <p className="text-[28px] font-[700]">11.06.2024</p> */}
-                </div>
-                <img src={ASSETS.Next} alt="" />
-                <div onClick={handleClickDate2}>
-                  <DatePicker
-                    className="custom-date-picker"
-                    placeholder="Выберите"
-                    open={open2}
-                    onOpenChange={(status) => setOpen2(status)}
-                  />
-
-                  {/* <p className="text-[28px] font-[700]">11.06.2025</p> */}
-                </div>
+                </Space>
               </div>
             </div>
           </div>
@@ -187,7 +207,13 @@ const Insurance = () => {
         <div className="mt-auto">
           <FooterNav
             prevClick={() => navigate(-1)}
-            nextClick={() => navigate(APP_ROUTES.ADDRELATIVES)}
+            nextClick={() => {
+              activeIndex === 0
+                ? navigate(
+                    `${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.SELECTCURRENCY}`
+                  )
+                : navigate(APP_ROUTES.ADDRELATIVES);
+            }}
           />
         </div>
       </div>
