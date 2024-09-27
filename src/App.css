@@ -601,7 +601,7 @@ body {
 }
 
 .ant-picker input {
-  font-size: 22px !important; /* Ant Design DatePicker inputi uchun font o'lchamini o'zgartirish */
+  font-size: 20px !important; /* Ant Design DatePicker inputi uchun font o'lchamini o'zgartirish */
 }
 
 .button-animation {

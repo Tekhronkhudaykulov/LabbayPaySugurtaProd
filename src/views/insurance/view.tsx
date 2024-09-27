@@ -192,10 +192,8 @@ const Insurance = () => {
                 <Space direction="vertical" size={12}>
                   <RangePicker
                     placeholder={["Дата", "Дата"]}
-                   
                     className="custom-input"
                     onCalendarChange={handleCalendarChange}
-                    placement="topLeft"
                     // @ts-ignore
                     value={dates}
                   />

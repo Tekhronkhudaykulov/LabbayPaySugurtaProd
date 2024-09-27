@@ -52,3 +52,26 @@
 .anticon svg {
   display: none !important;
 }
+
+
+
+.ant-picker-date-panel {
+  margin-right: 0 !important; /* Kalendar kunlari orasidagi masofani o'zgartirish */
+}
+
+
+.ant-calendar-month {
+  margin-right: 0 !important; /* Qatorlar orasidagi masofani yo'qotish */
+}
+
+
+
+
+.ant-picker-dropdown {
+  left: 132px !important;
+}
+
+
+.custom-input {
+  font-size: 14px !important; /* O'lchamni o'zgartiring */
+}
