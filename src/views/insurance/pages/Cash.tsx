@@ -4,6 +4,7 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
+import { renderToStaticMarkup } from "react-dom/server";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -13,24 +14,47 @@ const Cash = () => {
 
   const navigate = useNavigate();
 
-  const handlePrint = () => {
-    const htmlContent = `
-      <html>
-        <body>
-          <h1>Order Receipt</h1>
-          <p><strong>Product:</strong> ABC Widget</p>
-          <p><strong>Price:</strong> $50</p>
-          <p><strong>Total:</strong> $150</p>
-          <p>Thank you for your purchase!</p>
-        </body>
-      </html>
-    `;
+  const print = () => {
+    function sendCommandToWorker(content: any) {
+      ipcRenderer.send("print-command-request", content);
+    }
+    const a = renderToStaticMarkup(
+      <div className="check">
+        <div className="check-welcome">Salom</div>
+        <div className="check-qr-block">
+          <div>
+            <div className="check-text">Labbay</div>
+            <div className="check-id">1 1</div>
+          </div>
+          {/* <div className="qr">
+          {qrDataURL && <img src={qrDataURL} alt="" />}
+        </div> */}
+        </div>
+        <div className="strong">asnfjkans 1</div>
+        <div className="check-block">
+          <div className="check-text">1</div>
+        </div>
+        <div className="check-block">
+          <div className="check-text">asnfkjsan</div>
+        </div>
+        <div className="check-block">
+          <div className="check-text">asmfas</div>
+        </div>
+        <div className="check-block">
+          <div className="check-text">asfas</div>
+        </div>
+        <ul className="check-list">
+          <li>asfasf</li>
+          <li>asfasf</li>
+          <li>asfasf</li>
+        </ul>
+        <div className="thanks">asfsafsa!</div>
+      </div>
+    );
 
-    // HTML tarkibini 'print-request' kanali orqali jo'natish
-    ipcRenderer.send("print-request", htmlContent);
+    sendCommandToWorker(a);
   };
-
-  return (
+return (
     <>
       <div className="flex justify-between gap-4  mt-[10px]">
         <div className="min-w-[620px]">
@@ -108,7 +132,7 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <button onClick={handlePrint}>Print "HELLO WORLD"</button>
+      <button onClick={print}>Print "HELLO WORLD"</button>
       <div>
         <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>

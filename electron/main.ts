@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import {exec} from "child_process"
+
 
 // @ts-ignore
 import path from "node:path";
@@ -67,31 +67,6 @@ function createWindow() {
 }
 
 
-
-
-// IPC bilan printerga buyruq yuborish
-
-ipcMain.handle("print-text", async (event, text: string) => {
-  console.log(event);
-
-  const printerName = "VKP80";
-  const command = `echo "${text}" | lp -d ${printerName}`;
-
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        reject(error.message);
-        return;
-      }
-      if (stderr) {
-        reject(stderr);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
-});
-
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
@@ -118,6 +93,8 @@ app.whenReady().then(() => {
 });
 
 function createPrintWindow(htmlContent: any) {
+  console.log(htmlContent, "htmlcontent");
+  
   const printWindow: any = new BrowserWindow({
     show: false,
     // width: 304,
@@ -181,7 +158,7 @@ function createPrintWindow(htmlContent: any) {
         .thanks {
             font-family: sans-serif;
             font-size: 13mm;
-          padding: 6px; 
+          padding: 6px;
           text-align: center;
           margin-top: 6px;
           margin-bottom: 1rem;
@@ -267,6 +244,7 @@ function createPrintWindow(htmlContent: any) {
 }
 
 function printHTMLContent(htmlContent: any) {
+  console.log(htmlContent, "anfjkasnbfkjs")
   createPrintWindow(htmlContent);
 }
 
