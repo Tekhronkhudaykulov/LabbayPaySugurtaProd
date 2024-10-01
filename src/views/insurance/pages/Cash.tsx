@@ -5,12 +5,22 @@ import { FooterNav, Text } from "../../../components";
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
 import { renderToStaticMarkup } from "react-dom/server";
+import { useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../../../config";
 
 const { ipcRenderer } = window.require("electron");
 
 const Cash = () => {
-  const { getTotal } = socketValueStore();
+  const { getTotal, values } = socketValueStore();
+
+  const total = getTotal();
+
+  console.log(total, "total");
+
   CashDevice();
+
+  console.log(values, "values");
 
   const navigate = useNavigate();
 
@@ -54,7 +64,37 @@ const Cash = () => {
 
     sendCommandToWorker(a);
   };
-return (
+
+  useEffect(() => {
+    // Do'konning total qiymatini kuzatish
+    const unsubscribe = socketValueStore.subscribe(
+      (state) => state.getTotal,
+      // @ts-ignore
+      (total) => {
+        if (total) {
+          // total qiymati o'zgarganda post request yuborish
+          sendPostRequest(total);
+        }
+      }
+    );
+
+    return () => {
+      unsubscribe(); // Komponent unmount bo'lganda unsubscribe qilish
+    };
+  }, []);
+
+  const sendPostRequest = async (total: any) => {
+    try {
+      const response = await axios.post(`${API_URL}/save-every-cash`, {
+        total,
+      });
+      console.log("Post request muvaffaqiyatli yuborildi:", response.data);
+    } catch (error) {
+      console.error("Post requestda xato:", error);
+    }
+  };
+
+  return (
     <>
       <div className="flex justify-between gap-4  mt-[10px]">
         <div className="min-w-[620px]">
@@ -64,7 +104,7 @@ return (
               className="text-[22px] font-[500]"
             />
             <Text
-              text={getTotal()}
+              text="170 000 сум"
               className="ml-auto text-right text-[22px] font-[700]"
             />
           </div>
@@ -72,7 +112,7 @@ return (
             <div className="flex items-center">
               <Text text="Введено:" className="text-[22px] font-[500]" />
               <Text
-                text="0 сум"
+                text={`${getTotal()} сум`}
                 className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
@@ -83,16 +123,7 @@ return (
                 className="ml-auto text-right text-[22px] font-[700]"
               />
             </div>
-            <div className="flex items-center">
-              <Text
-                text="Комиссия сервиса:"
-                className="text-[22px] font-[500]"
-              />
-              <Text
-                text="0 сум"
-                className="ml-auto text-right text-[22px] font-[700]"
-              />
-            </div>
+
             <div className="flex items-center">
               <Text text="Лишняя сумма:" className="text-[22px] font-[500]" />
               <Text
@@ -124,7 +155,7 @@ return (
                 className="text-[22px] font-[700] text-white"
               />
               <Text
-                text="5000 сум"
+                text="3 000 000 сум"
                 className="ml-auto text-right text-[22px] font-[700] text-white"
               />
             </div>

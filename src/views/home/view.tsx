@@ -11,8 +11,7 @@ import { useTranslation } from "react-i18next";
 const Home = () => {
   useAuthRedirect(APP_ROUTES.HOME);
 
-
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const { mutate, isPending, isError } = usePostCompany();
 
@@ -36,7 +35,6 @@ const Home = () => {
       lng: "en",
     },
   ];
-
 
   const handleSubmit = (company_id: number) => {
     // @ts-ignore
@@ -63,9 +61,8 @@ const Home = () => {
               img={item?.img}
               disabled={item?.disabled ? true : false}
               key={idx}
-
               onClick={() => {
-              // @ts-ignore
+                // @ts-ignore
                 handleSubmit(item.company_id);
                 changeLanguage(item.lng);
               }}

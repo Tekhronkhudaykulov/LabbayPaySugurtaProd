@@ -115,6 +115,48 @@ const stepTwo = () => {
 
   const { setStepOneData } = stepOneStore();
 
+  return useMutation({
+    mutationFn: async (payload: StepOne) => {
+      const { data } = await requests.postStepTwo(payload);
+      setStepOneData(data.data.result.data);
+      return data;
+    },
+    onSuccess: () => {
+      // navigate(APP_ROUTES.DATA_CHECKING_CAR);
+    },
+    onError: (error: any) => {
+      if (error?.response) {
+        setErrorTitle(error.response.data.message);
+      }
+    },
+  });
+};
+
+// const banners = () => {
+//   const { setErrorTitle } = usePostError();
+//   // @ts-ignore
+
+//   return useMutation({
+//     mutationFn: async () => {
+//       const { data } = await requests.bannerFetch();
+//       return data;
+//     },
+//     onSuccess: () => {
+//       // navigate(APP_ROUTES.DATA_CHECKING_CAR);
+//     },
+//     onError: (error: any) => {
+//       if (error?.response) {
+//         setErrorTitle(error.response.data.message);
+//       }
+//     },
+//   });
+// };
+
+const getMe = () => {
+  const { setErrorTitle } = usePostError();
+  // @ts-ignore
+
+  const { setStepOneData } = stepOneStore();
 
   return useMutation({
     mutationFn: async (payload: StepOne) => {

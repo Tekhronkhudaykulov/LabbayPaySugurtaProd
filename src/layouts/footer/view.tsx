@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { Text } from "../../components";
 import { showItemInPages } from "../../utils";
 import { APP_ROUTES } from "../../router";
+import DateTimeDisplay from "../../components/Date/view";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -20,10 +21,11 @@ const Footer = () => {
                 text="Terminal #123456789 v1.01"
                 className="italic text-[24px]"
               />
-              <Text
+              {/* <Text
                 text="30 Сентября. 2022 год. 14:08:35"
                 className="italic text-[24px]"
-              />
+              /> */}
+              <DateTimeDisplay />
             </div>
           </div>
         </footer>

@@ -20,4 +20,11 @@ export const requests = {
     $api.post(`${API_URL}/get-step-one`, params),
 
   postStepTwo: (params: any) => $api.post(`${API_URL}/get-step-two`, params),
+
+  postEveryCash: (payload: any) =>
+    $api.post(`${API_URL}/save-every-cash`, payload),
+
+  bannerFetch: () => {
+    $api.get(`${API_URL}/banners-list`);
+  },
 };
