@@ -8,6 +8,7 @@ import { APP_ROUTES } from "../../../router";
 
 const Terminal = () => {
   const [isHas, setIsHas] = useState(false);
+  const [active, setActive] = useState(0);
 
   const [inputs, setInputs] = useState({
     input1: "",
@@ -85,11 +86,14 @@ const Terminal = () => {
                     name="input1"
                     placeholder="_ _ _ _ _ _"
                     mask="9 9 9 9 9 9"
-                    className="h-[65px] w-full  border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className={`h-[65px] w-full  border-none rounded-[22px] px-[20px] text-[24px] !outline-none ${
+                      active === 1 && "focus-input"
+                    }`}
                     value={inputs.input1}
                     onFocus={(e: any) => {
                       e.target.blur();
                       setInputName("input1");
+                      setActive(1);
                     }}
                     onChange={onChangeInput}
                     maskChar={null}
@@ -123,11 +127,14 @@ const Terminal = () => {
                     placeholder="0000 0000 0000 0000"
                     name="input2"
                     mask="9999 9999 9999 9999"
-                    className="h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className={`h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none ${
+                      active === 2 && "focus-input"
+                    }`}
                     value={inputs.input2}
                     onFocus={(e: any) => {
                       e.target.blur();
                       setInputName("input2");
+                      setActive(2);
                     }}
                     onChange={onChangeInput}
                     maskChar={null}
@@ -138,7 +145,9 @@ const Terminal = () => {
                     }
                   </InputMask>
                   <InputMask
-                    className="h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className={`h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none ${
+                      active === 3 && "focus-input"
+                    }`}
                     placeholder="mm/yy"
                     name="input3"
                     mask="99 99"
@@ -146,6 +155,7 @@ const Terminal = () => {
                     onFocus={(e: any) => {
                       e.target.blur();
                       setInputName("input3");
+                      setActive(3);
                     }}
                     onChange={onChangeInput}
                     maskChar={null}
@@ -160,11 +170,14 @@ const Terminal = () => {
                   placeholder="Номер телефона смс-информир..."
                   name="input4"
                   mask="+998 99 999 99 99"
-                  className="h-[65px] w-full border-none rounded-[22px] mt-[10px] px-[20px] text-[24px] !outline-none"
+                  className={`h-[65px] w-full border-none rounded-[22px] mt-[10px] px-[20px] text-[24px] !outline-none ${
+                    active === 4 && "focus-input"
+                  }`}
                   value={inputs.input4}
                   onFocus={(e: any) => {
                     e.target.blur();
                     setInputName("input4");
+                    setActive(4);
                   }}
                   onChange={onChangeInput}
                   maskChar={null}

@@ -10,6 +10,7 @@ const AddRelativesPerson = () => {
   const [inputs, setInputs] = useState({});
 
   const [layoutName, setLayoutName] = useState("default");
+  const [active, setActive] = useState(0);
   console.log(layoutName);
 
   const [inputName, setInputName] = useState("");
@@ -106,12 +107,15 @@ const AddRelativesPerson = () => {
             <p className="!mb-[15px] text-[20px] font-[700]">Дата рождения</p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
+              className={`bg-white outline-none p-[20px] h-[60px] border-none text-[20px] w-full rounded-[20px] ${
+                active === 1 && "focus-input"
+              }`}
               placeholder="DD.MM.YYYY"
               value={getInputValue("input1")}
               onFocus={(e: any) => {
                 e.target.blur();
                 setInputName("input1");
+                setActive(1);
               }}
               onChange={onChangeInput}
             />
@@ -122,12 +126,15 @@ const AddRelativesPerson = () => {
             </p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
+              className={`bg-white outline-none border-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px] ${
+                active === 2 && "focus-input"
+              }`}
               placeholder="AA"
               value={getInputValue("input2")}
               onFocus={(e: any) => {
                 e.target.blur();
                 setInputName("input2");
+                setActive(2);
               }}
               onChange={onChangeInput}
             />
@@ -138,12 +145,15 @@ const AddRelativesPerson = () => {
             </p>
             <input
               type="text"
-              className="bg-white outline-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px]"
+              className={`bg-white outline-none border-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px] ${
+                active === 3 && "focus-input"
+              }`}
               placeholder="0 0 0 0 0 0 1"
               value={getInputValue("input3")}
               onFocus={(e: any) => {
                 e.target.blur();
                 setInputName("input3");
+                setActive(3);
               }}
               onChange={onChangeInput}
             />
