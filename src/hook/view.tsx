@@ -4,6 +4,7 @@ import { tokenName } from "../helpers/api";
 import { APP_ROUTES } from "../router";
 import { Port } from "../config";
 import socketValueStore from "../store/socketResult/socketResultSlice";
+import axios from "axios";
 
 export const useAuthRedirect = (redirectPath: string) => {
   const navigate = useNavigate();
@@ -17,6 +18,19 @@ export const useAuthRedirect = (redirectPath: string) => {
       navigate(APP_ROUTES.AUTH);
     }
   }, [navigate, redirectPath]);
+};
+
+export const TokenIsValid = () => {
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response && error.response.error.code === 401) {
+        // 401 xato bo'lganda, foydalanuvchini autentifikatsiya sahifasiga yo'naltirish
+        window.location.href = APP_ROUTES.AUTH; // yoki useHistory hook orqali yo'naltirish
+      }
+      return Promise.reject(error);
+    }
+  );
 };
 
 export const ScrollToRefresh = () => {

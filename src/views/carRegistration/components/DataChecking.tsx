@@ -6,13 +6,11 @@ import { stepOneStore } from "../../../store/usePostStore/usePostStore";
 import { CheckingCard } from "../../../components/Cards";
 import { useTranslation } from "react-i18next";
 
-
 const DataChecking = () => {
   const navigate = useNavigate();
-// @ts-ignore
+  // @ts-ignore
   const { stepOneData } = stepOneStore();
   const { t } = useTranslation();
-
 
   return (
     <div className=" flex flex-col mt-[30px]">
@@ -34,34 +32,34 @@ const DataChecking = () => {
             <CheckingCard
               label={t("checkData.model")}
               title={stepOneData?.vmodel}
-              className="bg-content rounded-[14px] px-[20px] py-[10px]"
+              className="bg-content rounded-[14px] px-[20px] pt-[20px] h-[140px]"
             />
             <CheckingCard
               label={t("checkData.typeCar")}
               title="Легковой автомобиль"
-              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+              className="bg-content rounded-[14px] px-[20px] pt-[20px] h-[140px]"
             />
             <CheckingCard
               label={t("checkData.regionRegister")}
               title="г. Ташкент"
-              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+              className="bg-content rounded-[14px] px-[20px] pt-[20px] h-[140px] "
             />
             <CheckingCard
               label={t("checkData.yearCard")}
               title={stepOneData?.year}
-              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+              className="bg-content rounded-[14px] px-[20px] pt-[20px] h-[140px] "
             />
           </div>
           <div className="grid grid-cols-2 gap-x-[14px]">
             <CheckingCard
               label={t("checkData.bodyNumber")}
               title={stepOneData?.dvigatel}
-              className="bg-content rounded-[14px] px-[20px] py-[10px] "
+              className="bg-content rounded-[14px] px-[20px] pt-[20px]  h-[140px]"
             />
             <CheckingCard
               label={t("checkData.VehicleNumber")}
               title={stepOneData?.kuzov}
-              className="bg-content rounded-[14px]  px-[20px] py-[10px] "
+              className="bg-content rounded-[14px]  px-[20px] pt-[20px] h-[140px] "
             />
           </div>
         </div>

@@ -85,7 +85,7 @@ const Terminal = () => {
                     name="input1"
                     placeholder="_ _ _ _ _ _"
                     mask="9 9 9 9 9 9"
-                    className="h-[65px] w-full rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className="h-[65px] w-full  border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
                     value={inputs.input1}
                     onFocus={(e: any) => {
                       e.target.blur();
@@ -123,7 +123,7 @@ const Terminal = () => {
                     placeholder="0000 0000 0000 0000"
                     name="input2"
                     mask="9999 9999 9999 9999"
-                    className="h-[65px] w-full rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className="h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
                     value={inputs.input2}
                     onFocus={(e: any) => {
                       e.target.blur();
@@ -138,7 +138,7 @@ const Terminal = () => {
                     }
                   </InputMask>
                   <InputMask
-                    className="h-[65px] w-full rounded-[22px] px-[20px] text-[24px] !outline-none"
+                    className="h-[65px] w-full border-none rounded-[22px] px-[20px] text-[24px] !outline-none"
                     placeholder="mm/yy"
                     name="input3"
                     mask="99 99"
@@ -160,7 +160,7 @@ const Terminal = () => {
                   placeholder="Номер телефона смс-информир..."
                   name="input4"
                   mask="+998 99 999 99 99"
-                  className="h-[65px] w-full rounded-[22px] mt-[10px] px-[20px] text-[24px] !outline-none"
+                  className="h-[65px] w-full border-none rounded-[22px] mt-[10px] px-[20px] text-[24px] !outline-none"
                   value={inputs.input4}
                   onFocus={(e: any) => {
                     e.target.blur();

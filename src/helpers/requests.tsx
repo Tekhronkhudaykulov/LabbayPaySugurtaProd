@@ -24,7 +24,5 @@ export const requests = {
   postEveryCash: (payload: any) =>
     $api.post(`${API_URL}/save-every-cash`, payload),
 
-  bannerFetch: () => {
-    $api.get(`${API_URL}/banners-list`);
-  },
+  bannerFetch: () => $api.get(`${API_URL}/banners-list`),
 };

@@ -17,10 +17,10 @@ const Services = () => {
 
   const value = usePostStore((state: any) => state.services);
 
-  const { mutate, isPending } = usePostServicesDetail();
+  const { mutate: servicePost, isPending } = usePostServicesDetail();
 
   const handleClick = (id: any) => {
-    mutate({ company_id: id });
+    servicePost({ company_id: id });
   };
 
   return (
@@ -28,6 +28,7 @@ const Services = () => {
       {isPending && <LoadingPage />}
       <div>
         <div className="bg-gradient-service absolute w-[100%] z-[-9999]  left-0"></div>
+
         <div className="service-header-container  mx-[auto]">
           <div className="flex items-center justify-center">
             <img
@@ -72,6 +73,7 @@ const Services = () => {
             </div>
           </div>
         </div>
+
         <div className="my-[10px]">
           <div className="flex items-center justify-between">
             <p className="text-[35px] font-[700]">{t("home.selectCompany")}:</p>

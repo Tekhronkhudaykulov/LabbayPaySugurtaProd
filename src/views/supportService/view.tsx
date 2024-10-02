@@ -12,35 +12,35 @@ const SupportService = () => {
         <div className="flex flex-col">
           <img
             src={ASSETS.Phone}
-            className="h-[150px] w-[150px] object-contain mx-auto"
+            className="h-[90px] w-[90px] object-contain mx-auto"
             alt=""
           />
           <div className="bg-card rounded-content p-[30px] h-full">
-            <Text text="Служба поддержки:" className="text-[31px] font-[500]" />
+            <Text text="Служба поддержки:" className="text-[18px] font-[500]" />
             <Text
               text="+998 77 111 22 33"
-              className="text-[28px] font-[700] text-link mt-[10px] mb-10"
+              className="text-[22px] font-[700] text-link mt-[10px] mb-10"
             />
-            <Text text="Головной офис:" className="text-[31px] font-[500]" />
+            <Text text="Головной офис:" className="text-[18px] font-[500]" />
             <Text
               text="adress"
-              className="text-[28px] font-[700] text-link mt-[10px]"
+              className="text-[22px] font-[700] text-link mt-[10px]"
             />
           </div>
         </div>
         <div className="flex flex-col">
           <img
             src={ASSETS.Telegram}
-            className="h-[150px] w-[150px] object-contain mx-auto"
+            className="h-[90px] w-[90px] object-contain mx-auto"
             alt=""
           />
           <div className="bg-card rounded-content p-[30px] h-full">
-            <Text text="Telegram-bot:" className="text-[31px] font-[500]" />
+            <Text text="Telegram-bot:" className="text-[18px] font-[500]" />
             <Text
               text="@Labbay_Pay_Bot"
-              className="text-[28px] font-[700] text-blue mt-[10px] mb-10"
+              className="text-[22px] font-[700] text-blue mt-[10px] mb-10"
             />
-            <img src={ASSETS.Qr} className="mx-auto h-[260px]" alt="" />
+            <img src={ASSETS.Qr} className="mx-auto h-[120px]" alt="" />
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@ const SupportService = () => {
         onClick={() => navigate(APP_ROUTES.HOME)}
         size="large"
         type="primary"
-        className="w-full !bg-orange"
+        className="w-full h-[90px] !bg-orange"
       >
         Вернуться на главную
       </Button>

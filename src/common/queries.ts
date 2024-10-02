@@ -20,6 +20,15 @@ export const servicesQuery = () =>
     },
   });
 
+export const bannerQuery = () =>
+  useQuery({
+    queryKey: ["banner"],
+    queryFn: async () => {
+      const { data } = await requests.bannerFetch();
+      return data.data.data;
+    },
+  });
+
 export const servicesDetailQuery = (company_id: any) =>
   useQuery({
     queryKey: ["services", company_id],

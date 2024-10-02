@@ -14,10 +14,10 @@ interface CheckingCardType {
 const CheckingCard = ({ title, label, className }: CheckingCardType) => {
   return (
     <div className={className}>
-      <div className="text-[18px] font-[500] h-[60px] text-contentText">
+      <div className="text-[18px]  font-[500] h-[60px] text-contentText">
         {label}
       </div>
-      <p className="text-[20px] font-[700] !mt-[10px]">{title}</p>
+      <div className="text-[20px] font-[700] !mt-[10px]">{title}</div>
     </div>
   );
 };
