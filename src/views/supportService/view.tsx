@@ -48,7 +48,7 @@ const SupportService = () => {
         onClick={() => navigate(APP_ROUTES.HOME)}
         size="large"
         type="primary"
-        className="w-full h-[90px] !bg-orange"
+        className="w-full h-[70px] !bg-orange"
       >
         Вернуться на главную
       </Button>

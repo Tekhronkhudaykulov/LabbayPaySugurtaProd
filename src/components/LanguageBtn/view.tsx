@@ -2,11 +2,12 @@ interface LanguageBtnType {
   title: string;
   img: string;
   isHas?: boolean;
+  onClick?: () => void;
 }
 
-const LanguageBtn = ({ title, img, isHas }: LanguageBtnType) => {
+const LanguageBtn = ({ title, img, isHas, onClick }: LanguageBtnType) => {
   return (
-    <div>
+    <div onClick={onClick}>
       <div
         className={`bg-[#F7F7F7] h-[50px] flex items-center  ${
           isHas ? "border-b-[5px]" : "border-b-0"

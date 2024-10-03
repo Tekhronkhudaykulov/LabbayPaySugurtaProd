@@ -23,6 +23,10 @@ const Services = () => {
     servicePost({ company_id: id });
   };
 
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("i18nextLng", lang); // Tilni localStorage'ga yozish
+  };
   return (
     <>
       {isPending && <LoadingPage />}
@@ -82,16 +86,19 @@ const Services = () => {
                 title="O’Z"
                 img={ASSETS.UzFlag}
                 isHas={i18n.language === "uz"}
+                onClick={() => changeLanguage("uz")}
               />
               <LanguageBtn
                 title="РУ"
                 img={ASSETS.RuFlag}
                 isHas={i18n.language === "ru"}
+                onClick={() => changeLanguage("ru")}
               />
               <LanguageBtn
                 title="EN"
                 img={ASSETS.EngFlag}
                 isHas={i18n.language === "en"}
+                onClick={() => changeLanguage("en")}
               />
             </div>
           </div>
