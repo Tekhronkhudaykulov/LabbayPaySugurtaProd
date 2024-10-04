@@ -47,8 +47,12 @@ const AddRelativesPerson = () => {
       }
     }
 
-    if (updatedInputs.input2 && updatedInputs.input2.length > 3) {
-      updatedInputs.input2 = updatedInputs.input2.slice(0, 3); // Truncate to 3 characters
+    if (updatedInputs.input2 && updatedInputs.input2.length > 2) {
+      updatedInputs.input2 = updatedInputs.input2.slice(0, 2); // Truncate to 3 characters
+    }
+
+    if (updatedInputs.input3 && updatedInputs.input3.length > 7) {
+      updatedInputs.input3 = updatedInputs.input3.slice(0, 7); // Truncate to 3 characters
     }
 
     setInputs(updatedInputs);
@@ -144,13 +148,14 @@ const AddRelativesPerson = () => {
               Номер паспорта/ID-card:
             </p>
             <input
-              type="text"
+              type="number"
               className={`bg-white outline-none border-none p-[20px] h-[60px] text-[20px] w-full rounded-[20px] ${
                 active === 3 && "focus-input"
               }`}
               placeholder="0 0 0 0 0 0 1"
               value={getInputValue("input3")}
               onFocus={(e: any) => {
+                console.log(e.target.value);
                 e.target.blur();
                 setInputName("input3");
                 setActive(3);
