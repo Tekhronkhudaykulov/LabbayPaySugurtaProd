@@ -112,7 +112,7 @@ const Services = () => {
                     ? "bg-inson-button"
                     : "bg-kapital-button "
                 } w-full mt-auto h-[65px]  text-[24px] rounded-[15px] font-[600] text-white`}
-                title={t("home.cardTitle")}
+                title={item.name}
                 className={`w-full  ${
                   item.company_id === 1
                     ? "card-gradient-inson"

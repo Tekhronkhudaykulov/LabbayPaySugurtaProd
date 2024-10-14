@@ -9,8 +9,6 @@ import { usePostError } from "../../store/usePostStore/usePostStore";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
-  useAuthRedirect(APP_ROUTES.HOME);
-
   const { i18n } = useTranslation();
 
   const { mutate, isPending, isError } = usePostCompany();
@@ -46,6 +44,7 @@ const Home = () => {
     localStorage.setItem("i18nextLng", lang); // Tilni localStorage'ga yozish
   };
 
+  useAuthRedirect(APP_ROUTES.HOME);
   return (
     <>
       {isError && <Notification message={errorTitle} onClose="" />}
