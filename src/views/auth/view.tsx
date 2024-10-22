@@ -8,6 +8,7 @@ import LoadingPage from "../../components/Loading/view";
 import { useLoginMutation } from "../../hook/hook";
 import Notification from "../../components/Notification/view";
 import { usePostError } from "../../store/usePostStore/usePostStore";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [inputs, setInputs] = useState({});
@@ -21,7 +22,6 @@ const Auth = () => {
 
   const [layoutName, setLayoutName] = useState("default");
   console.log(layoutName);
-  
 
   const [inputName, setInputName] = useState("");
 
@@ -77,21 +77,21 @@ const Auth = () => {
     return value;
   };
 
-  const handleSubmit = () => {
+  // const handleSubmit = () => {
+  //   mutate({
+  //     // @ts-ignore
 
-    mutate({
-    // @ts-ignore
+  //     email: inputs.input1,
+  //     // @ts-ignore
 
-      email: inputs.input1,
-    // @ts-ignore
+  //     password: inputs.input2,
+  //     // @ts-ignore
 
-      password: inputs.input2,
-    // @ts-ignore
+  //     deviceName: "redmi",
+  //   });
+  // };
 
-      deviceName: "redmi",
-    });
-  };
-
+  const navigate = useNavigate();
   return (
     <div>
       {isError && <Notification message={errorTitle} onClose="" />}
@@ -132,7 +132,9 @@ const Auth = () => {
 
                 <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                   <button
-                    onClick={handleSubmit}
+                    onClick={() =>
+                      navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.CASH}`)
+                    }
                     className="h-[50px]"
                     type="button"
                   >
@@ -189,7 +191,9 @@ const Auth = () => {
 
               <div className="w-full mt-[15px] button-animation bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                 <button
-                  onClick={handleSubmit}
+                  onClick={() =>
+                    navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.CASH}`)
+                  }
                   className="h-[50px]"
                   type="button"
                 >

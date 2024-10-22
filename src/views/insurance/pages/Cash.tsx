@@ -4,7 +4,7 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
 
@@ -48,15 +48,6 @@ const Cash = () => {
     } catch (error) {
       console.error("Post requestda xato:", error);
     }
-  };
-
-  const [data, setData] = useState(
-    "Bu VKP-80 printerga yuboriladigan ma'lumot"
-  );
-
-  const handlePrint = () => {
-    // @ts-ignore
-    window.electronAPI.printData(data); // electronAPI ni chaqirish
   };
 
   return (
@@ -128,7 +119,7 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <button onClick={handlePrint}>Print "HELLO WORLD"</button>
+      <button>Print "HELLO WORLD"</button>
       <div>
         <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>
