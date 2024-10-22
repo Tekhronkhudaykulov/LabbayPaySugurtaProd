@@ -1,9 +1,10 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 
-
 // @ts-ignore
 import path from "node:path";
 import * as fs from "fs";
+const ThermalPrinter = require("node-thermal-printer").printer;
+const PrinterTypes = require("node-thermal-printer").types;
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -66,6 +67,23 @@ function createWindow() {
   }
 }
 
+ipcMain.on("print-data", async (event, data) => {
+  try {
+    let printer = new ThermalPrinter({
+      type: PrinterTypes.EPSON, // yoki `PrinterTypes.STAR` VKP-80 uchun
+      interface: "/dev/usb/lp0", // Bu printer interfeysining joylashuvi
+    });
+
+    printer.alignCenter();
+    printer.println(data); // Reactdan kelgan ma'lumot
+    printer.cut();
+
+    let isSuccess = await printer.execute();
+    console.log("Print success:", isSuccess);
+  } catch (error) {
+    console.error("Printer error:", error);
+  }
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -94,7 +112,7 @@ app.whenReady().then(() => {
 
 function createPrintWindow(htmlContent: any) {
   console.log(htmlContent, "htmlcontent");
-  
+
   const printWindow: any = new BrowserWindow({
     show: false,
     // width: 304,
@@ -244,7 +262,7 @@ function createPrintWindow(htmlContent: any) {
 }
 
 function printHTMLContent(htmlContent: any) {
-  console.log(htmlContent, "anfjkasnbfkjs")
+  console.log(htmlContent, "anfjkasnbfkjs");
   createPrintWindow(htmlContent);
 }
 

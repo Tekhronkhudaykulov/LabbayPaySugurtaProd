@@ -4,6 +4,9 @@ contextBridge.exposeInMainWorld("printer", {
   printText: (text: string) => ipcRenderer.invoke("print-text", text),
 });
 
+contextBridge.exposeInMainWorld("electronAPI", {
+  printData: (data: any) => ipcRenderer.send("print-data", data),
+});
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(ipcRenderer));
 

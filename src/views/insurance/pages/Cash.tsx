@@ -4,12 +4,9 @@ import { FooterNav, Text } from "../../../components";
 
 import { CashDevice } from "../../../hook/view";
 import { socketValueStore } from "../../../store";
-import { renderToStaticMarkup } from "react-dom/server";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
-
-const { ipcRenderer } = window.require("electron");
 
 const Cash = () => {
   const { getTotal, values } = socketValueStore();
@@ -23,47 +20,6 @@ const Cash = () => {
   console.log(values, "values");
 
   const navigate = useNavigate();
-
-  const print = () => {
-    function sendCommandToWorker(content: any) {
-      ipcRenderer.send("print-command-request", content);
-    }
-    const a = renderToStaticMarkup(
-      <div className="check">
-        <div className="check-welcome">Salom</div>
-        <div className="check-qr-block">
-          <div>
-            <div className="check-text">Labbay</div>
-            <div className="check-id">1 1</div>
-          </div>
-          {/* <div className="qr">
-          {qrDataURL && <img src={qrDataURL} alt="" />}
-        </div> */}
-        </div>
-        <div className="strong">asnfjkans 1</div>
-        <div className="check-block">
-          <div className="check-text">1</div>
-        </div>
-        <div className="check-block">
-          <div className="check-text">asnfkjsan</div>
-        </div>
-        <div className="check-block">
-          <div className="check-text">asmfas</div>
-        </div>
-        <div className="check-block">
-          <div className="check-text">asfas</div>
-        </div>
-        <ul className="check-list">
-          <li>asfasf</li>
-          <li>asfasf</li>
-          <li>asfasf</li>
-        </ul>
-        <div className="thanks">asfsafsa!</div>
-      </div>
-    );
-
-    sendCommandToWorker(a);
-  };
 
   useEffect(() => {
     // Do'konning total qiymatini kuzatish
@@ -92,6 +48,15 @@ const Cash = () => {
     } catch (error) {
       console.error("Post requestda xato:", error);
     }
+  };
+
+  const [data, setData] = useState(
+    "Bu VKP-80 printerga yuboriladigan ma'lumot"
+  );
+
+  const handlePrint = () => {
+    // @ts-ignore
+    window.electronAPI.printData(data); // electronAPI ni chaqirish
   };
 
   return (
@@ -163,7 +128,7 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <button onClick={print}>Print "HELLO WORLD"</button>
+      <button onClick={handlePrint}>Print "HELLO WORLD"</button>
       <div>
         <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>
