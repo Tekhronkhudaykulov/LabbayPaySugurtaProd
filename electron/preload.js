@@ -1,8 +1,10 @@
-// import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
-function domReady(
-  condition: DocumentReadyState[] = ["complete", "interactive"]
-) {
+contextBridge.exposeInMainWorld("electronAPI", {
+  printCheck: (data) => ipcRenderer.send("print-check", data),
+});
+
+function domReady(condition) {
   return new Promise((resolve) => {
     if (condition.includes(document.readyState)) {
       resolve(true);

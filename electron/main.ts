@@ -24,8 +24,8 @@ let workerWindow;
 
 function createWindow() {
   win = new BrowserWindow({
-    fullscreen: true,
     resizable: false,
+    fullscreen: true,
     frame: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
 
@@ -63,6 +63,13 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
+
+ipcMain.on("print-check", (event, data) => {
+  console.log("React-dan kelgan ma'lumot:", data);
+
+  // Ma'lumotni qayta ishlash va kerak bo'lsa, natijani qaytarish
+  event.reply("print-check-response", `Ma'lumot qabul qilindi: ${data}`);
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

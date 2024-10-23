@@ -7,6 +7,7 @@ import { socketValueStore } from "../../../store";
 import { useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
+import { ipcRenderer } from "electron";
 
 const Cash = () => {
   const { getTotal, values } = socketValueStore();
@@ -50,6 +51,10 @@ const Cash = () => {
     }
   };
 
+  const handlePrint = () => {
+    const data = "This is a test receipt!"; // Chop etish uchun matn
+    ipcRenderer.send("print", data); // Main jarayonga chop etish ma'lumotlarini yuborish
+  };
   return (
     <>
       <div className="flex justify-between gap-4  mt-[10px]">
@@ -119,7 +124,7 @@ const Cash = () => {
           <img src={ASSETS.Money} className="mx-auto mt-[20px]" alt="" />
         </div>
       </div>
-      <button>Print "HELLO WORLD"</button>
+      <button onClick={handlePrint}>Print "HELLO WORLD"</button>
       <div>
         <FooterNav nextTitle="Оплатить" prevClick={() => navigate(-1)} />
       </div>
