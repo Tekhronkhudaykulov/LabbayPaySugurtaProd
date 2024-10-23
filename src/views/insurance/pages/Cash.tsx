@@ -52,8 +52,7 @@ const Cash = () => {
   };
 
   const handlePrint = () => {
-    const data = "This is a test receipt!"; // Chop etish uchun matn
-    ipcRenderer.send("print", data); // Main jarayonga chop etish ma'lumotlarini yuborish
+    window.electronAPI.print(); // ElectronAPI orqali chop etish funksiyasini chaqirish
   };
   return (
     <>

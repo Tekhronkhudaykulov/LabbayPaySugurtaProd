@@ -1,5 +1,8 @@
-// import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
+contextBridge.exposeInMainWorld("electronAPI", {
+  print: () => ipcRenderer.send("print"),
+});
 function domReady(
   condition: DocumentReadyState[] = ["complete", "interactive"]
 ) {

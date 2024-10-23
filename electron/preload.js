@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
-  printCheck: (data) => ipcRenderer.send("print-check", data),
+  print: () => ipcRenderer.send("print"),
 });
 
 function domReady(condition) {

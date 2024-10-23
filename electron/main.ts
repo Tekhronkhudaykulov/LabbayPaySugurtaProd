@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-
 // @ts-ignore
 import path from "node:path";
+import * as printer from "printer";
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -37,11 +37,27 @@ function createWindow() {
     },
   });
 
+  const printers = printer.getPrinters();
+  console.log(printers);
+
   win.webContents.on("did-finish-load", () => {
     // @ts-ignore
     win.webContents.setZoomFactor(1); // Zoom ni 100% qilib o'rnatadi
   });
 
+  ipcMain.on("print", (event) => {
+    printer.printDirect({
+      data: "Hello World",
+      printer: "VKP-80", // Bu erda printer nomini qo'yish
+      type: "RAW",
+      success: function (jobID) {
+        console.log("Sent to printer with ID: " + jobID);
+      },
+      error: function (err) {
+        console.log("Error:", err);
+      },
+    });
+  });
   win.webContents.on("before-input-event", (event, input) => {
     if (
       (input.control || input.meta) &&
@@ -63,13 +79,6 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
-
-ipcMain.on("print-check", (event, data) => {
-  console.log("React-dan kelgan ma'lumot:", data);
-
-  // Ma'lumotni qayta ishlash va kerak bo'lsa, natijani qaytarish
-  event.reply("print-check-response", `Ma'lumot qabul qilindi: ${data}`);
-});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
