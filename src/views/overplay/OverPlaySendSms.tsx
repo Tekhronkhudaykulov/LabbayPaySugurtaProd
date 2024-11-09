@@ -13,9 +13,9 @@ const OverPlaySendSms = () => {
           img={ASSETS.Tick}
           title="ОШИБКА ОТПРАВКИ СМС"
           subTitle="Просим вас обратиться в Call-Center
-+99871 000-00-00"
+          +99871 000-00-00"
           desc="В случае незачисления средств в течение суток, пожалуйста, обратитесь в Колл-центр по номеру:
-      +99871 000-00-00"
+          +99871 000-00-00"
           isHas={false}
         />
         <div className="mt-auto w-[800px] mx-auto flex flex-col gap-y-[10px]">

@@ -1,7 +1,6 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow } from "electron";
 // @ts-ignore
 import path from "node:path";
-import * as printer from "printer";
 
 // ├─┬─┬ dist
 // │ │ | index.html
@@ -20,7 +19,6 @@ let win: BrowserWindow | null;
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 // @ts-ignore
-let workerWindow;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -37,27 +35,14 @@ function createWindow() {
     },
   });
 
-  const printers = printer.getPrinters();
-  console.log(printers);
+
 
   win.webContents.on("did-finish-load", () => {
     // @ts-ignore
     win.webContents.setZoomFactor(1); // Zoom ni 100% qilib o'rnatadi
   });
 
-  ipcMain.on("print", (event) => {
-    printer.printDirect({
-      data: "Hello World",
-      printer: "VKP-80", // Bu erda printer nomini qo'yish
-      type: "RAW",
-      success: function (jobID) {
-        console.log("Sent to printer with ID: " + jobID);
-      },
-      error: function (err) {
-        console.log("Error:", err);
-      },
-    });
-  });
+ 
   win.webContents.on("before-input-event", (event, input) => {
     if (
       (input.control || input.meta) &&

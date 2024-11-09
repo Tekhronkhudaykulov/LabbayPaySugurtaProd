@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import "./index.css";
 import "react-lazy-load-image-component/src/effects/opacity.css";
-import { DataProvider } from "./context/ContextProvider.tsx";
+import { DataProvider } from "./context/ContextProvider";
 import AOS from "aos";
 
 AOS.init({

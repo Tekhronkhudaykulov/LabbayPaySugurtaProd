@@ -52,6 +52,7 @@ const Cash = () => {
   };
 
   const handlePrint = () => {
+    // @ts-ignore
     window.electronAPI.print(); // ElectronAPI orqali chop etish funksiyasini chaqirish
   };
   return (

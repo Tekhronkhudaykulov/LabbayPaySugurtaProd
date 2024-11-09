@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { requests } from "../helpers/requests"; // Adjust the path to your request functions
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../router";
@@ -6,16 +6,15 @@ import { setToken } from "../helpers/api";
 import { usePostStore } from "../store";
 import { StepOne } from "../types/steps";
 import { stepOneStore, usePostError } from "../store/usePostStore/usePostStore";
-import { TokenIsValid } from "./view";
 
 const useLoginMutation = () => {
   const navigate = useNavigate();
   const { setErrorTitle } = usePostError();
 
   return useMutation({
-    mutationFn: async (inputs: { email: string; password: string }) => {
+    mutationFn: async (inputs: { login: string; password: string }) => {
       const { data } = await requests.postLoginClient({
-        email: inputs.email,
+        login: inputs.login,
         password: inputs.password,
       });
 
@@ -65,7 +64,6 @@ const usePostCompany = () => {
 const usePostServicesDetail = () => {
   const navigate = useNavigate();
   // @ts-ignore
-
   const { setServiceDetail } = usePostStore();
 
   return useMutation({
@@ -87,8 +85,9 @@ const usePostServicesDetail = () => {
 
 const stepOne = () => {
   const { setErrorTitle } = usePostError();
-  // @ts-ignore
 
+
+  // @ts-ignore
   const { setStepOneData } = stepOneStore();
 
   const navigate = useNavigate();
@@ -112,8 +111,8 @@ const stepOne = () => {
 
 const stepTwo = () => {
   const { setErrorTitle } = usePostError();
-  // @ts-ignore
 
+  // @ts-ignore
   const { setStepOneData } = stepOneStore();
 
   return useMutation({

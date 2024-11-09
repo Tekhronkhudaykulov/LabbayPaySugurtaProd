@@ -77,19 +77,18 @@ const Auth = () => {
     return value;
   };
 
-  // const handleSubmit = () => {
-  //   mutate({
-  //     // @ts-ignore
-
-  //     email: inputs.input1,
-  //     // @ts-ignore
-
-  //     password: inputs.input2,
-  //     // @ts-ignore
-
-  //     deviceName: "redmi",
-  //   });
-  // };
+  const handleSubmit = () => {
+    mutate(
+      {
+        // @ts-ignore
+        login: inputs.input1,
+        // @ts-ignore
+        password: inputs.input2,
+        // @ts-ignore
+        deviceName: "redmi",
+      },
+    );
+  };
 
   const navigate = useNavigate();
   return (
@@ -132,9 +131,7 @@ const Auth = () => {
 
                 <div className="w-full mt-[15px]  bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                   <button
-                    onClick={() =>
-                      navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.CASH}`)
-                    }
+                    onClick={handleSubmit}
                     className="h-[50px]"
                     type="button"
                   >
@@ -191,9 +188,8 @@ const Auth = () => {
 
               <div className="w-full mt-[15px] button-animation bg-orange flex items-center justify-center text-[20px] text-white rounded-[12px]">
                 <button
-                  onClick={() =>
-                    navigate(`${APP_ROUTES.PAYMENTTYPE}/${APP_ROUTES.CASH}`)
-                  }
+                                   onClick={handleSubmit}
+
                   className="h-[50px]"
                   type="button"
                 >
